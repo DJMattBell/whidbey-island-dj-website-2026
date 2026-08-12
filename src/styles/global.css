@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/*
+ * WIDC Design Tokens
+ * Source: BRAND.md — Colors (Section 3), Typography (Section 4)
+ */
+@theme {
+  /* Colors */
+  --color-driftwood: #F5F0EB;
+  --color-deep-sound: #1A2332;
+  --color-penn-cove: #2E5E4E;
+  --color-golden-hour: #C4883A;
+  --color-madrone: #B85C38;
+  --color-sea-glass: #7BA6A0;
+
+  /* Fonts */
+  --font-heading: "DM Serif Display", serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Type scale */
+  --font-size-hero: 4.5rem;
+  --font-size-section: 3rem;
+  --font-size-card: 1.5rem;
+  --font-size-body: 1.125rem;
+  --font-size-small: 0.875rem;
+  --font-size-eyebrow: 0.75rem;
+
+  /* Section spacing */
+  --spacing-section: 8rem;
+  --spacing-block: 4rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-deep-sound);
+    background-color: var(--color-driftwood);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}

@@ -1,0 +1,116 @@
+---
+import Button from "./Button.astro";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "The DJs", href: "/djs" },
+  { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Blog", href: "/blog" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-40 bg-driftwood/95 backdrop-blur-sm border-b border-penn-cove/10"
+>
+  <nav class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
+    <!-- Wordmark -->
+    <a href="/" class="font-heading text-lg md:text-xl text-penn-cove leading-tight">
+      The Whidbey Island<br class="sm:hidden" /> DJ Collective
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden lg:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "font-body text-sm font-medium tracking-wide transition-colors duration-200",
+            currentPath === link.href
+              ? "text-penn-cove"
+              : "text-deep-sound/70 hover:text-penn-cove",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <Button href="/contact" variant="primary" size="sm">
+        Contact
+      </Button>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-0.5 bg-deep-sound transition-transform duration-200" />
+      <span class="block w-6 h-0.5 bg-deep-sound transition-opacity duration-200" />
+      <span class="block w-6 h-0.5 bg-deep-sound transition-transform duration-200" />
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 bg-deep-sound flex flex-col items-center justify-center hidden"
+>
+  <button
+    id="menu-close"
+    class="absolute top-5 right-6 text-driftwood w-10 h-10 flex items-center justify-center"
+    aria-label="Close menu"
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  </button>
+
+  <nav class="flex flex-col items-center gap-6">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class="font-heading text-2xl text-driftwood hover:text-golden-hour transition-colors duration-200"
+      >
+        {link.label}
+      </a>
+    ))}
+    <Button href="/contact" variant="primary" size="lg" class="mt-4">
+      Contact
+    </Button>
+  </nav>
+</div>
+
+<!-- Spacer so content isn't hidden behind fixed nav -->
+<div class="h-16 md:h-20" />
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const close = document.getElementById("menu-close");
+  const menu = document.getElementById("mobile-menu");
+
+  toggle?.addEventListener("click", () => {
+    menu?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  });
+
+  close?.addEventListener("click", () => {
+    menu?.classList.add("hidden");
+    document.body.style.overflow = "";
+  });
+
+  // Close on link click
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu?.classList.add("hidden");
+      document.body.style.overflow = "";
+    });
+  });
+</script>

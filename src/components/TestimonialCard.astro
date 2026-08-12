@@ -1,0 +1,18 @@
+---
+interface Props {
+  quote: string;
+  attribution: string;
+  eventType?: string;
+}
+
+const { quote, attribution, eventType } = Astro.props;
+---
+
+<blockquote class="max-w-3xl mx-auto text-center">
+  <p class="font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6">
+    &ldquo;{quote}&rdquo;
+  </p>
+  <footer class="font-body text-small text-golden-hour tracking-wide uppercase">
+    &mdash; {attribution}{eventType && `, ${eventType}`}
+  </footer>
+</blockquote>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="The Whidbey Island DJ Collective — Music That Reads the Room">
+  <!-- Section 1: Hero -->
+  <HeroSection />
+
+  <!-- Section 2: Brand Statement -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-3xl mx-auto px-6">
+      <SectionHeading eyebrow="Who We Are" heading="The crew behind the music." />
+      <div class="text-center space-y-6">
+        <p class="font-body text-body text-deep-sound/80 leading-relaxed">
+          We show up early, read the room, and make sure your nephew and your
+          grandmother both have a moment on the dance floor. Three DJs, one
+          shared belief: the right song at the right moment changes everything.
+        </p>
+        <p class="font-body text-body text-deep-sound/80 leading-relaxed">
+          Based on Whidbey Island and serving the greater Puget Sound, we
+          bring professional sound, custom playlists, and the kind of energy
+          that only comes from people who genuinely love what they do.
+        </p>
+        <div class="pt-4">
+          <Button href="/about" variant="outline" size="md">
+            More about us
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Testimonial -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <TestimonialCard
+        quote="Matt was incredible! He played everything we asked for and kept the dance floor packed all night. We couldn't have asked for a better DJ."
+        attribution="Brittany B."
+        eventType="Wedding"
+      />
+    </div>
+  </section>
+
+  <!-- Section 4: CTA -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
+        Let&rsquo;s talk about your event.
+      </h2>
+      <p class="font-body text-body text-deep-sound/70 mb-10">
+        No commitment, no awkward sales pitch. Just a conversation
+        about what you&rsquo;re planning and how we can help.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in touch
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

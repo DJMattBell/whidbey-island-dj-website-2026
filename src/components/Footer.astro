@@ -1,0 +1,70 @@
+---
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "The DJs", href: "/djs" },
+  { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+---
+
+<footer class="bg-deep-sound text-driftwood">
+  <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+      <!-- Brand -->
+      <div>
+        <p class="font-heading text-xl text-driftwood mb-4">
+          The Whidbey Island DJ Collective
+        </p>
+        <p class="font-body text-sm text-sea-glass leading-relaxed max-w-xs">
+          A crew of DJs rooted in the Pacific Northwest. Weddings, school
+          dances, and any event where the music matters.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
+          Navigate
+        </p>
+        <nav class="grid grid-cols-2 gap-x-6 gap-y-2">
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="font-body text-sm text-driftwood/70 hover:text-driftwood transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
+          Get in touch
+        </p>
+        <div class="space-y-2 font-body text-sm text-driftwood/70">
+          <p>Whidbey Island, WA</p>
+          <p>Serving the greater Puget Sound</p>
+          <a href="/contact" class="block text-driftwood hover:text-golden-hour transition-colors duration-200">
+            Let&rsquo;s talk about your event &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-driftwood/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-body text-xs text-driftwood/40">
+        &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective. All rights reserved.
+      </p>
+      <p class="font-body text-xs text-driftwood/40">
+        Built on Whidbey Island.
+      </p>
+    </div>
+  </div>
+</footer>

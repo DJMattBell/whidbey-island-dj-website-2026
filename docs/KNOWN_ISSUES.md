@@ -11,7 +11,6 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] Old-site reviews lack dates and source links; imported as `source: direct` with no date until matched to their platform — 2026-09-11
 - [content] Gallery, equipment, blog, and recommendations collections are empty — real content required from Matt before those pages can be built — Phase 0
 - [content] Image fields (djs.photo, services.heroImage, gallery.image, equipment.photo) are optional strings, not Astro `image()` helpers — upgrade to `image()` when real photos exist and the pipeline can validate them — Phase 0
-- [infra] Repo not yet under a WIDC GitHub organization — Phase 0 — 2026-09-11
 - [infra] Domain redirect map not yet confirmed against registrar — Phase 0 — 2026-09-11
 - [infra] Keystatic GitHub App not yet created; `/keystatic` works locally but not on production until OAuth credentials are set — Phase 0
 - [infra] `npm run build` emits Vite "use client" warnings from Keystatic's UI library — cosmetic, not actionable — Phase 0

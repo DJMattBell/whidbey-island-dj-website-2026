@@ -32,7 +32,7 @@ Git-backed content means one system, one host, one login model (GitHub), zero ru
 
 - Content editors: GitHub accounts with write access to the repo (Matt, his wife; a future site manager). Keystatic authenticates via GitHub.
 - Code/deploy: GitHub collaborator + Vercel project member. A hired dev gets both and nothing else — never Matt's personal logins.
-- Repo lives under a **WIDC GitHub organization**, not a personal account.
+- Repo lives under Matt's personal GitHub account (`DJMattBell/whidbey-island-dj-website-2026`). Collaborators are added as repo-level collaborators.
 
 ## 3. Sitemap
 

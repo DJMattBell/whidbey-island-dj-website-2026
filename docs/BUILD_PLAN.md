@@ -37,7 +37,7 @@ Goal: the repo matches the spec's architecture before any new page is built.
 3. **Keystatic.** Add `@keystatic/core` + `@keystatic/astro`; write `keystatic.config.ts` mirroring the content config; local mode for dev, GitHub mode for production. Confirm `@keystatic/astro` supports the installed Astro major before proceeding — if not, pin Astro to the newest supported major and record it in DECISIONS.
 4. **Toolchain.** Prettier (+ Astro plugin), `astro check` as part of `npm run build`, `.nvmrc`, `.github/workflows/ci.yml` (`npm ci && npm run build` on push and PR), Dependabot config, `.env.example` with every variable described.
 5. **Docs.** README.md (human onboarding), `docs/DECISIONS.md` (seeded with the v7 decisions), `docs/ACCESS.md` (access map + offboarding checklist), `docs/KNOWN_ISSUES.md`. Confirm CLAUDE.md points at README.
-6. **GitHub org + Vercel.** Move the repo into a WIDC GitHub organization. Vercel project imports from there. Set Resend and Keystatic env vars in Vercel. Enable Vercel Analytics.
+6. **Vercel.** Repo stays at `DJMattBell/whidbey-island-dj-website-2026` under Matt's personal account. Vercel project imports from there. Set Resend and Keystatic env vars in Vercel. Enable Vercel Analytics.
 7. **Domain map.** Write the canonical-domain + 301 list into DECISIONS. Configure subdomain redirects (`matt.` / `lee.` → `/djs/…`) in `vercel.json`. Do not cut over yet.
 
 **Gate:** clean `npm run build`; CI green; Keystatic opens locally and can edit a review; `docs/` complete. Matt reviews.

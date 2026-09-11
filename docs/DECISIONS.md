@@ -38,6 +38,10 @@ Gig logs during the season; one essay a month year-round. The v6 "weekly" commit
 
 SPEC, BUILD_PLAN, CONTENT_MODEL, DECISIONS, ACCESS, KNOWN_ISSUES are in `docs/` and are the source of truth. Drive copies of SPEC v6, BUILD_PLAN v4, and the backend plan are LEGACY. BRAND.md and LOGO_AND_ART_GUIDE.md remain in Drive because they are shared with the illustrator.
 
+## 2026-09-11 — Repo stays under Matt's personal GitHub account
+
+No GitHub organization. The repo lives at `DJMattBell/whidbey-island-dj-website-2026`. Collaborators (content editors, future developers) are added as repo-level collaborators, not org members. This avoids the overhead of maintaining an org for a small project. If the business grows to need multiple repos or more granular permissions, an org can be created later and the repo transferred.
+
 ## 2026-09-11 — Canonical domain and redirects
 
 `whidbeyislanddj.com` is canonical. All other owned domains 301 to it (list to be recorded here at Phase 0 when confirmed against the registrar and Vercel).

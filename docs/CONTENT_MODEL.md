@@ -2,7 +2,7 @@
 
 _Every editable thing on the site, where it lives, and its fields. Astro collection schemas in `src/content.config.ts` and the Keystatic config in `keystatic.config.ts` must match this document. When they diverge, fix the code and this doc in the same commit._
 
-_Last verified: Phase 0 migration_
+_Last verified: Phase 1 homepage_
 
 Conventions:
 

@@ -12,6 +12,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] Gallery, equipment, blog, and recommendations collections are empty — real content required from Matt before those pages can be built — Phase 0
 - [content] Image fields (djs.photo, services.heroImage, gallery.image, equipment.photo) are optional strings, not Astro `image()` helpers — upgrade to `image()` when real photos exist and the pipeline can validate them — Phase 0
 - [content] Events service entry (`events.md`) created with working copy — needs Matt's review of tone and accuracy — Phase 1
+- [content] Homepage "Who We Are" prose is in index.astro, not a content collection — deliberate: it's structural page copy, not repeating data — move to site.yaml if Matt wants to edit it via Keystatic — Phase 1
 - [content] `reviewBadges` array in site.yaml is empty — homepage proof band badge row hidden until real platform ratings/counts are compiled — Phase 1
 - [content] No OG image set for any page — create or photograph one before launch — Phase 1
 - [infra] Domain redirect map not yet confirmed against registrar — Phase 0 — 2026-09-11

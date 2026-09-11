@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "matt.whidbeyislanddj.com" }],
+      "destination": "https://whidbeyislanddj.com/djs/matt",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "lee.whidbeyislanddj.com" }],
+      "destination": "https://whidbeyislanddj.com/djs/lee",
+      "permanent": true
+    }
+  ]
+}

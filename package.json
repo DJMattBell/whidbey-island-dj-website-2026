@@ -13,8 +13,12 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.7",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "4.1.18",
     "astro": "^6.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "resend": "^6.27.0",
     "tailwindcss": "4.1.18"
   }

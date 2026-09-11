@@ -2,12 +2,11 @@
 import Button from "./Button.astro";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "The DJs", href: "/djs" },
-  { label: "Services", href: "/services" },
+  { label: "Weddings", href: "/weddings" },
+  { label: "Events", href: "/events" },
   { label: "Pricing", href: "/pricing" },
-  { label: "FAQ", href: "/faq" },
+  { label: "DJs", href: "/djs" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -101,25 +100,28 @@ const currentPath = Astro.url.pathname;
 <div class="h-16 md:h-20" />
 
 <script>
-  const toggle = document.getElementById("menu-toggle");
-  const close = document.getElementById("menu-close");
-  const menu = document.getElementById("mobile-menu");
+  function initNav() {
+    const toggle = document.getElementById("menu-toggle");
+    const close = document.getElementById("menu-close");
+    const menu = document.getElementById("mobile-menu");
 
-  toggle?.addEventListener("click", () => {
-    menu?.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-  });
+    toggle?.addEventListener("click", () => {
+      menu?.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    });
 
-  close?.addEventListener("click", () => {
-    menu?.classList.add("hidden");
-    document.body.style.overflow = "";
-  });
-
-  // Close on link click
-  menu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
+    close?.addEventListener("click", () => {
       menu?.classList.add("hidden");
       document.body.style.overflow = "";
     });
-  });
+
+    menu?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu?.classList.add("hidden");
+        document.body.style.overflow = "";
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initNav);
 </script>

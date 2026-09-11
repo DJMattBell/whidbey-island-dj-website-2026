@@ -1,19 +1,27 @@
 ---
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "The DJs", href: "/djs" },
-  { label: "Services", href: "/services" },
+const primaryLinks = [
+  { label: "Weddings", href: "/weddings" },
+  { label: "Events", href: "/events" },
   { label: "Pricing", href: "/pricing" },
-  { label: "FAQ", href: "/faq" },
+  { label: "DJs", href: "/djs" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
+];
+
+const moreLinks = [
+  { label: "Photobooth", href: "/photobooth" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Equipment", href: "/equipment" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Our Story", href: "/our-story" },
+  { label: "Recommendations", href: "/recommendations" },
 ];
 ---
 
 <footer class="bg-deep-sound text-driftwood">
   <div class="max-w-6xl mx-auto px-6 py-16 md:py-20">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
       <!-- Brand -->
       <div>
         <p class="font-heading text-xl text-driftwood mb-4">
@@ -25,13 +33,30 @@ const navLinks = [
         </p>
       </div>
 
-      <!-- Navigation -->
+      <!-- Navigate -->
       <div>
         <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
           Navigate
         </p>
-        <nav class="grid grid-cols-2 gap-x-6 gap-y-2">
-          {navLinks.map((link) => (
+        <nav class="flex flex-col gap-2">
+          {primaryLinks.map((link) => (
+            <a
+              href={link.href}
+              class="font-body text-sm text-driftwood/70 hover:text-driftwood transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- More -->
+      <div>
+        <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
+          More
+        </p>
+        <nav class="flex flex-col gap-2">
+          {moreLinks.map((link) => (
             <a
               href={link.href}
               class="font-body text-sm text-driftwood/70 hover:text-driftwood transition-colors duration-200"
@@ -66,9 +91,10 @@ const navLinks = [
         &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective. All
         rights reserved.
       </p>
-      <p class="font-body text-xs text-driftwood/40">
-        Built on Whidbey Island.
-      </p>
+      <div class="flex gap-4">
+        <a href="/privacy" class="font-body text-xs text-driftwood/40 hover:text-driftwood/60 transition-colors duration-200">Privacy</a>
+        <a href="/terms" class="font-body text-xs text-driftwood/40 hover:text-driftwood/60 transition-colors duration-200">Terms</a>
+      </div>
     </div>
   </div>
 </footer>

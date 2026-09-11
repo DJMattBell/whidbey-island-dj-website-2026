@@ -1,0 +1,12 @@
+name: Non-Saturday DJ Package
+priceCents: 190000
+description: Same full package, any day but Saturday.
+features:
+  - Professional sound system
+  - DJ & MC services
+  - Dance floor lighting & uplights
+  - Planning meetings (as many as you need)
+  - 6 hours of service
+  - Setup & teardown included
+highlight: false
+sortOrder: 2

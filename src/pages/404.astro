@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="Page Not Found | Whidbey Island DJ Collective">
+  <section class="min-h-[60vh] flex items-center justify-center py-20">
+    <div class="max-w-lg mx-auto px-6 text-center">
+      <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+        404
+      </p>
+      <h1 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-6">
+        Wrong track.
+      </h1>
+      <p class="font-body text-body text-deep-sound/70 mb-10 leading-relaxed">
+        The page you&rsquo;re looking for doesn&rsquo;t exist or has moved.
+        Let&rsquo;s get you back to the music.
+      </p>
+      <Button href="/" variant="primary" size="md">
+        Back to the homepage
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

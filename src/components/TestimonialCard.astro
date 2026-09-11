@@ -13,6 +13,7 @@ const { quote, attribution, eventType } = Astro.props;
     &ldquo;{quote}&rdquo;
   </p>
   <footer class="font-body text-small text-golden-hour tracking-wide uppercase">
-    &mdash; {attribution}{eventType && `, ${eventType}`}
+    &mdash; {attribution}
+    {eventType && `, ${eventType}`}
   </footer>
 </blockquote>

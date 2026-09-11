@@ -14,13 +14,15 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header
-  class="fixed top-0 left-0 right-0 z-40 bg-driftwood/95 backdrop-blur-sm border-b border-penn-cove/10"
->
+<header class="fixed top-0 left-0 right-0 z-40 bg-driftwood/95 backdrop-blur-sm border-b border-penn-cove/10">
   <nav class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
     <!-- Wordmark -->
-    <a href="/" class="font-heading text-lg md:text-xl text-penn-cove leading-tight">
-      The Whidbey Island<br class="sm:hidden" /> DJ Collective
+    <a
+      href="/"
+      class="font-heading text-lg md:text-xl text-penn-cove leading-tight"
+    >
+      The Whidbey Island
+      <br class="sm:hidden" /> DJ Collective
     </a>
 
     <!-- Desktop nav -->
@@ -67,7 +69,14 @@ const currentPath = Astro.url.pathname;
     class="absolute top-5 right-6 text-driftwood w-10 h-10 flex items-center justify-center"
     aria-label="Close menu"
   >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>

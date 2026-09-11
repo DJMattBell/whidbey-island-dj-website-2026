@@ -1,4 +1,4 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 // ---------------------------------------------------------------------------
@@ -96,7 +96,13 @@ const faq = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/faq" }),
   schema: z.object({
     question: z.string(),
-    category: z.enum(["booking", "music", "logistics", "pricing", "photobooth"]),
+    category: z.enum([
+      "booking",
+      "music",
+      "logistics",
+      "pricing",
+      "photobooth",
+    ]),
     sortOrder: z.number().int().default(0),
     published: z.boolean().default(true),
   }),
@@ -117,13 +123,7 @@ const reviews = defineCollection({
     sourceUrl: z.string().url().optional(),
     rating: z.number().int().min(1).max(5).optional(),
     date: z.string().optional(),
-    eventType: z.enum([
-      "wedding",
-      "school",
-      "auction",
-      "community",
-      "private",
-    ]),
+    eventType: z.enum(["wedding", "school", "auction", "community", "private"]),
     dj: z.string().optional(),
     featured: z.boolean().default(false),
   }),

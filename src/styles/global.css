@@ -6,12 +6,12 @@
  */
 @theme {
   /* Colors */
-  --color-driftwood: #F5F0EB;
-  --color-deep-sound: #1A2332;
-  --color-penn-cove: #2E5E4E;
-  --color-golden-hour: #C4883A;
-  --color-madrone: #B85C38;
-  --color-sea-glass: #7BA6A0;
+  --color-driftwood: #f5f0eb;
+  --color-deep-sound: #1a2332;
+  --color-penn-cove: #2e5e4e;
+  --color-golden-hour: #c4883a;
+  --color-madrone: #b85c38;
+  --color-sea-glass: #7ba6a0;
 
   /* Fonts */
   --font-heading: "DM Serif Display", serif;
@@ -37,7 +37,12 @@
     background-color: var(--color-driftwood);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
   }
 }

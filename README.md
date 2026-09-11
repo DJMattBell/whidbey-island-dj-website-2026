@@ -25,16 +25,16 @@ npm run dev        # http://localhost:4321  — Keystatic at /keystatic
 
 ## Where things live
 
-| You want to… | Go to |
-|---|---|
-| Edit any content (reviews, pricing, FAQ, gallery, blog, equipment, DJs, recommendations, site settings) | `/keystatic` in the browser, or the files under `src/content/` |
-| Change colors, fonts, spacing | `src/styles/global.css` — the only place tokens are defined |
-| Add a page | `src/pages/` — use `BaseLayout` and pass `title`/`description` |
-| Add a DJ | Keystatic → DJs → New. A profile page is generated automatically at `/djs/<slug>`. |
-| Change the content schema | `src/content.config.ts` **and** `keystatic.config.ts` **and** `docs/CONTENT_MODEL.md`, in one commit |
-| Understand why something is the way it is | `docs/DECISIONS.md` |
-| See what's unfinished | `docs/KNOWN_ISSUES.md` |
-| Grant or revoke someone's access | `docs/ACCESS.md` |
+| You want to…                                                                                            | Go to                                                                                                |
+| ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Edit any content (reviews, pricing, FAQ, gallery, blog, equipment, DJs, recommendations, site settings) | `/keystatic` in the browser, or the files under `src/content/`                                       |
+| Change colors, fonts, spacing                                                                           | `src/styles/global.css` — the only place tokens are defined                                          |
+| Add a page                                                                                              | `src/pages/` — use `BaseLayout` and pass `title`/`description`                                       |
+| Add a DJ                                                                                                | Keystatic → DJs → New. A profile page is generated automatically at `/djs/<slug>`.                   |
+| Change the content schema                                                                               | `src/content.config.ts` **and** `keystatic.config.ts` **and** `docs/CONTENT_MODEL.md`, in one commit |
+| Understand why something is the way it is                                                               | `docs/DECISIONS.md`                                                                                  |
+| See what's unfinished                                                                                   | `docs/KNOWN_ISSUES.md`                                                                               |
+| Grant or revoke someone's access                                                                        | `docs/ACCESS.md`                                                                                     |
 
 ## Project layout
 

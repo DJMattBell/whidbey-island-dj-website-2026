@@ -1,6 +1,6 @@
 # WIDC Website Build Plan — v5
 
-*Implements WEBSITE_SPEC v7. Supersedes BUILD_PLAN v4 (retired). Last verified: 2026-09-11.*
+_Implements WEBSITE_SPEC v7. Supersedes BUILD_PLAN v4 (retired). Last verified: 2026-09-11._
 
 Every phase ends with three things: (a) the quality checklist, (b) a hostile self-review, (c) a pause for Matt's review. No phase is "done" until all three happen and `KNOWN_ISSUES.md` is current.
 
@@ -17,6 +17,7 @@ Every phase ends with three things: (a) the quality checklist, (b) a hostile sel
 ## The hostile self-review (run at the end of every phase)
 
 Claude Code reviews the phase's diff as a skeptical senior developer inheriting the repo tomorrow, and answers in writing:
+
 1. Is there anything a stranger couldn't understand from the code plus the docs?
 2. Any duplicated component, pattern, or helper? Any dead file or unused dependency?
 3. Any hardcoded color, font, price, or copy that belongs in tokens or content?
@@ -108,13 +109,13 @@ Weeks, not months. Phases 3–5 can run in parallel sessions once Phase 1 sets t
 
 ## Reuse vs. build-fresh
 
-| Asset | Status |
-|---|---|
-| `global.css` tokens | Reuse as-is |
-| BaseLayout, Nav, Footer, Button, HeroSection, SectionHeading | Reuse; audit copy |
-| TestimonialCard | Rename → ReviewCard; rewire to `reviews` |
-| `index.astro` | Extend |
-| `djs`, `services` collections | Migrate to v7 schemas |
-| `api/inquiry.ts` | Rewrite handler; keep route + fields |
-| Supabase (all of it) | Remove |
-| Everything else | Net new, Phases 1–6 |
+| Asset                                                        | Status                                   |
+| ------------------------------------------------------------ | ---------------------------------------- |
+| `global.css` tokens                                          | Reuse as-is                              |
+| BaseLayout, Nav, Footer, Button, HeroSection, SectionHeading | Reuse; audit copy                        |
+| TestimonialCard                                              | Rename → ReviewCard; rewire to `reviews` |
+| `index.astro`                                                | Extend                                   |
+| `djs`, `services` collections                                | Migrate to v7 schemas                    |
+| `api/inquiry.ts`                                             | Rewrite handler; keep route + fields     |
+| Supabase (all of it)                                         | Remove                                   |
+| Everything else                                              | Net new, Phases 1–6                      |

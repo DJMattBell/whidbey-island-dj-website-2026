@@ -38,7 +38,10 @@ export default config({
             platform: fields.text({ label: "Platform" }),
             url: fields.url({ label: "URL" }),
           }),
-          { label: "Social links", itemLabel: (props) => props.fields.platform.value },
+          {
+            label: "Social links",
+            itemLabel: (props) => props.fields.platform.value,
+          },
         ),
         reviewBadges: fields.array(
           fields.object({

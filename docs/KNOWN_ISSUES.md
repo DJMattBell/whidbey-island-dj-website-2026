@@ -1,6 +1,6 @@
 # Known Issues & Rough Edges
 
-*Honest list of what's unfinished, hacky, or waiting on something. Updated at the end of every build phase. A short, truthful list earns more trust from an inheriting developer than a clean-looking repo with surprises.*
+_Honest list of what's unfinished, hacky, or waiting on something. Updated at the end of every build phase. A short, truthful list earns more trust from an inheriting developer than a clean-looking repo with surprises._
 
 Format: `- [area] description — what would resolve it — date logged`
 

@@ -69,8 +69,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const resend = new Resend(apiKey);
 
-  const dateLine = event_date ? `<p><strong>Event date:</strong> ${event_date}</p>` : "";
-  const typeLine = event_type ? `<p><strong>Event type:</strong> ${event_type}</p>` : "";
+  const dateLine = event_date
+    ? `<p><strong>Event date:</strong> ${event_date}</p>`
+    : "";
+  const typeLine = event_type
+    ? `<p><strong>Event type:</strong> ${event_type}</p>`
+    : "";
   const body = `
     <h2>New inquiry from ${name}</h2>
     <p><strong>Name:</strong> ${name}</p>

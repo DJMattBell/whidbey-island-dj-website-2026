@@ -1,8 +1,8 @@
 # WIDC Website Spec — v7
 
-*Supersedes WEBSITE_SPEC v6 and the Aug 12 backend plan (both retired; Drive copies are LEGACY). This file, in this repo, is the source of truth. Brand voice and visual system still live in BRAND.md v4 and LOGO_AND_ART_GUIDE.md v4 in Drive — those are unchanged.*
+_Supersedes WEBSITE_SPEC v6 and the Aug 12 backend plan (both retired; Drive copies are LEGACY). This file, in this repo, is the source of truth. Brand voice and visual system still live in BRAND.md v4 and LOGO_AND_ART_GUIDE.md v4 in Drive — those are unchanged._
 
-*Last verified: 2026-09-11*
+_Last verified: 2026-09-11_
 
 ---
 
@@ -11,7 +11,7 @@
 - Replace the "DJ Matt Bell" solo-brand site with a collective identity site.
 - Make the two differentiators impossible to miss: transparent "$0 upcharges forever" pricing, and a named, known team.
 - Serve two buyers — wedding couples and event organizers (schools, PTAs, auctions, community events) — without either page diluting the other.
-- Homepage job: a first-time visitor feels *this DJ genuinely cares about our day* within seconds and understands who WIDC is.
+- Homepage job: a first-time visitor feels _this DJ genuinely cares about our day_ within seconds and understands who WIDC is.
 - **New in v7:** the codebase must be handoff-ready. A senior web developer with no prior context should be able to clone, run, understand, and extend it from the README alone. This is a launch criterion, not a nice-to-have.
 
 ## 2. Stack and architecture
@@ -25,9 +25,11 @@
 - **Video** is never in the repo. YouTube (public) for the four core videos and reels; embedded via a lite facade (thumbnail until click). The one exception is an optional ≤8 s, ≤4 MB muted hero loop in `public/`.
 
 ### Why (see `docs/DECISIONS.md` for the full record)
+
 Git-backed content means one system, one host, one login model (GitHub), zero runtime infrastructure, and the most conventional Astro architecture that exists. That is what makes the project hireable.
 
 ### Access model
+
 - Content editors: GitHub accounts with write access to the repo (Matt, his wife; a future site manager). Keystatic authenticates via GitHub.
 - Code/deploy: GitHub collaborator + Vercel project member. A hired dev gets both and nothing else — never Matt's personal logins.
 - Repo lives under a **WIDC GitHub organization**, not a personal account.
@@ -63,45 +65,59 @@ Git-backed content means one system, one host, one login model (GitHub), zero ru
 ## 4. Page requirements
 
 ### Homepage
-Order is fixed: (1) hero — warmth first, real photo or the muted loop; (2) short "who we are, why it's different" block *before* the service picker; (3) two-way service picker: Weddings / Events, with Photobooth as a third, smaller card; (4) proof band — review badges with platform ratings/counts, three featured reviews, real lighting photo; (5) "check your date" CTA top and bottom → `/contact` with the date field focused. Blog teaser (latest 2) near the bottom.
+
+Order is fixed: (1) hero — warmth first, real photo or the muted loop; (2) short "who we are, why it's different" block _before_ the service picker; (3) two-way service picker: Weddings / Events, with Photobooth as a third, smaller card; (4) proof band — review badges with platform ratings/counts, three featured reviews, real lighting photo; (5) "check your date" CTA top and bottom → `/contact` with the date field focused. Blog teaser (latest 2) near the bottom.
 
 ### /weddings
+
 Couple-facing, rural-wedding focus, per BRAND.md §5. "Says yes, figures it out together" gets a concrete home (captioned collaborative-moment photos). Highlight reel embed. Wedding reviews. Pricing link. CTA.
 
 ### /events
+
 Organizer-facing. Lead with clean-lyrics guarantee, COI available, flat pricing, PO-friendly invoicing, experience with student councils/auction committees. Sections for school dances and auctions/community events — visually and tonally distinct from /weddings. Event reviews. CTA.
 
 ### /pricing
+
 Real numbers, live text, never an image. "$0 upcharges forever" as the headline with a concrete list of what that means. Tiers + add-ons from content collections. Photobooth listed as a real add-on with a link to /photobooth. Silent ceremony power listed. Guided/high-support option stays off until scoped.
 
 ### /photobooth
+
 Booth photos including one at lowered/accessible height. What's included, print formats (4x6 / 2x6 strip), backdrop options, delivery process, pricing block (reads from `addons` where `category: photobooth`).
 
 ### /djs and /djs/[slug]
+
 Index states the "Your DJ from Day One" promise. Profile: photo, first-person bio, philosophy, DJ-specific reviews (filtered from `reviews`), optional music favorites, "meet the rest" cross-link.
 
 ### /gallery
+
 One collection, `gallery`, holding photos and videos. Filter chips: All / Weddings / Events / Lighting / Video. Photos open in a lightbox. Videos render as lite facades. The four core videos (5-min reel, 10-min reel, intro, lighting demo) are pinned at the top of the Video view.
 
 ### /reviews
+
 `reviews` collection. Badge row (platform, rating, count, link) at top. Filter chips: source, event type, DJ. Each card: quote, attribution, event type, date, source badge, "read on [platform]" link. Yelp appears as a badge/link only — no quoted text (their terms).
 
 ### /equipment
+
 `equipment` collection, grouped by category (sound, lighting, wireless/ceremony, power, photobooth). Each entry: photo, plain-language "what it does," and "why it matters to your guests." The lighting demo video is embedded on this page. No spec-sheet voice. 360° tours and hotspot viewers are explicitly out of scope.
 
 ### /blog
+
 `blog` collection with `category: giglog | essay`. Index filterable. Cadence: gig logs in season, one essay a month. Index design must not expose gaps (no "posted 4 months ago" prominence).
 
 ### /recommendations
+
 `recommendations` collection with `kind: vendor | resource`. Vendors grouped by category (photographers, venues, planners, florists, other DJs…); resources as a link list with one-line blurbs. Two sections, one page.
 
 ### /our-story
+
 Collective story, proof-point layer (years active, events played) once compiled. Until then the page ships without numbers — no placeholders, no fabricated figures.
 
 ### /faq
+
 `faq` collection, grouped by category, accordion. Seeded with the four good old-site answers. Links the public sample song list.
 
 ### /contact
+
 Form: name, email, event date, event type, message. Honeypot + basic rate limit. POST → Resend → Matt's inbox (and a copy to the sender). 24-hour response promise stated. No calendar embed.
 
 ## 5. Content editing (what Matt maintains without a code session)

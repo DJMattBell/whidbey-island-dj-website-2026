@@ -45,3 +45,31 @@ SPEC, BUILD_PLAN, CONTENT_MODEL, DECISIONS, ACCESS, KNOWN_ISSUES are in `docs/` 
 ## 2026-09-11 — Explicitly not building
 
 360°/hotspot equipment viewers, newsletter, booking portal/CRM, availability calendar embed. See SPEC §10.
+
+## Phase 0 — React is a Keystatic dependency, not a site dependency
+
+`react` and `react-dom` are installed because `@keystatic/astro` requires them as peer dependencies. React powers Keystatic's admin UI at `/keystatic`. No React components are used in any site page or component. The site remains vanilla Astro + `<script>` islands per CLAUDE.md. If Keystatic is ever removed, React goes with it.
+
+## Phase 0 — Image fields are optional strings until real photos exist
+
+CONTENT_MODEL specified `image` type for djs.photo, services.heroImage, gallery.image, equipment.photo. These are implemented as `z.string().optional()` because (a) no real photos exist yet, and (b) Astro's `image()` helper validates that the referenced file exists at build time, which would break builds until Matt provides photos. When Phase 1 brings placeholder art and real photography, upgrade these to `image().optional()` and move validation into the build.
+
+## Phase 0 — reviews.date is optional
+
+The CONTENT_MODEL specified `date` as required, but the five old-site testimonials have no known dates. Making it optional avoids inventing data. New reviews entered through Keystatic should always include a date.
+
+## Phase 0 — reviews.dj is a plain string, not a reference()
+
+Astro's `reference()` helper validates at build time that the referenced entry exists. This is the right thing to do eventually, but it couples the reviews collection to the djs collection at the schema level, which means you can't delete a DJ without first updating every review that references them. For a collection this small, a plain string slug is simpler and sufficient. If review count grows past ~50, consider upgrading to `reference()`.
+
+## Phase 0 — FAQ categories mapped from "general" to specific enum values
+
+The old site used a single "general" category for all four FAQ entries. The v7 model uses an enum: booking, music, logistics, pricing, photobooth. Mapped based on content: "Why not iPod?" → music, "Why expensive?" → pricing, "How choose music?" → music, "Why hire us?" → booking.
+
+## Phase 0 — Ceremony Sound add-on uses category "ceremony" not "dj"
+
+The old-site SQL seeded Ceremony Sound under category "dj". The v7 CONTENT_MODEL adds "ceremony" as a distinct add-on category. Ceremony Sound is a ceremony service, so it's recategorized accordingly.
+
+## Phase 0 — Keystatic uses markdoc for content fields
+
+Keystatic's `fields.markdoc()` is used for body/content fields in collections that have markdown content (djs, services, faq, reviews, equipment, blog). This is Keystatic's native rich-text editing format. The content files on disk are standard Markdown (frontmatter + body) which Astro's glob loader reads correctly.

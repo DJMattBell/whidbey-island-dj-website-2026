@@ -2,7 +2,7 @@
 
 _Every editable thing on the site, where it lives, and its fields. Astro collection schemas in `src/content.config.ts` and the Keystatic config in `keystatic.config.ts` must match this document. When they diverge, fix the code and this doc in the same commit._
 
-_Last verified: 2026-09-11_
+_Last verified: Phase 0 migration_
 
 Conventions:
 
@@ -43,7 +43,7 @@ Global values used across pages.
 | name           | string                                                                  |
 | slug           | from filename                                                           |
 | role           | string ("Lead DJ", "Associate DJ")                                      |
-| photo          | image                                                                   |
+| photo          | optional string — path to image in src/assets/djs/; upgrade to image() when photos arrive |
 | specialties    | array of string                                                         |
 | philosophy     | text (short)                                                            |
 | musicFavorites | optional object { goToAnthem, guiltyPleasure, forTheParents, lastSong } |
@@ -57,7 +57,7 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 | Field                              | Type                                                            |
 | ---------------------------------- | --------------------------------------------------------------- |
 | title, heroHeading, heroSubheading | string                                                          |
-| heroImage                          | image                                                           |
+| heroImage                          | optional string — path to image; upgrade to image() when photos arrive |
 | highlightVideoUrl                  | optional URL (YouTube)                                          |
 | body                               | markdown — sections authored in prose; components handle layout |
 
@@ -102,9 +102,9 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 | source      | enum: theknot, weddingwire, google, facebook, zola, direct |
 | sourceUrl   | optional URL — link to the original review                 |
 | rating      | integer 1–5, optional                                      |
-| date        | date                                                       |
+| date        | optional date — old-site reviews lack dates                |
 | eventType   | enum: wedding, school, auction, community, private         |
-| dj          | optional reference → djs                                   |
+| dj          | optional string — DJ slug (e.g. "matt"); validated by convention, not a foreign-key reference |
 | featured    | boolean — homepage proof band                              |
 | body        | markdown — the quote                                       |
 
@@ -117,10 +117,10 @@ Cap: ~50 photos. New one in, old one out.
 | Field     | Type                                                                |
 | --------- | ------------------------------------------------------------------- |
 | kind      | enum: photo, video, reel                                            |
-| image     | image (photo)                                                       |
+| image     | optional string — path to image; upgrade to image() when photos arrive |
 | videoUrl  | URL (video/reel) — YouTube                                          |
 | caption   | optional string                                                     |
-| alt       | string — required for photos                                        |
+| alt       | optional string — required for photos once gallery is populated      |
 | tags      | array of enum: wedding, event, lighting, photobooth, ceremony, team |
 | pinned    | boolean — the four core videos                                      |
 | sortOrder | integer                                                             |
@@ -131,7 +131,7 @@ Cap: ~50 photos. New one in, old one out.
 | ---------- | -------------------------------------------------- |
 | name       | string                                             |
 | category   | enum: sound, lighting, wireless, power, photobooth |
-| photo      | image                                              |
+| photo      | optional string — path to image; upgrade to image() when photos arrive |
 | whatItDoes | text — one or two plain sentences                  |
 | sortOrder  | integer                                            |
 | body       | markdown — "why it matters to your guests"         |
@@ -146,7 +146,7 @@ Cap: ~50 photos. New one in, old one out.
 | publishedAt | date                                         |
 | draft       | boolean — drafts are excluded from the build |
 | excerpt     | string                                       |
-| coverImage  | optional image                               |
+| coverImage  | optional string — path to image               |
 | body        | markdown                                     |
 
 ### recommendations (`src/content/recommendations/*.yaml`)

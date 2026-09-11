@@ -1,0 +1,157 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import Button from "../components/Button.astro";
+import PlaceholderArt from "../components/PlaceholderArt.astro";
+
+const entry = await getEntry("services", "events");
+const { Content } = entry ? await render(entry) : { Content: null };
+
+const eventReviews = (await getCollection("reviews"))
+  .filter((r) => r.data.eventType !== "wedding")
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Events | Whidbey Island DJ Collective"
+  description="DJ services for school dances, auctions, community events, and private parties on Whidbey Island and the Puget Sound. Clean lyrics, flat pricing, COI available."
+>
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 lg:py-section bg-deep-sound overflow-hidden">
+    <PlaceholderArt variant="accent" />
+    <div class="absolute inset-0 bg-deep-sound/60" />
+    <div class="relative max-w-3xl mx-auto px-6 text-center">
+      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+        {entry?.data.heroHeading ?? "Events that run like clockwork."}
+      </h1>
+      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto mb-10">
+        {entry?.data.heroSubheading}
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check your date
+      </Button>
+    </div>
+  </section>
+
+  <!-- Body content -->
+  {Content && (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-3xl mx-auto px-6" data-reveal>
+        <div class="prose prose-lg max-w-none font-body text-deep-sound/80 leading-relaxed space-y-6
+          [&>p]:text-body [&>p]:leading-relaxed">
+          <Content />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- What organizers need to know -->
+  <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+    <div class="max-w-4xl mx-auto px-6" data-reveal>
+      <SectionHeading
+        eyebrow="For Organizers"
+        heading="What you need to know."
+      />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
+        {[
+          "Clean lyrics guaranteed — always",
+          "Certificate of insurance (COI) on request",
+          "Flat pricing — no upcharges, ever",
+          "PO-friendly invoicing",
+          "Experience with student councils & auction committees",
+          "Full sound, lighting, and MC services included",
+        ].map((item) => (
+          <div class="flex items-start gap-3">
+            <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
+            <span class="font-body text-body text-deep-sound/80">{item}</span>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <Button href="/pricing" variant="outline" size="md">
+          See pricing
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- School dances & community events -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div data-reveal>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+            School Dances
+          </p>
+          <h3 class="font-heading text-2xl text-penn-cove leading-tight mb-4">
+            Homecoming to prom and everything between.
+          </h3>
+          <p class="font-body text-body text-deep-sound/70 leading-relaxed">
+            We work directly with student councils and advisors. Clean lyrics
+            are non-negotiable, the music stays age-appropriate, and we bring
+            enough sound and lighting to fill any gym or cafeteria.
+          </p>
+        </div>
+        <div data-reveal>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+            Auctions &amp; Community Events
+          </p>
+          <h3 class="font-heading text-2xl text-penn-cove leading-tight mb-4">
+            Sound that works for the room.
+          </h3>
+          <p class="font-body text-body text-deep-sound/70 leading-relaxed">
+            Fundraiser auctions, galas, community festivals, private parties
+            &mdash; we bring the right energy for your audience. Professional
+            MC services, wireless mics, and a crew that shows up early.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event reviews -->
+  {eventReviews.length > 0 && (
+    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+      <div class="max-w-5xl mx-auto px-6" data-reveal>
+        <SectionHeading
+          eyebrow="From Event Organizers"
+          heading="What they said after the event."
+        />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {eventReviews.map((review) => (
+            <div class="bg-driftwood/10 rounded-lg p-8">
+              <ReviewCard
+                quote={review.body ?? ""}
+                attribution={review.data.attribution}
+                eventType={review.data.eventType}
+              />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-10">
+          <Button href="/reviews" variant="outline" size="md">
+            All reviews
+          </Button>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
+        Let&rsquo;s talk about your event.
+      </h2>
+      <p class="font-body text-body text-deep-sound/70 mb-10">
+        Tell us what you&rsquo;re planning and we&rsquo;ll put together a
+        quote. No commitment, no hassle.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in touch
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

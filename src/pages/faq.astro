@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+
+const allFaq = (await getCollection("faq"))
+  .filter((f) => f.data.published)
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const categoryLabels: Record<string, string> = {
+  booking: "Booking",
+  music: "Music",
+  logistics: "Logistics",
+  pricing: "Pricing",
+  photobooth: "Photobooth",
+};
+
+const categoryOrder = ["booking", "music", "logistics", "pricing", "photobooth"];
+
+const grouped = categoryOrder
+  .map((cat) => ({
+    category: cat,
+    label: categoryLabels[cat],
+    items: allFaq.filter((f) => f.data.category === cat),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  title="FAQ | Whidbey Island DJ Collective"
+  description="Frequently asked questions about hiring a DJ on Whidbey Island. Pricing, music selection, what's included, and more."
+>
+  <!-- Hero -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+        Questions we hear a lot.
+      </h1>
+      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+        If yours isn&rsquo;t here, ask us directly &mdash; we&rsquo;ll get
+        back to you within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ accordion grouped by category -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-3xl mx-auto px-6">
+      {grouped.map((group) => (
+        <div class="mb-12 last:mb-0" data-reveal>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
+            {group.label}
+          </p>
+          <div class="space-y-3">
+            {group.items.map((faq) => (
+              <details class="group rounded-lg border border-penn-cove/15 bg-driftwood">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-4 font-heading text-lg text-penn-cove select-none">
+                  <span>{faq.data.question}</span>
+                  <span class="shrink-0 text-penn-cove/50 transition-transform duration-200 group-open:rotate-45" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div class="px-6 pb-6 font-body text-body text-deep-sound/80 leading-relaxed">
+                  {faq.body}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Still have questions?
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        We&rsquo;re happy to chat. No pressure, no pitch.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Ask us anything
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

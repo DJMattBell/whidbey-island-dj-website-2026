@@ -1,0 +1,123 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import Button from "../components/Button.astro";
+import PlaceholderArt from "../components/PlaceholderArt.astro";
+
+const entry = await getEntry("services", "weddings");
+const { Content } = entry ? await render(entry) : { Content: null };
+
+const weddingReviews = (await getCollection("reviews"))
+  .filter((r) => r.data.eventType === "wedding")
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Weddings | Whidbey Island DJ Collective"
+  description="Wedding DJ services on Whidbey Island and the Puget Sound. Transparent pricing, named DJs, music that reads the room. No upcharges, ever."
+>
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 lg:py-section bg-deep-sound overflow-hidden">
+    <PlaceholderArt variant="cool" />
+    <div class="absolute inset-0 bg-deep-sound/60" />
+    <div class="relative max-w-3xl mx-auto px-6 text-center">
+      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+        {entry?.data.heroHeading ?? "Your wedding, your music."}
+      </h1>
+      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto mb-10">
+        {entry?.data.heroSubheading}
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check your date
+      </Button>
+    </div>
+  </section>
+
+  <!-- Body content -->
+  {Content && (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-3xl mx-auto px-6" data-reveal>
+        <div class="prose prose-lg max-w-none font-body text-deep-sound/80 leading-relaxed space-y-6
+          [&>p]:text-body [&>p]:leading-relaxed">
+          <Content />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- What's included -->
+  <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+    <div class="max-w-4xl mx-auto px-6" data-reveal>
+      <SectionHeading
+        eyebrow="What's Included"
+        heading="Everything you need. Nothing you don't."
+      />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
+        {[
+          "Professional sound system",
+          "DJ & MC services",
+          "Dance floor lighting & uplights",
+          "Planning meetings (as many as you need)",
+          "Setup & teardown included",
+          "$0 upcharges — always",
+        ].map((item) => (
+          <div class="flex items-start gap-3">
+            <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
+            <span class="font-body text-body text-deep-sound/80">{item}</span>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <Button href="/pricing" variant="outline" size="md">
+          See pricing
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wedding reviews -->
+  {weddingReviews.length > 0 && (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-5xl mx-auto px-6" data-reveal>
+        <SectionHeading
+          eyebrow="From Our Couples"
+          heading="What they said after the last song."
+        />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {weddingReviews.map((review) => (
+            <div class="bg-deep-sound rounded-lg p-8">
+              <ReviewCard
+                quote={review.body ?? ""}
+                attribution={review.data.attribution}
+                eventType={review.data.eventType}
+              />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-10">
+          <Button href="/reviews" variant="outline" size="md">
+            All reviews
+          </Button>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Let&rsquo;s talk about your wedding.
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        No commitment, no sales pitch. Tell us your date and we&rsquo;ll
+        take it from there.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check availability
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

@@ -77,3 +77,19 @@ The old-site SQL seeded Ceremony Sound under category "dj". The v7 CONTENT_MODEL
 ## Phase 0 — Keystatic uses markdoc for content fields
 
 Keystatic's `fields.markdoc()` is used for body/content fields in collections that have markdown content (djs, services, faq, reviews, equipment, blog). This is Keystatic's native rich-text editing format. The content files on disk are standard Markdown (frontmatter + body) which Astro's glob loader reads correctly.
+
+## Phase 1 — @astrojs/sitemap for automatic sitemap generation
+
+`@astrojs/sitemap` generates `sitemap-index.xml` at build time from all prerendered routes. The `site` property in `astro.config.mjs` is set to `https://whidbeyislanddj.com`, which also enables Astro's canonical URL generation via `Astro.site`.
+
+## Phase 1 — View transitions via Astro ClientRouter
+
+`<ClientRouter />` in BaseLayout enables Astro's built-in view transitions (morph animations between page navigations). All page scripts use `astro:page-load` for re-initialization.
+
+## Phase 1 — Scroll-reveal via IntersectionObserver + data-reveal attribute
+
+One global script in BaseLayout observes `[data-reveal]` elements and adds `.is-revealed` when they enter the viewport. CSS handles the animation (`opacity` + `translateY`). `prefers-reduced-motion` is respected: elements are immediately visible with no animation. Applied to 3–5 moments per page, not everything.
+
+## Phase 1 — Placeholder art for photo-less sections
+
+`PlaceholderArt.astro` renders CSS gradient backgrounds in three variants (warm, cool, accent) using the token palette. Each usage is a documented swap target in KNOWN_ISSUES. No placeholder images are committed to the repo — gradients are pure CSS using existing `--color-*` custom properties.

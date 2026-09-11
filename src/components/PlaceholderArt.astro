@@ -1,0 +1,25 @@
+---
+/**
+ * Abstract token-palette treatments for sections without real photos.
+ * Each variant is a swap target — replace with real photography when available.
+ * See KNOWN_ISSUES.md for the list of usages.
+ */
+interface Props {
+  variant: "warm" | "cool" | "accent";
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+
+const gradients: Record<string, string> = {
+  warm: "radial-gradient(ellipse at 30% 50%, var(--color-golden-hour) 0%, var(--color-driftwood) 70%)",
+  cool: "radial-gradient(ellipse at 70% 40%, var(--color-sea-glass) 0%, var(--color-penn-cove) 70%)",
+  accent: "linear-gradient(135deg, var(--color-madrone) 0%, var(--color-deep-sound) 100%)",
+};
+---
+
+<div
+  aria-hidden="true"
+  class:list={["absolute inset-0", className]}
+  style={`background: ${gradients[variant]}; opacity: 0.15;`}
+/>

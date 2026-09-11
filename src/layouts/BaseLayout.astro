@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -6,12 +7,20 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title,
   description = "A crew of DJs based on Whidbey Island serving weddings, school dances, and community events across the Puget Sound.",
+  ogImage,
+  ogType = "website",
+  jsonLd,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -22,10 +31,14 @@ const {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
+    <link rel="canonical" href={canonicalUrl} />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
 
     <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,6 +48,15 @@ const {
       rel="stylesheet"
     />
 
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      />
+    )}
+
+    <ClientRouter />
+
     <title>{title}</title>
   </head>
   <body class="bg-driftwood text-deep-sound antialiased">
@@ -43,5 +65,33 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      function initReveal() {
+        const elements = document.querySelectorAll("[data-reveal]");
+        if (!elements.length) return;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          elements.forEach((el) => el.classList.add("is-revealed"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      }
+
+      document.addEventListener("astro:page-load", initReveal);
+    </script>
   </body>
 </html>

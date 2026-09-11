@@ -1,9 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroSection from "../components/HeroSection.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import TestimonialCard from "../components/TestimonialCard.astro";
+import ReviewCard from "../components/ReviewCard.astro";
 import Button from "../components/Button.astro";
+
+const allReviews = await getCollection("reviews");
+const featuredReviews = allReviews.filter((r) => r.data.featured);
+const review = featuredReviews[0];
 ---
 
 <BaseLayout title="The Whidbey Island DJ Collective — Music That Reads the Room">
@@ -37,16 +42,18 @@ import Button from "../components/Button.astro";
     </div>
   </section>
 
-  <!-- Section 3: Testimonial -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
-    <div class="max-w-4xl mx-auto px-6">
-      <TestimonialCard
-        quote="Matt was incredible! He played everything we asked for and kept the dance floor packed all night. We couldn't have asked for a better DJ."
-        attribution="Brittany B."
-        eventType="Wedding"
-      />
-    </div>
-  </section>
+  <!-- Section 3: Featured Review -->
+  {review && (
+    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+      <div class="max-w-4xl mx-auto px-6">
+        <ReviewCard
+          quote={review.body ?? ""}
+          attribution={review.data.attribution}
+          eventType={review.data.eventType}
+        />
+      </div>
+    </section>
+  )}
 
   <!-- Section 4: CTA -->
   <section class="py-20 md:py-28 lg:py-section">

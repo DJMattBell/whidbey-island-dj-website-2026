@@ -24,6 +24,11 @@ Format: `- [area] description — what would resolve it — date logged`
 - [placeholder] Hero section uses PlaceholderArt "warm" variant — swap for real hero photo or muted video loop when available — Phase 1
 - [placeholder] Service picker cards use PlaceholderArt "cool" variant — swap for real wedding/event photos when available — Phase 1
 - [placeholder] Photobooth card uses PlaceholderArt "accent" variant — swap for real photobooth photo when available — Phase 1
+- [placeholder] DJ profile photos use PlaceholderArt — swap for real DJ headshots when available — Phase 2
+- [content] Only one DJ entry (Matt) — Lee and future DJs need content entries from Matt — Phase 2
+- [content] Matt's `musicFavorites` not populated — profile page section hidden until filled in — Phase 2
+- [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
+- [djs] review.body passed as raw string on DJ profile page — same issue as homepage, render via `render()` when reviews page pattern is established — Phase 2
 - [perf] Google Fonts loaded via external stylesheet — self-host if Lighthouse performance demands it — Phase 1
 
 ## Resolved

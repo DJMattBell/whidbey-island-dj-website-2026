@@ -17,6 +17,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [infra] Astro's re-exported `z` from `astro:content` shows deprecation hints during `astro check` — upstream migration, not actionable — Phase 0
 - [schema] `reviews.dj` is a plain string slug, not a validated Astro `reference()` — works for filtering but doesn't catch typos at build time — Phase 0
 - [homepage] Only one featured review is shown; Phase 1 adds the full proof band with three featured reviews and badge row — Phase 0
+- [homepage] `review.body` is passed as a raw string to ReviewCard, not rendered as HTML — works for plain-text quotes but will break if a review body contains markdown formatting — render via Astro's `render()` in Phase 1 — Phase 0
 
 ## Resolved
 

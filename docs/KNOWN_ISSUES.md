@@ -29,6 +29,12 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] Matt's `musicFavorites` not populated — profile page section hidden until filled in — Phase 2
 - [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
 - [djs] review.body passed as raw string on DJ profile page — same issue as homepage, render via `render()` when reviews page pattern is established — Phase 2
+- [placeholder] /weddings hero uses PlaceholderArt "cool" — swap for real wedding photo — Phase 3
+- [placeholder] /events hero uses PlaceholderArt "accent" — swap for real event photo — Phase 3
+- [placeholder] /photobooth hero uses PlaceholderArt "accent" — swap for real photobooth photo — Phase 3
+- [content] /weddings and /events "what's included" checklists are structural page copy, not content collection data — Phase 3
+- [content] /photobooth backdrop details are generic — needs real backdrop inventory from Matt — Phase 3
+- [faq] FAQ answers rendered as raw body string, not via Astro render() — works for current plain-text answers — Phase 3
 - [perf] Google Fonts loaded via external stylesheet — self-host if Lighthouse performance demands it — Phase 1
 
 ## Resolved

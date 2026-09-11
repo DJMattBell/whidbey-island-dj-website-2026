@@ -1,0 +1,196 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import ReviewCard from "../../components/ReviewCard.astro";
+import Button from "../../components/Button.astro";
+import PlaceholderArt from "../../components/PlaceholderArt.astro";
+
+export async function getStaticPaths() {
+  const djs = await getCollection("djs");
+  return djs.map((dj) => ({ params: { slug: dj.id }, props: { dj } }));
+}
+
+const { dj } = Astro.props;
+const { Content } = await render(dj);
+
+const allReviews = await getCollection("reviews");
+const djReviews = allReviews.filter((r) => r.data.dj === dj.id);
+
+const allDjs = (await getCollection("djs"))
+  .filter((d) => d.id !== dj.id)
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+---
+
+<BaseLayout
+  title={`${dj.data.name} — ${dj.data.role} | Whidbey Island DJ Collective`}
+  description={`${dj.data.name}, ${dj.data.role} at the Whidbey Island DJ Collective. ${dj.data.philosophy}`}
+>
+  <!-- Profile header -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <!-- Photo -->
+        <div class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound">
+          <PlaceholderArt variant="cool" />
+          <div class="absolute inset-0 bg-deep-sound/20" />
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+            {dj.data.role}
+          </p>
+          <h1 class="font-heading text-4xl sm:text-5xl text-driftwood leading-tight mb-6">
+            {dj.data.name}
+          </h1>
+          <p class="font-body text-body text-sea-glass leading-relaxed mb-6 italic">
+            &ldquo;{dj.data.philosophy}&rdquo;
+          </p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            {dj.data.specialties.map((s) => (
+              <span class="font-body text-sm text-driftwood/80 bg-driftwood/10 px-3 py-1 rounded">
+                {s}
+              </span>
+            ))}
+          </div>
+          <Button href="/contact" variant="primary" size="md">
+            Book {dj.data.name.split(" ")[0]}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bio -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-3xl mx-auto px-6" data-reveal>
+      <div class="prose prose-lg max-w-none font-body text-deep-sound/80 leading-relaxed space-y-6
+        [&>p]:text-body [&>p]:leading-relaxed">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  <!-- Music favorites -->
+  {dj.data.musicFavorites && (
+    <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+      <div class="max-w-3xl mx-auto px-6" data-reveal>
+        <SectionHeading
+          eyebrow="Music Favorites"
+          heading={`What ${dj.data.name.split(" ")[0]} plays.`}
+        />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+          <div class="text-center p-6">
+            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              Go-to Anthem
+            </p>
+            <p class="font-heading text-xl text-penn-cove">
+              {dj.data.musicFavorites.goToAnthem}
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              Guilty Pleasure
+            </p>
+            <p class="font-heading text-xl text-penn-cove">
+              {dj.data.musicFavorites.guiltyPleasure}
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              For the Parents
+            </p>
+            <p class="font-heading text-xl text-penn-cove">
+              {dj.data.musicFavorites.forTheParents}
+            </p>
+          </div>
+          <div class="text-center p-6">
+            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              Last Song
+            </p>
+            <p class="font-heading text-xl text-penn-cove">
+              {dj.data.musicFavorites.lastSong}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- DJ-specific reviews -->
+  {djReviews.length > 0 && (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-5xl mx-auto px-6" data-reveal>
+        <SectionHeading
+          eyebrow="Reviews"
+          heading={`What people say about ${dj.data.name.split(" ")[0]}.`}
+        />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+          {djReviews.map((review) => (
+            <div class="bg-deep-sound rounded-lg p-8">
+              <ReviewCard
+                quote={review.body ?? ""}
+                attribution={review.data.attribution}
+                eventType={review.data.eventType}
+              />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-10">
+          <Button href="/reviews" variant="outline" size="md">
+            All reviews
+          </Button>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Meet the rest -->
+  {allDjs.length > 0 && (
+    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+      <div class="max-w-5xl mx-auto px-6" data-reveal>
+        <SectionHeading
+          eyebrow="The Collective"
+          heading="Meet the rest of the crew."
+        />
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          {allDjs.map((other) => (
+            <a
+              href={`/djs/${other.id}`}
+              class="group block rounded-lg overflow-hidden border border-driftwood/10 hover:border-driftwood/30 transition-colors duration-200"
+            >
+              <div class="relative h-36 overflow-hidden">
+                <PlaceholderArt variant="warm" />
+                <div class="absolute inset-0 bg-deep-sound/30" />
+              </div>
+              <div class="p-5">
+                <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour mb-1">
+                  {other.data.role}
+                </p>
+                <h3 class="font-heading text-xl text-driftwood group-hover:text-golden-hour transition-colors duration-200">
+                  {other.data.name}
+                </h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
+        Check your date.
+      </h2>
+      <p class="font-body text-body text-deep-sound/70 mb-10">
+        Tell us about your event and we&rsquo;ll take it from there.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check availability
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

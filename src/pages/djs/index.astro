@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import Button from "../../components/Button.astro";
+import PlaceholderArt from "../../components/PlaceholderArt.astro";
+
+const djs = (await getCollection("djs")).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+---
+
+<BaseLayout
+  title="Meet the DJs | Whidbey Island DJ Collective"
+  description="Your DJ from day one. Meet the crew behind the Whidbey Island DJ Collective — named DJs who stay with your event from first call to last song."
+>
+  <!-- Hero -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+        Your DJ from Day One.
+      </h1>
+      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+        The DJ you talk to is the DJ who shows up. No hand-offs, no strangers,
+        no surprises. You get a named person who knows your playlist, your
+        timeline, and your uncle&rsquo;s song request.
+      </p>
+    </div>
+  </section>
+
+  <!-- DJ cards -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {djs.map((dj) => (
+          <a
+            href={`/djs/${dj.id}`}
+            class="group block rounded-lg overflow-hidden border border-penn-cove/10 hover:border-penn-cove/30 transition-colors duration-200"
+            data-reveal
+          >
+            <div class="relative h-48 bg-deep-sound overflow-hidden">
+              <PlaceholderArt variant="cool" />
+              <div class="absolute inset-0 bg-deep-sound/30" />
+            </div>
+            <div class="p-6">
+              <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+                {dj.data.role}
+              </p>
+              <h2 class="font-heading text-2xl text-penn-cove mb-3 group-hover:text-madrone transition-colors duration-200">
+                {dj.data.name}
+              </h2>
+              <p class="font-body text-sm text-deep-sound/70 leading-relaxed mb-4">
+                {dj.data.philosophy}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {dj.data.specialties.map((s) => (
+                  <span class="font-body text-xs text-penn-cove/70 bg-penn-cove/10 px-2 py-1 rounded">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Want to meet your DJ?
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        Tell us about your event and we&rsquo;ll match you with the right person.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in touch
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

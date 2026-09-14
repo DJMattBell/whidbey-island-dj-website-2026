@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import SplitSection from "../components/SplitSection.astro";
 import Button from "../components/Button.astro";
 import PlaceholderArt from "../components/PlaceholderArt.astro";
 import { formatPrice } from "../lib/format";
@@ -16,28 +17,28 @@ const photoboothAddons = (await getCollection("addons"))
   description="Open-air photobooth for weddings and events on Whidbey Island. Prints, digital copies, backdrops, and props included."
 >
   <!-- Hero -->
-  <section class="relative py-28 md:py-36 lg:py-section bg-deep-sound overflow-hidden">
+  <section class="relative py-32 md:py-40 lg:py-48 bg-deep-sound overflow-hidden">
     <PlaceholderArt variant="accent" />
     <div class="absolute inset-0 bg-deep-sound/60" />
-    <div class="relative max-w-3xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+    <div class="relative max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
         The booth that never stops.
       </h1>
-      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
         An open-air photobooth your guests will actually use — lowered to
         accessible height, stocked with props, and running all night.
       </p>
     </div>
   </section>
 
-  <!-- What's included -->
-  <section class="py-20 md:py-28 lg:py-section">
-    <div class="max-w-4xl mx-auto px-6" data-reveal>
+  <!-- What's included — split layout -->
+  <SplitSection>
+    <div data-reveal>
       <SectionHeading
         eyebrow="What's Included"
         heading="Everything in the booth."
       />
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
+      <div class="space-y-4 mt-8">
         {[
           "Open-air booth setup (lowered to accessible height)",
           "Backdrop and dress-up props",
@@ -46,76 +47,82 @@ const photoboothAddons = (await getCollection("addons"))
         ].map((item) => (
           <div class="flex items-start gap-3">
             <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
-            <span class="font-body text-body text-deep-sound/80">{item}</span>
+            <span class="font-body text-body text-deep-sound-700">{item}</span>
           </div>
         ))}
       </div>
     </div>
-  </section>
+    <div class="relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound" data-reveal>
+      <PlaceholderArt variant="accent" />
+    </div>
+  </SplitSection>
 
-  <!-- Print formats -->
-  <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
-    <div class="max-w-4xl mx-auto px-6" data-reveal>
-      <SectionHeading
-        eyebrow="Print Formats"
-        heading="Take it home."
-      />
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
-        <div class="bg-driftwood rounded-lg p-8 border border-penn-cove/10 text-center">
-          <p class="font-heading text-3xl text-penn-cove mb-2">4&times;6</p>
-          <p class="font-body text-sm text-deep-sound/70">
-            Classic photo print — perfect for fridge magnets and frames.
+  <!-- Print formats + Backdrops -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12" data-reveal>
+        <!-- Print formats -->
+        <div>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+            Print Formats
           </p>
+          <h3 class="font-heading text-2xl md:text-3xl text-driftwood leading-tight mb-6">
+            Take it home.
+          </h3>
+          <div class="space-y-6">
+            <div>
+              <p class="font-heading text-3xl text-driftwood mb-1">4&times;6</p>
+              <p class="font-body text-sm text-driftwood-300">
+                Classic photo print — perfect for fridge magnets and frames.
+              </p>
+            </div>
+            <div>
+              <p class="font-heading text-3xl text-driftwood mb-1">2&times;6 strip</p>
+              <p class="font-body text-sm text-driftwood-300">
+                Photo strip — the one your guests will keep in their wallet.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="bg-driftwood rounded-lg p-8 border border-penn-cove/10 text-center">
-          <p class="font-heading text-3xl text-penn-cove mb-2">2&times;6 strip</p>
-          <p class="font-body text-sm text-deep-sound/70">
-            Photo strip — the one your guests will keep in their wallet.
+
+        <!-- Backdrops -->
+        <div>
+          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+            Backdrops
+          </p>
+          <h3 class="font-heading text-2xl md:text-3xl text-driftwood leading-tight mb-6">
+            Pick your look.
+          </h3>
+          <p class="font-body text-body text-driftwood-300 leading-relaxed">
+            We bring a selection of backdrops to match your event&rsquo;s vibe
+            &mdash; from classic solid colors to seasonal options. Need something
+            custom? Let us know and we&rsquo;ll see what we can do.
           </p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Backdrops -->
-  <section class="py-20 md:py-28 lg:py-section">
-    <div class="max-w-3xl mx-auto px-6 text-center" data-reveal>
-      <SectionHeading
-        eyebrow="Backdrops"
-        heading="Pick your look."
-      />
-      <p class="font-body text-body text-deep-sound/70 leading-relaxed mt-6">
-        We bring a selection of backdrops to match your event&rsquo;s vibe
-        &mdash; from classic solid colors to seasonal options. Need something
-        custom? Let us know and we&rsquo;ll see what we can do.
-      </p>
     </div>
   </section>
 
   <!-- Pricing -->
   {photoboothAddons.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <section class="py-20 md:py-28 lg:py-section">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <div class="text-center mb-12">
-          <span class="block font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
-            Pricing
-          </span>
-          <h2 class="font-heading text-2xl md:text-section text-driftwood leading-tight">
-            Add it to any package.
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <SectionHeading
+          eyebrow="Pricing"
+          heading="Add it to any package."
+        />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {photoboothAddons.map((addon) => (
-            <div class="bg-driftwood/10 rounded-lg p-6">
+            <div class="bg-driftwood rounded-lg p-6 border border-penn-cove-200">
               <div class="flex justify-between items-start gap-4 mb-2">
-                <h3 class="font-heading text-xl text-driftwood">
+                <h3 class="font-heading text-xl text-penn-cove">
                   {addon.data.name}
                 </h3>
-                <span class="font-heading text-xl text-golden-hour whitespace-nowrap">
+                <span class="font-heading text-xl text-deep-sound whitespace-nowrap">
                   {formatPrice(addon.data.priceCents)}
                 </span>
               </div>
-              <p class="font-body text-sm text-driftwood/70 leading-relaxed">
+              <p class="font-body text-sm text-deep-sound-700 leading-relaxed">
                 {addon.data.description}
               </p>
             </div>
@@ -126,12 +133,12 @@ const photoboothAddons = (await getCollection("addons"))
   )}
 
   <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-section">
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
         Add a photobooth to your event.
       </h2>
-      <p class="font-body text-body text-deep-sound/70 mb-10">
+      <p class="font-body text-body text-sea-glass mb-10">
         It&rsquo;s the easiest upgrade you&rsquo;ll make. Tell us your date
         and we&rsquo;ll add it to your package.
       </p>

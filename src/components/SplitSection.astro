@@ -1,0 +1,32 @@
+---
+/**
+ * Two-column layout: text + media side by side.
+ * Stacks vertically on mobile. `reverse` flips the order on desktop.
+ */
+interface Props {
+  reverse?: boolean;
+  dark?: boolean;
+  class?: string;
+}
+
+const { reverse = false, dark = false, class: className } = Astro.props;
+---
+
+<section
+  class:list={[
+    "py-20 md:py-28 lg:py-section",
+    dark && "bg-deep-sound text-driftwood",
+    className,
+  ]}
+>
+  <div class="max-w-6xl mx-auto px-6">
+    <div
+      class:list={[
+        "grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center",
+        reverse && "md:[&>:first-child]:order-2",
+      ]}
+    >
+      <slot />
+    </div>
+  </div>
+</section>

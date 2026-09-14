@@ -31,12 +31,12 @@ const grouped = categoryOrder
   description="Frequently asked questions about hiring a DJ on Whidbey Island. Pricing, music selection, what's included, and more."
 >
   <!-- Hero -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
         Questions we hear a lot.
       </h1>
-      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
         If yours isn&rsquo;t here, ask us directly &mdash; we&rsquo;ll get
         back to you within 24 hours.
       </p>
@@ -53,14 +53,14 @@ const grouped = categoryOrder
           </p>
           <div class="space-y-3">
             {group.items.map((faq) => (
-              <details class="group rounded-lg border border-penn-cove/15 bg-driftwood">
+              <details class="group rounded-lg border border-penn-cove-200 bg-driftwood">
                 <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-4 font-heading text-lg text-penn-cove select-none">
                   <span>{faq.data.question}</span>
-                  <span class="shrink-0 text-penn-cove/50 transition-transform duration-200 group-open:rotate-45" aria-hidden="true">
+                  <span class="shrink-0 text-penn-cove-400 transition-transform duration-200 group-open:rotate-45" aria-hidden="true">
                     +
                   </span>
                 </summary>
-                <div class="px-6 pb-6 font-body text-body text-deep-sound/80 leading-relaxed">
+                <div class="px-6 pb-6 font-body text-body text-deep-sound-700 leading-relaxed">
                   {faq.body}
                 </div>
               </details>

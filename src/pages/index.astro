@@ -1,32 +1,13 @@
 ---
 import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroSection from "../components/HeroSection.astro";
-import SectionHeading from "../components/SectionHeading.astro";
-import ReviewCard from "../components/ReviewCard.astro";
-import Button from "../components/Button.astro";
-import PlaceholderArt from "../components/PlaceholderArt.astro";
+import waveVinyl from "../assets/wave-vinyl-placeholder.svg";
 
-// Data
 const siteEntry = await getEntry("site", "site");
 const site = siteEntry?.data;
 
 const allReviews = await getCollection("reviews");
-const featuredReviews = allReviews
-  .filter((r) => r.data.featured)
-  .slice(0, 3);
-
-const services = await getCollection("services");
-const weddingService = services.find((s) => s.id === "weddings");
-const eventService = services.find((s) => s.id === "events");
-
-const allPosts = await getCollection("blog");
-const publishedPosts = allPosts
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
-  .slice(0, 2);
-
-const badges = site?.reviewBadges ?? [];
+const featured = allReviews.find((r) => r.data.featured);
 
 const description =
   "The Whidbey Island DJ Collective — weddings, school dances, and community events across the Puget Sound. Transparent pricing, named DJs, music that reads the room.";
@@ -46,206 +27,63 @@ const jsonLd = {
   title="The Whidbey Island DJ Collective — Music That Reads the Room"
   description={description}
   jsonLd={jsonLd}
+  landing
 >
-  <!-- 1. Hero -->
-  <HeroSection />
+  <div class="min-h-dvh flex flex-col items-center px-6 py-8 sm:py-10 md:py-12">
 
-  <!-- 2. Who we are -->
-  <section class="py-20 md:py-28 lg:py-section">
-    <div class="max-w-3xl mx-auto px-6" data-reveal>
-      <SectionHeading
-        eyebrow="Who We Are"
-        heading="The crew behind the music."
+    <!-- Wordmark -->
+    <p class="font-heading text-base sm:text-lg text-deep-sound-700 tracking-wide text-center">
+      The Whidbey Island DJ Collective
+    </p>
+
+    <!-- Mark (SVG self-animates; see wave-vinyl-placeholder.svg) -->
+    <div class="flex-1 flex items-center justify-center py-6 md:py-10">
+      <img
+        src={waveVinyl.src}
+        width="400"
+        height="400"
+        alt="Whidbey Island DJ Collective — vinyl record with rolling wave grooves and island coastline"
+        class="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72"
       />
-      <div class="text-center space-y-6">
-        <p class="font-body text-body text-deep-sound/80 leading-relaxed">
-          We show up early, read the room, and make sure your nephew and your
-          grandmother both have a moment on the dance floor. Three DJs, one
-          shared belief: the right song at the right moment changes everything.
+    </div>
+
+    <!-- Two doors -->
+    <nav class="flex gap-10 sm:gap-16 md:gap-20 mb-8 md:mb-10" aria-label="Services">
+      <a
+        href="/weddings"
+        class="font-heading text-2xl sm:text-3xl md:text-4xl text-deep-sound hover:text-penn-cove transition-colors duration-300"
+      >
+        Weddings
+      </a>
+      <a
+        href="/events"
+        class="font-heading text-2xl sm:text-3xl md:text-4xl text-deep-sound hover:text-penn-cove transition-colors duration-300"
+      >
+        Not weddings
+      </a>
+    </nav>
+
+    <!-- One featured review -->
+    {featured && (
+      <blockquote class="max-w-sm md:max-w-md text-center mb-8 md:mb-10">
+        <p class="font-body text-sm text-deep-sound-600 italic leading-relaxed">
+          &ldquo;{featured.body}&rdquo;
         </p>
-        <p class="font-body text-body text-deep-sound/80 leading-relaxed">
-          Based on Whidbey Island and serving the greater Puget Sound, we bring
-          professional sound, custom playlists, and the kind of energy that only
-          comes from people who genuinely love what they do.
-        </p>
-        <div class="pt-4">
-          <Button href="/our-story" variant="outline" size="md">
-            Our story
-          </Button>
-        </div>
-      </div>
-    </div>
-  </section>
+        <footer class="font-body text-xs text-golden-hour mt-2 tracking-wide uppercase">
+          &mdash; {featured.data.attribution}
+        </footer>
+      </blockquote>
+    )}
 
-  <!-- 3. Service picker: Weddings / Events / Photobooth -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-12" data-reveal>
-        <span class="block font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
-          What We Do
-        </span>
-        <h2 class="font-heading text-2xl md:text-section text-driftwood leading-tight">
-          Two kinds of events. One standard of care.
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" data-reveal>
-        <!-- Weddings card -->
-        <a
-          href="/weddings"
-          class="group relative rounded-lg overflow-hidden min-h-[16rem] flex items-end p-8 transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <PlaceholderArt variant="cool" />
-          <div class="absolute inset-0 bg-deep-sound/50" />
-          <div class="relative">
-            <h3 class="font-heading text-2xl md:text-card text-driftwood mb-2">
-              {weddingService?.data.heroHeading ?? "Weddings"}
-            </h3>
-            <p class="font-body text-sm text-sea-glass leading-relaxed max-w-sm">
-              {weddingService?.data.heroSubheading ??
-                "Your day, your music, your DJ from day one."}
-            </p>
-          </div>
-        </a>
-
-        <!-- Events card -->
-        <a
-          href="/events"
-          class="group relative rounded-lg overflow-hidden min-h-[16rem] flex items-end p-8 transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <PlaceholderArt variant="cool" />
-          <div class="absolute inset-0 bg-deep-sound/50" />
-          <div class="relative">
-            <h3 class="font-heading text-2xl md:text-card text-driftwood mb-2">
-              {eventService?.data.heroHeading ?? "Events"}
-            </h3>
-            <p class="font-body text-sm text-sea-glass leading-relaxed max-w-sm">
-              {eventService?.data.heroSubheading ??
-                "School dances, auctions, community events — flat pricing, zero surprises."}
-            </p>
-          </div>
-        </a>
-      </div>
-
-      <!-- Photobooth card (smaller) -->
-      <div class="max-w-md mx-auto" data-reveal>
-        <a
-          href="/photobooth"
-          class="group relative rounded-lg overflow-hidden min-h-[10rem] flex items-end p-6 transition-transform duration-300 hover:scale-[1.02] block"
-        >
-          <PlaceholderArt variant="accent" />
-          <div class="absolute inset-0 bg-deep-sound/50" />
-          <div class="relative">
-            <h3 class="font-heading text-xl text-driftwood mb-1">
-              Photobooth
-            </h3>
-            <p class="font-body text-sm text-sea-glass leading-relaxed">
-              Prints, digital copies, and a line that never stops. Add it to any package.
-            </p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Proof band -->
-  <section class="py-20 md:py-28 lg:py-section">
-    <div class="max-w-5xl mx-auto px-6">
-      <!-- Review badges (only if populated) -->
-      {badges.length > 0 && (
-        <div class="flex flex-wrap justify-center gap-6 mb-16" data-reveal>
-          {badges.map((badge) => (
-            <a
-              href={badge.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-2 px-4 py-2 rounded-full border border-penn-cove/20 hover:border-penn-cove/40 transition-colors duration-200"
-            >
-              <span class="font-body text-sm font-medium text-penn-cove">
-                {badge.platform}
-              </span>
-              <span class="font-body text-sm text-golden-hour font-semibold">
-                {badge.rating}
-              </span>
-              <span class="font-body text-xs text-deep-sound/50">
-                ({badge.count})
-              </span>
-            </a>
-          ))}
-        </div>
-      )}
-
-      <!-- Featured reviews -->
-      {featuredReviews.length > 0 && (
-        <div data-reveal>
-          <SectionHeading
-            eyebrow="What People Say"
-            heading="Real reviews, real events."
-          />
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {featuredReviews.map((review) => (
-              <div class="bg-deep-sound rounded-lg p-8">
-                <ReviewCard
-                  quote={review.body ?? ""}
-                  attribution={review.data.attribution}
-                  eventType={review.data.eventType}
-                />
-              </div>
-            ))}
-          </div>
-          <div class="text-center mt-10">
-            <Button href="/reviews" variant="outline" size="md">
-              All reviews
-            </Button>
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- 5. Blog teaser (only if published posts exist) -->
-  {publishedPosts.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
-      <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <SectionHeading
-          eyebrow="From the Blog"
-          heading="Stories from the booth."
-        />
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-          {publishedPosts.map((post) => (
-            <a
-              href={`/blog/${post.id}`}
-              class="group block bg-driftwood rounded-lg p-6 border border-penn-cove/10 hover:border-penn-cove/30 transition-colors duration-200"
-            >
-              <span class="block font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-                {post.data.category === "giglog" ? "Gig Log" : "Essay"}
-              </span>
-              <h3 class="font-heading text-xl text-penn-cove mb-3 group-hover:text-madrone transition-colors duration-200">
-                {post.data.title}
-              </h3>
-              <p class="font-body text-sm text-deep-sound/70 leading-relaxed">
-                {post.data.excerpt}
-              </p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- 6. Bottom CTA -->
-  <section class="py-20 md:py-28 lg:py-section">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
-        Check your date.
-      </h2>
-      <p class="font-body text-body text-deep-sound/70 mb-10">
-        No commitment, no awkward sales pitch. Just a conversation about what
-        you&rsquo;re planning and how we can help.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check availability
-      </Button>
-    </div>
-  </section>
+    <!-- Minimal footer -->
+    <footer class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-center">
+      <span class="font-body text-xs text-deep-sound-400">
+        &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective
+      </span>
+      <span class="font-body text-xs text-deep-sound-300 hidden sm:inline" aria-hidden="true">&middot;</span>
+      <span class="font-body text-xs text-deep-sound-400">
+        Whidbey Island &amp; the Puget Sound
+      </span>
+    </footer>
+  </div>
 </BaseLayout>

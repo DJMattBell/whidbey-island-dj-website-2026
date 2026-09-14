@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import SplitSection from "../components/SplitSection.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import Button from "../components/Button.astro";
 import PlaceholderArt from "../components/PlaceholderArt.astro";
@@ -19,14 +20,14 @@ const weddingReviews = (await getCollection("reviews"))
   description="Wedding DJ services on Whidbey Island and the Puget Sound. Transparent pricing, named DJs, music that reads the room. No upcharges, ever."
 >
   <!-- Hero -->
-  <section class="relative py-28 md:py-36 lg:py-section bg-deep-sound overflow-hidden">
+  <section class="relative py-32 md:py-40 lg:py-48 bg-deep-sound overflow-hidden">
     <PlaceholderArt variant="cool" />
     <div class="absolute inset-0 bg-deep-sound/60" />
-    <div class="relative max-w-3xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+    <div class="relative max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
         {entry?.data.heroHeading ?? "Your wedding, your music."}
       </h1>
-      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto mb-10">
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl mb-10">
         {entry?.data.heroSubheading}
       </p>
       <Button href="/contact" variant="primary" size="lg">
@@ -35,20 +36,23 @@ const weddingReviews = (await getCollection("reviews"))
     </div>
   </section>
 
-  <!-- Body content -->
+  <!-- Body content — split layout -->
   {Content && (
-    <section class="py-20 md:py-28 lg:py-section">
-      <div class="max-w-3xl mx-auto px-6" data-reveal>
-        <div class="prose prose-lg max-w-none font-body text-deep-sound/80 leading-relaxed space-y-6
+    <SplitSection>
+      <div data-reveal>
+        <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
           [&>p]:text-body [&>p]:leading-relaxed">
           <Content />
         </div>
       </div>
-    </section>
+      <div class="relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound" data-reveal>
+        <PlaceholderArt variant="cool" />
+      </div>
+    </SplitSection>
   )}
 
   <!-- What's included -->
-  <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
     <div class="max-w-4xl mx-auto px-6" data-reveal>
       <SectionHeading
         eyebrow="What's Included"
@@ -65,12 +69,12 @@ const weddingReviews = (await getCollection("reviews"))
         ].map((item) => (
           <div class="flex items-start gap-3">
             <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
-            <span class="font-body text-body text-deep-sound/80">{item}</span>
+            <span class="font-body text-body text-driftwood-200">{item}</span>
           </div>
         ))}
       </div>
-      <div class="text-center mt-12">
-        <Button href="/pricing" variant="outline" size="md">
+      <div class="mt-12">
+        <Button href="/pricing" variant="secondary" size="md">
           See pricing
         </Button>
       </div>
@@ -84,6 +88,7 @@ const weddingReviews = (await getCollection("reviews"))
         <SectionHeading
           eyebrow="From Our Couples"
           heading="What they said after the last song."
+          centered
         />
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           {weddingReviews.map((review) => (

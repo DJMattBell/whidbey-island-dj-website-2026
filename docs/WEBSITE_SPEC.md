@@ -2,7 +2,7 @@
 
 _Supersedes WEBSITE_SPEC v6 and the Aug 12 backend plan (both retired; Drive copies are LEGACY). This file, in this repo, is the source of truth. Brand voice and visual system still live in BRAND.md v4 and LOGO_AND_ART_GUIDE.md v4 in Drive — those are unchanged._
 
-_Last verified: 2026-09-11_
+_Last verified: 2026-09-11 (rev 2 — homepage simplified, design direction added, palette test)_
 
 ---
 
@@ -37,7 +37,7 @@ Git-backed content means one system, one host, one login model (GitHub), zero ru
 ## 3. Sitemap
 
 ```
-/                 Homepage (one-page landing that draws people in)
+/                 Landing — one screen: the mark, two doors (Weddings / Not weddings), one review, footer
 /weddings         Wedding couples
 /events           Everything that isn't a wedding: school dances, PTA, auctions, community events, private parties
 /pricing          Packages & offerings — real numbers as live text
@@ -56,7 +56,7 @@ Git-backed content means one system, one host, one login model (GitHub), zero ru
 /privacy, /terms, sitemap.xml, robots.txt, 404
 ```
 
-**Nav (≤7 items):** Weddings · Events · Pricing · DJs · Gallery · Blog · Contact. Photobooth, Reviews, Equipment, Recommendations, FAQ, Our Story live in the footer and are cross-linked from relevant pages.
+**Nav (≤7 items):** Weddings · Not weddings · Pricing · DJs · Gallery · Blog · Contact. The `/events` route keeps its URL; its public label everywhere (nav, landing, footer, page title) is **"Not weddings"** — see DECISIONS 2026-09-11. Photobooth, Reviews, Equipment, Recommendations, FAQ, Our Story live in the footer and are cross-linked from relevant pages. The landing page has no nav bar (see Homepage).
 
 **Subdomains:** `matt.whidbeyislanddj.com` and `lee.whidbeyislanddj.com` are Vercel redirects to `/djs/matt` and `/djs/lee`. Nothing is served from a subdomain.
 
@@ -64,17 +64,28 @@ Git-backed content means one system, one host, one login model (GitHub), zero ru
 
 ## 4. Page requirements
 
-### Homepage
+### Homepage (rev 2 — supersedes the v7 five-section homepage)
 
-Order is fixed: (1) hero — warmth first, real photo or the muted loop; (2) short "who we are, why it's different" block _before_ the service picker; (3) two-way service picker: Weddings / Events, with Photobooth as a third, smaller card; (4) proof band — review badges with platform ratings/counts, three featured reviews, real lighting photo; (5) "check your date" CTA top and bottom → `/contact` with the date field focused. Blog teaser (latest 2) near the bottom.
+The landing page is a single fixed screen in the Dart Collective mode: no scroll, no nav bar, no hero copy. It exists to set the tone and send the visitor to one of two pages. Everything else lives on `/weddings` and `/events`.
+
+Contents, in visual order:
+
+1. **The mark** — the wave-vinyl placeholder (`src/assets/wave-vinyl-placeholder.svg`), spinning slowly, centered. It is the only motion on the page. The word mark sits above it. This is the placeholder until the illustrator's mark lands; the component is written so the SVG is a one-file swap.
+2. **Two doors** — two links of equal weight: **Weddings** → `/weddings`, **Not weddings** → `/events`. No third card, no photobooth tile, no service picker. If a visitor can't tell which door is theirs, the copy has failed.
+3. **One review** — a single featured review (`reviews` where `featured: true`, first by date), quote + attribution + source. Not three, not a badge row. It should feel like a glowing note left on the door, not a proof band.
+4. **Footer** — the full footer (Navigate / More / Get in touch), same component as every other page. This is where Pricing, DJs, Gallery, Blog, Contact and the footer-only pages are reachable from the landing.
+
+Explicitly not on the landing: nav bar, "who we are" prose, service picker, photobooth card, badge row, blog teaser, top CTA. The "check your date" CTA moves to the two detail pages. LocalBusiness JSON-LD stays on the landing.
+
+Mobile: the same four items stack; the mark scales down; the two doors become full-width stacked buttons; the page may scroll on short viewports — "no scroll" is a desktop intent, not a constraint that clips content.
 
 ### /weddings
 
-Couple-facing, rural-wedding focus, per BRAND.md §5. "Says yes, figures it out together" gets a concrete home (captioned collaborative-moment photos). Highlight reel embed. Wedding reviews. Pricing link. CTA.
+Because the landing carries no copy, this page opens with the "who we are, why it's different" block that used to sit on the homepage, in the couple-facing voice. Couple-facing, rural-wedding focus, per BRAND.md §5. "Says yes, figures it out together" gets a concrete home (captioned collaborative-moment photos). Highlight reel embed. Wedding reviews. Pricing link. CTA.
 
-### /events
+### /events (public label: "Not weddings")
 
-Organizer-facing. Lead with clean-lyrics guarantee, COI available, flat pricing, PO-friendly invoicing, experience with student councils/auction committees. Sections for school dances and auctions/community events — visually and tonally distinct from /weddings. Event reviews. CTA.
+Same rule as `/weddings`: opens with the collective intro, in the organizer-facing voice. Organizer-facing. Lead with clean-lyrics guarantee, COI available, flat pricing, PO-friendly invoicing, experience with student councils/auction committees. Sections for school dances and auctions/community events — visually and tonally distinct from /weddings. Event reviews. CTA.
 
 ### /pricing
 
@@ -119,6 +130,24 @@ Collective story, proof-point layer (years active, events played) once compiled.
 ### /contact
 
 Form: name, email, event date, event type, message. Honeypot + basic rate limit. POST → Resend → Matt's inbox (and a copy to the sender). 24-hour response promise stated. No calendar embed.
+
+## 4a. Design direction (added rev 2)
+
+This section is the visual brief for every page. It is deliberately about *feel*, because the reference sites differ in mechanics and none of them is to be copied.
+
+**The one-line version:** landing page like Dart Collective; interior pages a cross between Bamboo Beats and Traveling Discotheque; nothing that reads as a template.
+
+**Landing page (Dart mode).** One fixed screen, one large image or mark, near-zero chrome, a single slow continuous motion. Dart's landing is a photo with a ring that turns once every 8 s; ours is the wave-vinyl mark turning once every 10 s. No parallax, no scroll reveals, no hero slider.
+
+**Interior pages (Bamboo × Discotheque).** From Bamboo Beats take: typographic confidence (one display face doing real work at 48px+), full-bleed photography that carries a section, and the willingness to let a section be dark and dramatic. From Traveling Discotheque take: first-person voice, the per-DJ "favorite artists" line, and the absence of decoration — sections that are just a heading, a paragraph, and a photo. Do not take from Bamboo: parallax backgrounds (it runs nine), fade-in-on-scroll on every element (twelve), diagonal section dividers, or the black-marble club aesthetic. Do not take from Traveling Discotheque: the third-person bios or the Squarespace-default layout.
+
+**Motion budget (site-wide).** The landing mark is the only continuous animation. Interior pages get the one IntersectionObserver reveal utility on 3–5 moments per page, view transitions between pages, and nothing else. `prefers-reduced-motion` stops everything.
+
+**"Not a template" test.** Before a phase is called done, look at each page and ask: could this be a Divi, Squarespace, or Tailwind UI starter with the copy swapped? If yes, it fails. The tells are: symmetric three-card rows, icon-plus-heading feature grids, stock hero-with-centered-headline, gradient buttons, and any section whose layout is doing the work the photography should be doing.
+
+**Palette (test).** The site is running on the disco/funk test palette in `global.css` — ruby-red, blaze-orange, sandy-brown, olive ramps — until the official palette is decided with the illustrator. Every color reference goes through a token so the swap is one file. See DECISIONS 2026-09-11 (palette test) and KNOWN_ISSUES (apricot-cream duplicate).
+
+**Source media.** Photos: Drive → `Media/Photos for Use/{Pre-2025, 2025, 2026}` and `Media/Equipment Photos/`. Logos (pre-rebrand, reference only): Drive → `Logos/` (Social Icon, Mixer Logo, Card Back Logo, Business card front). `05 Media/Rebrand Media (new brand)` is empty and is where illustrator deliverables will land. `Media/Footage/` is raw Insta360 capture for the DJ Video Pipeline project, not a web asset source.
 
 ## 5. Content editing (what Matt maintains without a code session)
 

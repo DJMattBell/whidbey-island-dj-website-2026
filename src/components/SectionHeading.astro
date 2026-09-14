@@ -5,7 +5,7 @@ interface Props {
   centered?: boolean;
 }
 
-const { eyebrow, heading, centered = true } = Astro.props;
+const { eyebrow, heading, centered = false } = Astro.props;
 ---
 
 <div class:list={["mb-10", centered && "text-center"]}>
@@ -14,7 +14,7 @@ const { eyebrow, heading, centered = true } = Astro.props;
       {eyebrow}
     </span>
   )}
-  <h2 class="font-heading text-2xl md:text-section text-penn-cove leading-tight">
+  <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight">
     {heading}
   </h2>
 </div>

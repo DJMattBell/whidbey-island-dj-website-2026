@@ -14,12 +14,12 @@ const djs = (await getCollection("djs")).sort(
   description="Your DJ from day one. Meet the crew behind the Whidbey Island DJ Collective — named DJs who stay with your event from first call to last song."
 >
   <!-- Hero -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
         Your DJ from Day One.
       </h1>
-      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
         The DJ you talk to is the DJ who shows up. No hand-offs, no strangers,
         no surprises. You get a named person who knows your playlist, your
         timeline, and your uncle&rsquo;s song request.
@@ -27,41 +27,42 @@ const djs = (await getCollection("djs")).sort(
     </div>
   </section>
 
-  <!-- DJ cards -->
+  <!-- DJ profiles — full-width editorial blocks (Traveling Discotheque style) -->
   <section class="py-20 md:py-28 lg:py-section">
     <div class="max-w-5xl mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {djs.map((dj) => (
-          <a
-            href={`/djs/${dj.id}`}
-            class="group block rounded-lg overflow-hidden border border-penn-cove/10 hover:border-penn-cove/30 transition-colors duration-200"
-            data-reveal
-          >
-            <div class="relative h-48 bg-deep-sound overflow-hidden">
-              <PlaceholderArt variant="cool" />
-              <div class="absolute inset-0 bg-deep-sound/30" />
+      {djs.map((dj, i) => (
+        <a
+          href={`/djs/${dj.id}`}
+          class="group grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center py-12 first:pt-0 last:pb-0 border-b border-penn-cove-200 last:border-0"
+          data-reveal
+        >
+          <div class:list={[
+            "relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound",
+            i % 2 !== 0 && "md:order-2",
+          ]}>
+            <PlaceholderArt variant={i % 2 === 0 ? "cool" : "warm"} />
+            <div class="absolute inset-0 bg-deep-sound/30" />
+          </div>
+          <div>
+            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              {dj.data.role}
+            </p>
+            <h2 class="font-heading text-3xl md:text-4xl text-penn-cove mb-4 group-hover:text-madrone transition-colors duration-200">
+              {dj.data.name}
+            </h2>
+            <p class="font-body text-body text-deep-sound-700 leading-relaxed mb-6">
+              {dj.data.philosophy}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {dj.data.specialties.map((s) => (
+                <span class="font-body text-xs text-penn-cove-600 bg-penn-cove-50 px-3 py-1 rounded">
+                  {s}
+                </span>
+              ))}
             </div>
-            <div class="p-6">
-              <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-                {dj.data.role}
-              </p>
-              <h2 class="font-heading text-2xl text-penn-cove mb-3 group-hover:text-madrone transition-colors duration-200">
-                {dj.data.name}
-              </h2>
-              <p class="font-body text-sm text-deep-sound/70 leading-relaxed mb-4">
-                {dj.data.philosophy}
-              </p>
-              <div class="flex flex-wrap gap-2">
-                {dj.data.specialties.map((s) => (
-                  <span class="font-body text-xs text-penn-cove/70 bg-penn-cove/10 px-2 py-1 rounded">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
+          </div>
+        </a>
+      ))}
     </div>
   </section>
 

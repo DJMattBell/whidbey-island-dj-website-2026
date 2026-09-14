@@ -3,29 +3,118 @@
 /*
  * WIDC Design Tokens
  * Source: BRAND.md — Colors (Section 3), Typography (Section 4)
+ *
+ * Each color has a 50–950 ramp. The bare name (e.g. --color-driftwood)
+ * is an alias to the position used most across the codebase.
+ * One-file palette swap: change values here, entire site follows.
  */
 @theme {
-  /* Colors */
-  --color-driftwood: #f5f0eb;
-  --color-deep-sound: #1a2332;
-  --color-penn-cove: #2e5e4e;
-  --color-golden-hour: #c4883a;
-  --color-madrone: #b85c38;
-  --color-sea-glass: #7ba6a0;
+  /* ── Palette: driftwood (warm neutral) — base = 100 ── */
+  --color-driftwood-50: #faf8f6;
+  --color-driftwood-100: #f5f0eb;
+  --color-driftwood-200: #e8ddd2;
+  --color-driftwood-300: #d9c7b5;
+  --color-driftwood-400: #c4a88e;
+  --color-driftwood-500: #ae8b6b;
+  --color-driftwood-600: #93704f;
+  --color-driftwood-700: #745838;
+  --color-driftwood-800: #574228;
+  --color-driftwood-900: #3d2f1c;
+  --color-driftwood-950: #2a2013;
+  --color-driftwood: #f5f0eb; /* = 100 */
 
-  /* Fonts */
+  /* ── Palette: deep-sound (dark navy) — base = 900 ── */
+  --color-deep-sound-50: #f1f3f7;
+  --color-deep-sound-100: #dbe0e9;
+  --color-deep-sound-200: #b6c0d2;
+  --color-deep-sound-300: #8d9cb5;
+  --color-deep-sound-400: #687b9a;
+  --color-deep-sound-500: #4e607f;
+  --color-deep-sound-600: #3c4b65;
+  --color-deep-sound-700: #2e394e;
+  --color-deep-sound-800: #232d3f;
+  --color-deep-sound-900: #1a2332;
+  --color-deep-sound-950: #111820;
+  --color-deep-sound: #1a2332; /* = 900 */
+
+  /* ── Palette: penn-cove (forest teal) — base = 700 ── */
+  --color-penn-cove-50: #f0f7f4;
+  --color-penn-cove-100: #d4ebe2;
+  --color-penn-cove-200: #a9d7c5;
+  --color-penn-cove-300: #7dc3a8;
+  --color-penn-cove-400: #53a07f;
+  --color-penn-cove-500: #3d8367;
+  --color-penn-cove-600: #336e56;
+  --color-penn-cove-700: #2e5e4e;
+  --color-penn-cove-800: #254a3e;
+  --color-penn-cove-900: #1c372e;
+  --color-penn-cove-950: #12241e;
+  --color-penn-cove: #2e5e4e; /* = 700 */
+
+  /* ── Palette: golden-hour (amber) — base = 500 ── */
+  --color-golden-hour-50: #fdf6ed;
+  --color-golden-hour-100: #f9e8cf;
+  --color-golden-hour-200: #f2cf9e;
+  --color-golden-hour-300: #ebb56d;
+  --color-golden-hour-400: #d99e4f;
+  --color-golden-hour-500: #c4883a;
+  --color-golden-hour-600: #a67130;
+  --color-golden-hour-700: #875a28;
+  --color-golden-hour-800: #6b4522;
+  --color-golden-hour-900: #52341c;
+  --color-golden-hour-950: #3a2514;
+  --color-golden-hour: #c4883a; /* = 500 */
+
+  /* ── Palette: madrone (terracotta) — base = 600 ── */
+  --color-madrone-50: #fdf3ef;
+  --color-madrone-100: #f9e1d5;
+  --color-madrone-200: #f2c0a8;
+  --color-madrone-300: #e99a78;
+  --color-madrone-400: #d47852;
+  --color-madrone-500: #c66942;
+  --color-madrone-600: #b85c38;
+  --color-madrone-700: #974b2e;
+  --color-madrone-800: #783c26;
+  --color-madrone-900: #5c2f1e;
+  --color-madrone-950: #3f2014;
+  --color-madrone: #b85c38; /* = 600 */
+
+  /* ── Palette: sea-glass (muted sage) — base = 400 ── */
+  --color-sea-glass-50: #f3f7f6;
+  --color-sea-glass-100: #e0edeb;
+  --color-sea-glass-200: #c1dbd6;
+  --color-sea-glass-300: #a1c8c1;
+  --color-sea-glass-400: #7ba6a0;
+  --color-sea-glass-500: #5f8e87;
+  --color-sea-glass-600: #4d746e;
+  --color-sea-glass-700: #3f5e5a;
+  --color-sea-glass-800: #334a46;
+  --color-sea-glass-900: #283836;
+  --color-sea-glass-950: #1c2726;
+  --color-sea-glass: #7ba6a0; /* = 400 */
+
+  /* ── Mark (placeholder — swap when illustrator delivers) ── */
+  --color-mark-bg: #211e12;
+  --color-mark-rim: #a4965b;
+  --color-mark-wave-1: #ffa033;
+  --color-mark-wave-2: #ff6200;
+  --color-mark-label: #b41825;
+  --color-mark-island: #ffe7cc;
+  --color-mark-orca: #fff3e5;
+
+  /* ── Fonts ── */
   --font-heading: "DM Serif Display", serif;
   --font-body: "Inter", sans-serif;
 
-  /* Type scale */
-  --font-size-hero: 4.5rem;
-  --font-size-section: 3rem;
+  /* ── Type scale ── */
+  --font-size-hero: 5rem;
+  --font-size-section: 3.5rem;
   --font-size-card: 1.5rem;
   --font-size-body: 1.125rem;
   --font-size-small: 0.875rem;
   --font-size-eyebrow: 0.75rem;
 
-  /* Section spacing */
+  /* ── Section spacing ── */
   --spacing-section: 8rem;
   --spacing-block: 4rem;
 }

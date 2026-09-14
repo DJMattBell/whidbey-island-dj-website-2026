@@ -22,12 +22,12 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
   description="Transparent DJ pricing for weddings and events on Whidbey Island. $0 upcharges, ever. Real numbers, no surprises."
 >
   <!-- Hero -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-tight mb-6">
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
         $0 upcharges. Forever.
       </h1>
-      <p class="font-body text-body text-sea-glass leading-relaxed max-w-2xl mx-auto">
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
         Real numbers, live on this page — not locked behind a contact form.
         The price you see is the price you pay.
       </p>
@@ -44,7 +44,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
               "rounded-lg p-8 flex flex-col",
               tier.data.highlight
                 ? "bg-penn-cove text-driftwood ring-2 ring-penn-cove"
-                : "bg-driftwood border border-penn-cove/15",
+                : "bg-driftwood border border-penn-cove-200",
             ]}
             data-reveal
           >
@@ -54,7 +54,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
                   "self-start font-body text-xs font-semibold tracking-[0.15em] uppercase px-3 py-1 rounded-full mb-4",
                   tier.data.highlight
                     ? "bg-golden-hour text-deep-sound"
-                    : "bg-penn-cove/10 text-penn-cove",
+                    : "bg-penn-cove-100 text-penn-cove",
                 ]}
               >
                 {tier.data.badge}
@@ -80,8 +80,8 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
               class:list={[
                 "font-body text-sm leading-relaxed mb-6",
                 tier.data.highlight
-                  ? "text-driftwood/80"
-                  : "text-deep-sound/70",
+                  ? "text-driftwood-200"
+                  : "text-deep-sound-700",
               ]}
             >
               {tier.data.description}
@@ -90,12 +90,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
               {tier.data.features.map((feature) => (
                 <li class="flex items-start gap-2">
                   <span
-                    class:list={[
-                      "mt-0.5 shrink-0",
-                      tier.data.highlight
-                        ? "text-golden-hour"
-                        : "text-golden-hour",
-                    ]}
+                    class="mt-0.5 shrink-0 text-golden-hour"
                     aria-hidden="true"
                   >
                     &check;
@@ -104,8 +99,8 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
                     class:list={[
                       "font-body text-sm",
                       tier.data.highlight
-                        ? "text-driftwood/90"
-                        : "text-deep-sound/80",
+                        ? "text-driftwood-200"
+                        : "text-deep-sound-700",
                     ]}
                   >
                     {feature}
@@ -128,7 +123,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
 
   <!-- Add-ons -->
   {djAddons.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Add-ons"
@@ -136,16 +131,16 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
         />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {djAddons.map((addon) => (
-            <div class="bg-driftwood rounded-lg p-6 border border-penn-cove/10">
+            <div class="bg-driftwood/10 rounded-lg p-6 border border-driftwood-300/10">
               <div class="flex justify-between items-start gap-4 mb-2">
-                <h3 class="font-heading text-xl text-penn-cove">
+                <h3 class="font-heading text-xl text-driftwood">
                   {addon.data.name}
                 </h3>
-                <span class="font-heading text-xl text-deep-sound whitespace-nowrap">
+                <span class="font-heading text-xl text-golden-hour whitespace-nowrap">
                   {formatPrice(addon.data.priceCents)}
                 </span>
               </div>
-              <p class="font-body text-sm text-deep-sound/70 leading-relaxed">
+              <p class="font-body text-sm text-driftwood-300 leading-relaxed">
                 {addon.data.description}
               </p>
             </div>
@@ -165,7 +160,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
         />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {photoboothAddons.map((addon) => (
-            <div class="bg-driftwood rounded-lg p-6 border border-penn-cove/10">
+            <div class="bg-driftwood rounded-lg p-6 border border-penn-cove-200">
               <div class="flex justify-between items-start gap-4 mb-2">
                 <h3 class="font-heading text-xl text-penn-cove">
                   {addon.data.name}
@@ -174,13 +169,13 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
                   {formatPrice(addon.data.priceCents)}
                 </span>
               </div>
-              <p class="font-body text-sm text-deep-sound/70 leading-relaxed">
+              <p class="font-body text-sm text-deep-sound-700 leading-relaxed">
                 {addon.data.description}
               </p>
             </div>
           ))}
         </div>
-        <div class="text-center mt-10">
+        <div class="mt-10">
           <Button href="/photobooth" variant="outline" size="md">
             Learn more about the photobooth
           </Button>

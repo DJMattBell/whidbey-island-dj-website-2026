@@ -50,6 +50,30 @@ No GitHub organization. The repo lives at `DJMattBell/whidbey-island-dj-website-
 
 360°/hotspot equipment viewers, newsletter, booking portal/CRM, availability calendar embed. See SPEC §10.
 
+## 2026-09-11 — Landing page is one fixed screen, not a five-section homepage
+
+Supersedes SPEC v7 §4 Homepage. The landing is: the mark, two doors (Weddings / Not weddings), one review, footer. No nav bar, no hero copy, no service picker, no badge row, no blog teaser. Rationale: the two buyers are different enough that any shared homepage copy dilutes both; the homepage's only job is tone plus routing. Dart Collective's landing is the model. The "who we are" block and the "check your date" CTA move to the top of `/weddings` and `/events`. Phase 1 homepage work already done (service picker, proof band, PlaceholderArt hero) is replaced, not extended.
+
+## 2026-09-11 — `/events` is labelled "Not weddings"
+
+The route stays `/events` for URL sanity and SEO. Every public label — nav, landing door, footer, page `<title>`, OG title — reads "Not weddings". It is honest, it passes the BRAND.md voice test (something Matt would actually say), and it makes the two-door choice instant. Revisit if organizer-side inquiries drop or feedback says it reads as dismissive.
+
+## 2026-09-11 — Palette test: disco/funk ramps replace the interim navy/terracotta
+
+The interim palette (deep-sound navy, driftwood, terracotta, penn-cove) is replaced site-wide by a test palette: `ruby-red`, `blaze-orange`, `sandy-brown`, `olive`, each as a 50–950 ramp in `global.css`. This is a test, not the official palette — the official one is decided with the illustrator. Because every color goes through a token, the swap is one file; if the test fails, revert the token block. `apricot-cream` was supplied but is byte-identical to `sandy-brown` and is not added (see KNOWN_ISSUES).
+
+## 2026-09-11 — Placeholder mark: wave-vinyl with the real Whidbey coastline
+
+`src/assets/wave-vinyl-placeholder.svg` is the landing mark until the illustrator's logo lands. It is a record whose grooves are rolling waves (two-harmonic sine, leaning crests), the Whidbey Island coastline on the label (OSM relation 3954595, simplified to 173 points, rotated −22° to fill the label), and a fixed orca fluke cresting from the outer wave band while the disc turns beneath it. Colors are CSS custom properties (`--mark-bg`, `--mark-rim`, `--mark-wave-1`, `--mark-wave-2`, `--mark-label`, `--mark-island`, `--mark-orca`) with palette defaults baked in, so it recolors from `global.css`. Spins once per 10 s; static under `prefers-reduced-motion`. The word mark above it is HTML text, not part of the SVG, so the lockup can be stacked or inline. It is explicitly placeholder art: the fluke and the label lettering are rough, and the display face (Shrikhand as a stand-in) is not a brand decision.
+
+## 2026-09-11 — Motion: one continuous animation, no parallax
+
+The landing mark is the only continuous animation on the site. Parallax is banned site-wide even though Bamboo Beats (the primary visual reference) uses it heavily: it fights "restraint over decoration," it costs mobile Lighthouse, and it is the single strongest "this is a page-builder template" tell. Interior motion stays at the one IntersectionObserver reveal utility, 3–5 moments per page, plus view transitions.
+
+## 2026-09-11 — Reference sites, and what each is for
+
+Recorded so a future session doesn't re-derive it. Dart Collective: landing-page mode (fixed screen, single slow motion, near-zero chrome). Bamboo Beats: typographic confidence, full-bleed photography, comfort with dark dramatic sections — *not* its parallax, per-element fades, diagonal dividers, or club-black marble. Traveling Discotheque: first-person voice, per-DJ favorite-artists line, undecorated sections — *not* its third-person bios or Squarespace layout. Style Matters, Integral DJs, Toast & Jam, Sounds To Go, North Georgia: positioning and page-structure references per BRAND.md, not visual ones. dj100proof was open during review but is a club/nightlife site and is not a reference.
+
 ## Phase 0 — React is a Keystatic dependency, not a site dependency
 
 `react` and `react-dom` are installed because `@keystatic/astro` requires them as peer dependencies. React powers Keystatic's admin UI at `/keystatic`. No React components are used in any site page or component. The site remains vanilla Astro + `<script>` islands per CLAUDE.md. If Keystatic is ever removed, React goes with it.
@@ -93,3 +117,23 @@ One global script in BaseLayout observes `[data-reveal]` elements and adds `.is-
 ## Phase 1 — Placeholder art for photo-less sections
 
 `PlaceholderArt.astro` renders CSS gradient backgrounds in three variants (warm, cool, accent) using the token palette. Each usage is a documented swap target in KNOWN_ISSUES. No placeholder images are committed to the repo — gradients are pure CSS using existing `--color-*` custom properties.
+
+## Phase 3.5 — Color ramps (50–950) for the existing palette
+
+Each of the six named colors (driftwood, deep-sound, penn-cove, golden-hour, madrone, sea-glass) now has an 11-stop ramp in `global.css`. The bare name (`--color-driftwood`) is kept as an alias to the most-used stop so existing code keeps working. New code uses ramp values (e.g. `text-deep-sound-700` instead of `text-deep-sound/80`). Ramps replace opacity hacks for text and background shades; opacity is still appropriate for overlays on images.
+
+## Phase 3.5 — Landing page rewritten to one fixed screen (Dart mode)
+
+The old six-section homepage (hero, about, service picker, proof band, blog teaser, CTA) is replaced by the spec's one-screen landing: spinning wave-vinyl mark, two doors (Weddings / Not weddings), one featured review, minimal footer. No nav bar on the landing page — the landing IS the routing. `BaseLayout` gained a `landing` prop that hides Nav and Footer. `HeroSection.astro` deleted (was only used on the old homepage).
+
+## Phase 3.5 — Interior pages break the centered-everything pattern
+
+All interior pages (weddings, events, pricing, photobooth, faq, djs) refactored: hero headlines left-aligned and pushed to text-5xl/6xl/7xl; content sections use `SplitSection` (two-column text + media); checklist sections moved to dark backgrounds; `SectionHeading` defaults to `centered={false}`. DJ index uses full-width editorial blocks (Traveling Discotheque style) instead of a card grid. The visual language alternates light/dark sections and breaks the centered stack that reads as template.
+
+## Phase 3.5 — SectionHeading defaults to left-aligned
+
+Changed `centered` prop default from `true` to `false`. Centered headings are now opt-in via `centered` or `centered={true}`. CTA sections and standalone showcase sections keep centering; feature/content sections are left-aligned.
+
+## Phase 3.5 — Scroll-reveal uses requestAnimationFrame
+
+The IntersectionObserver init is wrapped in `requestAnimationFrame` to wait one frame after `astro:page-load`. This fixes a race condition where view transitions swap the DOM but elements aren't painted yet, causing the observer to miss already-visible elements. Threshold lowered from 0.15 to 0.1 for more reliable triggering.

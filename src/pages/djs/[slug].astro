@@ -27,29 +27,29 @@ const allDjs = (await getCollection("djs"))
   description={`${dj.data.name}, ${dj.data.role} at the Whidbey Island DJ Collective. ${dj.data.philosophy}`}
 >
   <!-- Profile header -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+  <section class="py-24 md:py-32 lg:py-40 bg-deep-sound">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <!-- Photo -->
-        <div class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound">
+        <div class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound" data-reveal>
           <PlaceholderArt variant="cool" />
           <div class="absolute inset-0 bg-deep-sound/20" />
         </div>
 
         <!-- Info -->
-        <div>
+        <div data-reveal>
           <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
             {dj.data.role}
           </p>
-          <h1 class="font-heading text-4xl sm:text-5xl text-driftwood leading-tight mb-6">
+          <h1 class="font-heading text-5xl sm:text-6xl text-driftwood leading-tight mb-6">
             {dj.data.name}
           </h1>
-          <p class="font-body text-body text-sea-glass leading-relaxed mb-6 italic">
+          <p class="font-body text-body text-sea-glass-300 leading-relaxed mb-6 italic">
             &ldquo;{dj.data.philosophy}&rdquo;
           </p>
           <div class="flex flex-wrap gap-2 mb-8">
             {dj.data.specialties.map((s) => (
-              <span class="font-body text-sm text-driftwood/80 bg-driftwood/10 px-3 py-1 rounded">
+              <span class="font-body text-sm text-driftwood-200 bg-driftwood/10 px-3 py-1 rounded">
                 {s}
               </span>
             ))}
@@ -65,7 +65,7 @@ const allDjs = (await getCollection("djs"))
   <!-- Bio -->
   <section class="py-20 md:py-28 lg:py-section">
     <div class="max-w-3xl mx-auto px-6" data-reveal>
-      <div class="prose prose-lg max-w-none font-body text-deep-sound/80 leading-relaxed space-y-6
+      <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
         [&>p]:text-body [&>p]:leading-relaxed">
         <Content />
       </div>
@@ -74,45 +74,29 @@ const allDjs = (await getCollection("djs"))
 
   <!-- Music favorites -->
   {dj.data.musicFavorites && (
-    <section class="py-20 md:py-28 lg:py-section bg-penn-cove/5">
+    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
       <div class="max-w-3xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Music Favorites"
           heading={`What ${dj.data.name.split(" ")[0]} plays.`}
+          centered
         />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
-          <div class="text-center p-6">
-            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-              Go-to Anthem
-            </p>
-            <p class="font-heading text-xl text-penn-cove">
-              {dj.data.musicFavorites.goToAnthem}
-            </p>
-          </div>
-          <div class="text-center p-6">
-            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-              Guilty Pleasure
-            </p>
-            <p class="font-heading text-xl text-penn-cove">
-              {dj.data.musicFavorites.guiltyPleasure}
-            </p>
-          </div>
-          <div class="text-center p-6">
-            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-              For the Parents
-            </p>
-            <p class="font-heading text-xl text-penn-cove">
-              {dj.data.musicFavorites.forTheParents}
-            </p>
-          </div>
-          <div class="text-center p-6">
-            <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
-              Last Song
-            </p>
-            <p class="font-heading text-xl text-penn-cove">
-              {dj.data.musicFavorites.lastSong}
-            </p>
-          </div>
+          {[
+            { label: "Go-to Anthem", value: dj.data.musicFavorites.goToAnthem },
+            { label: "Guilty Pleasure", value: dj.data.musicFavorites.guiltyPleasure },
+            { label: "For the Parents", value: dj.data.musicFavorites.forTheParents },
+            { label: "Last Song", value: dj.data.musicFavorites.lastSong },
+          ].map((item) => (
+            <div class="text-center p-6">
+              <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+                {item.label}
+              </p>
+              <p class="font-heading text-xl text-driftwood">
+                {item.value}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -125,6 +109,7 @@ const allDjs = (await getCollection("djs"))
         <SectionHeading
           eyebrow="Reviews"
           heading={`What people say about ${dj.data.name.split(" ")[0]}.`}
+          centered
         />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {djReviews.map((review) => (
@@ -153,6 +138,7 @@ const allDjs = (await getCollection("djs"))
         <SectionHeading
           eyebrow="The Collective"
           heading="Meet the rest of the crew."
+          centered
         />
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {allDjs.map((other) => (
@@ -185,7 +171,7 @@ const allDjs = (await getCollection("djs"))
       <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
         Check your date.
       </h2>
-      <p class="font-body text-body text-deep-sound/70 mb-10">
+      <p class="font-body text-body text-deep-sound-700 mb-10">
         Tell us about your event and we&rsquo;ll take it from there.
       </p>
       <Button href="/contact" variant="primary" size="lg">

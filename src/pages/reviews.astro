@@ -1,0 +1,133 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ReviewCardFull from "../components/ReviewCardFull.astro";
+import FilterChips from "../components/FilterChips.astro";
+import Button from "../components/Button.astro";
+
+const siteEntry = await getEntry("site", "site");
+const reviewBadges = siteEntry?.data.reviewBadges ?? [];
+
+const allReviews = await getCollection("reviews");
+
+// Render each review body to HTML
+const reviews = await Promise.all(
+  allReviews.map(async (review) => {
+    const { Content } = await render(review);
+    return { entry: review, Content };
+  }),
+);
+
+import { sourceLabels, eventLabels } from "../lib/labels";
+
+const sources = [...new Set(allReviews.map((r) => r.data.source))];
+const eventTypes = [...new Set(allReviews.map((r) => r.data.eventType))];
+const djSlugs = [...new Set(allReviews.filter((r) => r.data.dj).map((r) => r.data.dj!))];
+
+const seen = new Set<string>();
+const filters = [
+  ...eventTypes.map((e) => ({ key: e, label: eventLabels[e] ?? e })),
+  ...sources
+    .filter((s) => s !== "direct" || sources.length === 1) // hide "Direct" unless it's the only source
+    .map((s) => ({ key: s, label: sourceLabels[s] ?? s })),
+  ...djSlugs.map((d) => ({ key: d, label: d.charAt(0).toUpperCase() + d.slice(1) })),
+].filter((f) => {
+  if (seen.has(f.key)) return false;
+  seen.add(f.key);
+  return true;
+});
+---
+
+<BaseLayout
+  title="Reviews | Whidbey Island DJ Collective"
+  description="What couples and event organizers say about the Whidbey Island DJ Collective. Real reviews from real events."
+>
+  <!-- Hero -->
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+        What people say after the last song.
+      </h1>
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
+        Real reviews from real events. No cherry-picking, no edits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Badge row (hidden when empty) -->
+  {reviewBadges.length > 0 && (
+    <section class="py-10 border-b border-deep-sound/10">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="flex flex-wrap justify-center gap-8">
+          {reviewBadges.map((badge) => (
+            <a
+              href={badge.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 font-body text-sm text-deep-sound-600 hover:text-deep-sound transition-colors duration-200"
+            >
+              <span class="font-semibold">{badge.platform}</span>
+              <span class="text-golden-hour font-semibold">{badge.rating}</span>
+              <span class="text-deep-sound-400">({badge.count} reviews)</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Filters + review cards -->
+  <section class="py-20 md:py-28 lg:py-section">
+    <div class="max-w-5xl mx-auto px-6">
+      {filters.length > 1 && (
+        <div class="mb-12" data-reveal>
+          <FilterChips
+            filters={filters}
+            target="#review-grid"
+            filterAttr="filterTags"
+          />
+        </div>
+      )}
+
+      <div id="review-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {reviews.map(({ entry, Content }) => {
+          const tags = [
+            entry.data.source,
+            entry.data.eventType,
+            entry.data.dj,
+          ].filter(Boolean).join(",");
+
+          return (
+            <div data-filterable data-filter-tags={tags} data-reveal>
+              <ReviewCardFull
+                attribution={entry.data.attribution}
+                eventType={entry.data.eventType}
+                source={entry.data.source}
+                sourceUrl={entry.data.sourceUrl}
+                rating={entry.data.rating}
+                date={entry.data.date}
+              >
+                <Content />
+              </ReviewCardFull>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Ready to be next?
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        Tell us about your event and we&rsquo;ll take it from there.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check availability
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

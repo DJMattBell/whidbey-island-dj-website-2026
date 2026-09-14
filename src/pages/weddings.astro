@@ -10,9 +10,15 @@ import PlaceholderArt from "../components/PlaceholderArt.astro";
 const entry = await getEntry("services", "weddings");
 const { Content } = entry ? await render(entry) : { Content: null };
 
-const weddingReviews = (await getCollection("reviews"))
-  .filter((r) => r.data.eventType === "wedding")
-  .slice(0, 3);
+const weddingReviews = await Promise.all(
+  (await getCollection("reviews"))
+    .filter((r) => r.data.eventType === "wedding")
+    .slice(0, 3)
+    .map(async (review) => {
+      const { Content } = await render(review);
+      return { entry: review, Content };
+    }),
+);
 ---
 
 <BaseLayout
@@ -91,13 +97,14 @@ const weddingReviews = (await getCollection("reviews"))
           centered
         />
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          {weddingReviews.map((review) => (
+          {weddingReviews.map(({ entry, Content }) => (
             <div class="bg-deep-sound rounded-lg p-8">
               <ReviewCard
-                quote={review.body ?? ""}
-                attribution={review.data.attribution}
-                eventType={review.data.eventType}
-              />
+                attribution={entry.data.attribution}
+                eventType={entry.data.eventType}
+              >
+                <Content />
+              </ReviewCard>
             </div>
           ))}
         </div>

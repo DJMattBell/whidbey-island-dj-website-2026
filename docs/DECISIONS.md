@@ -137,3 +137,23 @@ Changed `centered` prop default from `true` to `false`. Centered headings are no
 ## Phase 3.5 — Scroll-reveal uses requestAnimationFrame
 
 The IntersectionObserver init is wrapped in `requestAnimationFrame` to wait one frame after `astro:page-load`. This fixes a race condition where view transitions swap the DOM but elements aren't painted yet, causing the observer to miss already-visible elements. Threshold lowered from 0.15 to 0.1 for more reliable triggering.
+
+## Phase 4 — ReviewCardFull.astro for the /reviews page
+
+The compact `ReviewCard` (blockquote + attribution) is used on weddings, events, DJ profiles, and the homepage. The `/reviews` page needs a richer card: source link, date, star rating, rendered markdown body. Rather than bloating ReviewCard with optional props and conditional sections, a separate `ReviewCardFull` component is built for the reviews page. The compact `ReviewCard` stays unchanged.
+
+## Phase 4 — FilterChips island architecture
+
+One `FilterChips.astro` component handles all filterable pages (reviews, gallery, future blog/recommendations). It reads a `target` CSS selector to find the card container and a `filterAttr` data-attribute name. Cards carry `data-filterable` and `data-filter-{attr}="value1,value2"` attributes. The script toggles `display` on cards based on the active chip. No fetching, no shared state, no external dependencies. Re-initialized on `astro:page-load` to survive view transitions.
+
+## Phase 4 — YouTubeFacade is a vanilla lite embed, no dependency
+
+The YouTube facade (thumbnail until click, then iframe) is ~40 lines of Astro + script. Libraries like `lite-youtube-embed` add NPM weight for the same pattern. Uses `youtube-nocookie.com` for the embed domain (privacy). Keyboard-accessible (Enter/Space activates).
+
+## Phase 4 — PhotoSwipe deferred until gallery has real photo content
+
+BUILD_PLAN approves PhotoSwipe for the lightbox. The gallery collection is currently empty. Adding the dependency now means shipping and maintaining untestable code. Gallery markup is lightbox-ready (clickable image links with `data-pswp-*` attributes), so wiring PhotoSwipe later is a small addition. Logged in KNOWN_ISSUES.
+
+## Phase 4 — Review bodies rendered via render(), not raw strings
+
+All pages that display review content (index, weddings, events, djs/[slug], reviews) now use Astro's `render()` to get a Content component from the review entry, instead of passing `review.body` as a raw string. This means review bodies with markdown formatting will render correctly. `ReviewCard` switched from a `quote` string prop to a slot; `ReviewCardFull` uses a slot for the body. CSS pseudo-elements (`::before`/`::after`) handle the smart quotes that were previously interpolated as `&ldquo;`/`&rdquo;`.

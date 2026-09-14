@@ -1,0 +1,67 @@
+---
+interface Props {
+  videoId: string;
+  title: string;
+  class?: string;
+}
+
+const { videoId, title, class: className } = Astro.props;
+const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+---
+
+<div
+  class:list={["yt-facade relative cursor-pointer group bg-deep-sound rounded-lg overflow-hidden", className]}
+  data-video-id={videoId}
+  data-video-title={title}
+  role="button"
+  tabindex="0"
+  aria-label={`Play video: ${title}`}
+>
+  <img
+    src={thumbnailUrl}
+    alt={title}
+    loading="lazy"
+    class="w-full aspect-video object-cover group-hover:opacity-80 transition-opacity duration-200"
+  />
+  <!-- Play button overlay -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="w-16 h-16 md:w-20 md:h-20 bg-madrone/90 rounded-full flex items-center justify-center group-hover:bg-madrone transition-colors duration-200">
+      <svg class="w-7 h-7 md:w-8 md:h-8 text-driftwood ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initFacades() {
+    document.querySelectorAll<HTMLElement>(".yt-facade").forEach((facade) => {
+      if (facade.dataset.initialized) return;
+      facade.dataset.initialized = "true";
+
+      function activate() {
+        const videoId = facade.dataset.videoId;
+        const title = facade.dataset.videoTitle;
+        if (!videoId) return;
+
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+        iframe.title = title ?? "";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.classList.add("w-full", "aspect-video");
+        facade.replaceWith(iframe);
+      }
+
+      facade.addEventListener("click", activate);
+      facade.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initFacades);
+</script>

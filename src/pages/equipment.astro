@@ -1,0 +1,174 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import YouTubeFacade from "../components/YouTubeFacade.astro";
+import PlaceholderArt from "../components/PlaceholderArt.astro";
+import Button from "../components/Button.astro";
+import { getVideoId } from "../lib/video";
+
+const allEquipment = (await getCollection("equipment"))
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const hasContent = allEquipment.length > 0;
+
+// Group equipment by category
+const categoryOrder = ["sound", "lighting", "wireless", "power", "photobooth"] as const;
+const categoryLabels: Record<string, string> = {
+  sound: "Sound",
+  lighting: "Lighting",
+  wireless: "Wireless",
+  power: "Power",
+  photobooth: "Photobooth",
+};
+
+type EquipmentWithContent = {
+  entry: (typeof allEquipment)[number];
+  Content: Awaited<ReturnType<typeof render>>["Content"];
+};
+
+const equipmentWithContent: EquipmentWithContent[] = await Promise.all(
+  allEquipment.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  }),
+);
+
+const groups = categoryOrder
+  .map((cat) => ({
+    category: cat,
+    label: categoryLabels[cat],
+    items: equipmentWithContent.filter((e) => e.entry.data.category === cat),
+  }))
+  .filter((g) => g.items.length > 0);
+
+// Look for a lighting demo video in gallery (pinned + tagged "lighting")
+const galleryEntries = await getCollection("gallery");
+const lightingDemo = galleryEntries.find(
+  (g) => g.data.pinned && g.data.tags.includes("lighting") && g.data.videoUrl,
+);
+
+const lightingVideoId = lightingDemo?.data.videoUrl
+  ? getVideoId(lightingDemo.data.videoUrl)
+  : null;
+---
+
+<BaseLayout
+  title="Equipment | Whidbey Island DJ Collective"
+  description="What we bring to your event and why it matters. Professional sound, lighting, wireless, and photobooth gear from the Whidbey Island DJ Collective."
+>
+  <!-- Hero -->
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+        What we bring &mdash; and why it matters.
+      </h1>
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
+        Professional gear maintained and tested before every event.
+        No rental-house gambles.
+      </p>
+    </div>
+  </section>
+
+  {hasContent ? (
+    <>
+      {/* Category groups */}
+      {groups.map((group, groupIndex) => {
+        const isDark = groupIndex % 2 === 0;
+        return (
+          <section class:list={[
+            "py-20 md:py-28 lg:py-section",
+            isDark && "bg-deep-sound",
+          ]}>
+            <div class="max-w-5xl mx-auto px-6">
+              <SectionHeading
+                eyebrow={group.label}
+                heading={`Our ${group.label.toLowerCase()} gear.`}
+              />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                {group.items.map(({ entry, Content }) => (
+                  <article
+                    class:list={[
+                      "rounded-lg overflow-hidden",
+                      isDark ? "bg-deep-sound-800" : "bg-deep-sound",
+                    ]}
+                    data-reveal
+                  >
+                    {/* Photo or placeholder */}
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                      {entry.data.photo ? (
+                        <img
+                          src={entry.data.photo}
+                          alt={entry.data.name}
+                          loading="lazy"
+                          class="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <PlaceholderArt variant="cool" />
+                      )}
+                    </div>
+                    <div class="p-6">
+                      <h3 class="font-heading text-xl text-driftwood leading-tight mb-2">
+                        {entry.data.name}
+                      </h3>
+                      <p class="font-body text-sm text-sea-glass-300 mb-4">
+                        {entry.data.whatItDoes}
+                      </p>
+                      <div class="font-body text-sm text-driftwood-300 leading-relaxed [&>p]:mb-2 [&>p:last-child]:mb-0">
+                        <Content />
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* Lighting demo video */}
+      {lightingVideoId && (
+        <section class="py-20 md:py-28 lg:py-section">
+          <div class="max-w-3xl mx-auto px-6" data-reveal>
+            <SectionHeading
+              eyebrow="Lighting Demo"
+              heading="See the difference lighting makes."
+              centered
+            />
+            <div class="mt-10">
+              <YouTubeFacade
+                videoId={lightingVideoId}
+                title="Lighting demo"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+        <p class="font-body text-body text-deep-sound-500">
+          Equipment details coming soon. We&rsquo;re documenting our full rig
+          so you know exactly what shows up.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Questions about our setup?
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        We&rsquo;re happy to walk you through what we bring and how it fits
+        your venue.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Get in touch
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

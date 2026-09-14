@@ -1,17 +1,18 @@
 ---
 interface Props {
-  quote: string;
   attribution: string;
   eventType?: string;
 }
 
-const { quote, attribution, eventType } = Astro.props;
+const { attribution, eventType } = Astro.props;
 ---
 
 <blockquote class="max-w-3xl mx-auto text-center">
-  <p class="font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6">
-    &ldquo;{quote}&rdquo;
-  </p>
+  <div class="font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6
+    before:content-['\201C'] after:content-['\201D']
+    [&>p]:inline">
+    <slot />
+  </div>
   <footer class="font-body text-small text-golden-hour tracking-wide uppercase">
     &mdash; {attribution}
     {eventType && `, ${eventType}`}

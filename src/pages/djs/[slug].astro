@@ -15,7 +15,14 @@ const { dj } = Astro.props;
 const { Content } = await render(dj);
 
 const allReviews = await getCollection("reviews");
-const djReviews = allReviews.filter((r) => r.data.dj === dj.id);
+const djReviews = await Promise.all(
+  allReviews
+    .filter((r) => r.data.dj === dj.id)
+    .map(async (review) => {
+      const { Content: ReviewContent } = await render(review);
+      return { entry: review, ReviewContent };
+    }),
+);
 
 const allDjs = (await getCollection("djs"))
   .filter((d) => d.id !== dj.id)
@@ -112,13 +119,14 @@ const allDjs = (await getCollection("djs"))
           centered
         />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-          {djReviews.map((review) => (
+          {djReviews.map(({ entry, ReviewContent }) => (
             <div class="bg-deep-sound rounded-lg p-8">
               <ReviewCard
-                quote={review.body ?? ""}
-                attribution={review.data.attribution}
-                eventType={review.data.eventType}
-              />
+                attribution={entry.data.attribution}
+                eventType={entry.data.eventType}
+              >
+                <ReviewContent />
+              </ReviewCard>
             </div>
           ))}
         </div>

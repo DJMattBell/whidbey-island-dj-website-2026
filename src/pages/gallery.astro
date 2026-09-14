@@ -1,0 +1,152 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import FilterChips from "../components/FilterChips.astro";
+import YouTubeFacade from "../components/YouTubeFacade.astro";
+import Button from "../components/Button.astro";
+import { getVideoId } from "../lib/video";
+
+const allGallery = (await getCollection("gallery"))
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const pinnedVideos = allGallery.filter((g) => g.data.pinned && g.data.videoUrl);
+const gridItems = allGallery.filter((g) => !g.data.pinned);
+
+const hasContent = allGallery.length > 0;
+
+// Build filter chips from tag enum values that actually appear in content
+const tagLabels: Record<string, string> = {
+  wedding: "Weddings",
+  event: "Events",
+  lighting: "Lighting",
+  photobooth: "Photobooth",
+  ceremony: "Ceremony",
+  team: "Team",
+};
+
+const usedTags = [...new Set(allGallery.flatMap((g) => g.data.tags))];
+const filters = usedTags.map((t) => ({ key: t, label: tagLabels[t] ?? t }));
+
+---
+
+<BaseLayout
+  title="Gallery | Whidbey Island DJ Collective"
+  description="Photos and videos from weddings, school dances, and events across Whidbey Island and the Puget Sound."
+>
+  <!-- Hero -->
+  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+        See what we do.
+      </h1>
+      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
+        Photos and videos from real events across the island and the Sound.
+      </p>
+    </div>
+  </section>
+
+  {hasContent ? (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-6xl mx-auto px-6">
+        {/* Filters */}
+        {filters.length > 1 && (
+          <div class="mb-12" data-reveal>
+            <FilterChips
+              filters={filters}
+              target="#gallery-grid"
+              filterAttr="filterTags"
+            />
+          </div>
+        )}
+
+        {/* Pinned videos */}
+        {pinnedVideos.length > 0 && (
+          <div class="mb-16" data-reveal>
+            <SectionHeading eyebrow="Featured" heading="Core videos." />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              {pinnedVideos.map((item) => {
+                const videoId = item.data.videoUrl ? getVideoId(item.data.videoUrl) : null;
+                return videoId ? (
+                  <YouTubeFacade
+                    videoId={videoId}
+                    title={item.data.caption ?? "Video"}
+                  />
+                ) : null;
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Photo/video grid */}
+        {gridItems.length > 0 && (
+          <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gridItems.map((item) => {
+              const tags = item.data.tags.join(",");
+              const videoId = item.data.videoUrl ? getVideoId(item.data.videoUrl) : null;
+
+              return (
+                <div
+                  data-filterable
+                  data-filter-tags={tags}
+                  data-reveal
+                >
+                  {item.data.kind === "photo" && item.data.image ? (
+                    <a
+                      href={item.data.image}
+                      data-pswp-width=""
+                      data-pswp-height=""
+                      class="block rounded-lg overflow-hidden"
+                    >
+                      <img
+                        src={item.data.image}
+                        alt={item.data.alt ?? item.data.caption ?? ""}
+                        loading="lazy"
+                        class="w-full aspect-[4/3] object-cover hover:opacity-90 transition-opacity duration-200"
+                      />
+                    </a>
+                  ) : videoId ? (
+                    <YouTubeFacade
+                      videoId={videoId}
+                      title={item.data.caption ?? "Video"}
+                    />
+                  ) : null}
+
+                  {item.data.caption && (
+                    <p class="font-body text-sm text-deep-sound-600 mt-2">
+                      {item.data.caption}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  ) : (
+    <section class="py-20 md:py-28 lg:py-section">
+      <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+        <p class="font-body text-body text-deep-sound-500">
+          Gallery coming soon. We&rsquo;re sorting through hundreds of photos
+          and videos from the past few seasons.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+        Want to see your event here?
+      </h2>
+      <p class="font-body text-body text-sea-glass mb-10">
+        Tell us about your event and we&rsquo;ll take it from there.
+      </p>
+      <Button href="/contact" variant="primary" size="lg">
+        Check availability
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

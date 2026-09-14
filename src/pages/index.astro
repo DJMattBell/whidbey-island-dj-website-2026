@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import waveVinyl from "../assets/wave-vinyl-placeholder.svg";
 
@@ -7,7 +7,10 @@ const siteEntry = await getEntry("site", "site");
 const site = siteEntry?.data;
 
 const allReviews = await getCollection("reviews");
-const featured = allReviews.find((r) => r.data.featured);
+const featuredEntry = allReviews.find((r) => r.data.featured);
+const featured = featuredEntry
+  ? { entry: featuredEntry, Content: (await render(featuredEntry)).Content }
+  : null;
 
 const description =
   "The Whidbey Island DJ Collective — weddings, school dances, and community events across the Puget Sound. Transparent pricing, named DJs, music that reads the room.";
@@ -66,11 +69,13 @@ const jsonLd = {
     <!-- One featured review -->
     {featured && (
       <blockquote class="max-w-sm md:max-w-md text-center mb-8 md:mb-10">
-        <p class="font-body text-sm text-deep-sound-600 italic leading-relaxed">
-          &ldquo;{featured.body}&rdquo;
-        </p>
+        <div class="font-body text-sm text-deep-sound-600 italic leading-relaxed
+          before:content-['\201C'] after:content-['\201D']
+          [&>p]:inline">
+          <featured.Content />
+        </div>
         <footer class="font-body text-xs text-golden-hour mt-2 tracking-wide uppercase">
-          &mdash; {featured.data.attribution}
+          &mdash; {featured.entry.data.attribution}
         </footer>
       </blockquote>
     )}

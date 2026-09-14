@@ -23,12 +23,13 @@ Format: `- [area] description — what would resolve it — date logged`
 - [infra] `npm run build` emits Vite "use client" warnings from Keystatic's UI library — cosmetic, not actionable — Phase 0
 - [infra] Astro's re-exported `z` from `astro:content` shows deprecation hints during `astro check` — upstream migration, not actionable — Phase 0
 - [schema] `reviews.dj` is a plain string slug, not a validated Astro `reference()` — works for filtering but doesn't catch typos at build time — Phase 0
-- [homepage] `review.body` is passed as a raw string, not rendered as HTML — works for plain-text quotes but will break if a review body contains markdown formatting — render via Astro's `render()` when reviews page is built — Phase 0
+- [gallery] PhotoSwipe lightbox dependency deferred — gallery collection is empty; markup is lightbox-ready (`data-pswp-*` attributes on image links); add PhotoSwipe when real photo content exists — Phase 4
+- [gallery] Gallery collection empty — needs photos and video entries from Matt via Keystatic — Phase 4
+- [equipment] Equipment collection empty — needs entries from Matt via Keystatic — Phase 4
 - [placeholder] DJ profile photos use PlaceholderArt — swap for real DJ headshots when available — Phase 2
 - [content] DJ entries for Lee, Wife, Baby, Baby Big Girl are incomplete — need content from Matt — Phase 2
 - [content] Matt's `musicFavorites` not populated — profile page section hidden until filled in — Phase 2
 - [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
-- [djs] review.body passed as raw string on DJ profile page — render via `render()` when reviews page pattern is established — Phase 2
 - [placeholder] /weddings hero uses PlaceholderArt "cool" — swap for real wedding photo — Phase 3
 - [placeholder] /events hero uses PlaceholderArt "accent" — swap for real event photo — Phase 3
 - [placeholder] /photobooth hero uses PlaceholderArt "accent" — swap for real photobooth photo — Phase 3
@@ -53,3 +54,5 @@ Format: `- [area] description — what would resolve it — date logged`
 - [homepage] Only one featured review shown — proof band now shows three featured reviews — Phase 1
 - [seo] No sitemap, robots.txt, 404, canonical URLs, or JSON-LD — all added in Phase 1 — Phase 1
 - [nav] Nav and footer links did not match spec sitemap — updated to Weddings/Events/Pricing/DJs/Gallery/Blog + footer-only pages — Phase 1
+- [homepage] `review.body` passed as raw string — all pages now render review bodies via Astro `render()` with Content components — Phase 4
+- [djs] review.body passed as raw string on DJ profile page — fixed, now uses `render()` — Phase 4

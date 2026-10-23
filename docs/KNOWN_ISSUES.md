@@ -19,7 +19,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] `reviewBadges` array in site.yaml is empty — homepage proof band badge row hidden until real platform ratings/counts are compiled — Phase 1
 - [content] No OG image set for any page — `social-icon.png` (illustrated brand face) available in `src/assets/` for use as OG fallback — Phase 1
 - [infra] Domain redirect map not yet confirmed against registrar — Phase 0 — 2026-09-11
-- [infra] Keystatic GitHub App not yet created; `/keystatic` works locally but not on production until OAuth credentials are set — Phase 0
+- [infra] Keystatic GitHub App not yet created; `/keystatic` works locally but not on production until OAuth credentials are set — run `bash scripts/setup-keystatic-github.sh` to set up — Phase 0
 - [infra] `npm run build` emits Vite "use client" warnings from Keystatic's UI library — cosmetic, not actionable — Phase 0
 - [infra] Astro's re-exported `z` from `astro:content` shows deprecation hints during `astro check` — upstream migration, not actionable — Phase 0
 - [schema] `reviews.dj` is a plain string slug, not a validated Astro `reference()` — works for filtering but doesn't catch typos at build time — Phase 0

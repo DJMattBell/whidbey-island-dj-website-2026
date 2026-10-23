@@ -12,3 +12,13 @@ export function formatPrice(cents: number): string {
     ? `$${dollars.toLocaleString("en-US", { maximumFractionDigits: 0 })}`
     : `$${dollars.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
+
+/**
+ * Format an ISO date string as a short display string.
+ *
+ * @example formatDate("2026-06-15") → "Jun 2026"
+ */
+export function formatDate(iso: string): string {
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import CtaSection from "../components/CtaSection.astro";
 import Button from "../components/Button.astro";
 import { formatPrice } from "../lib/format";
 
@@ -184,19 +185,9 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
     </section>
   )}
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
-        Ready to book?
-      </h2>
-      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
-        Tell us your date and event type. We&rsquo;ll send you a
-        straightforward quote — no follow-up calls unless you want them.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check availability
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Ready to book?"
+    body="Tell us your date and event type. We&rsquo;ll send you a straightforward quote &mdash; no follow-up calls unless you want them."
+    buttonText="Check availability"
+  />
 </BaseLayout>

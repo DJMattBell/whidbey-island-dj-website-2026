@@ -1,0 +1,75 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import ReviewCard from "./ReviewCard.astro";
+import Button from "./Button.astro";
+
+interface ReviewWithContent {
+  entry: {
+    data: {
+      attribution: string;
+      eventType: string;
+      [key: string]: unknown;
+    };
+  };
+  Content: astroHTML.JSX.Element | ((...args: unknown[]) => unknown);
+}
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  reviews: ReviewWithContent[];
+  /** Dark section background with matching card tones. Default false. */
+  dark?: boolean;
+}
+
+const { eyebrow, heading, reviews, dark = false } = Astro.props;
+
+const featuredBg = dark ? "bg-deep-sound-950" : "bg-deep-sound";
+const remainingBg = dark ? "bg-deep-sound-950" : "bg-deep-sound-900";
+
+const first = reviews[0];
+const FirstContent = first?.Content;
+---
+
+{reviews.length > 0 && (
+  <section class:list={[
+    "py-28 md:py-36 lg:py-section",
+    dark && "bg-deep-sound-900",
+  ]}>
+    <div class="max-w-4xl mx-auto px-6" data-reveal>
+      <SectionHeading eyebrow={eyebrow} heading={heading} />
+
+      <div class="mt-14 mb-12">
+        <div class:list={[featuredBg, "rounded-xl p-10 md:p-14"]}>
+          <ReviewCard
+            attribution={first.entry.data.attribution}
+            eventType={first.entry.data.eventType}
+          >
+            <FirstContent />
+          </ReviewCard>
+        </div>
+      </div>
+
+      {reviews.length > 1 && (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {reviews.slice(1).map(({ entry, Content }) => (
+            <div class:list={[remainingBg, "rounded-xl p-8"]}>
+              <ReviewCard
+                attribution={entry.data.attribution}
+                eventType={entry.data.eventType}
+              >
+                <Content />
+              </ReviewCard>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div class="text-center mt-12">
+        <Button href="/reviews" variant="outline" size="md">
+          All reviews
+        </Button>
+      </div>
+    </div>
+  </section>
+)}

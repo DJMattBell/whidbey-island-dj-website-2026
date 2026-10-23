@@ -21,7 +21,7 @@ export const eventLabels: Record<string, string> = {
 export const equipmentCategoryLabels: Record<string, string> = {
   sound: "Sound",
   lighting: "Lighting",
-  wireless: "Wireless",
+  wireless: "Wireless / Ceremony",
   power: "Power",
   photobooth: "Photobooth",
 };

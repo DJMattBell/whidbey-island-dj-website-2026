@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  /** Override the default overlay, e.g. "bg-deep-sound-950/65" */
+  overlayClass?: string;
+  /** Extra classes on the <img>, e.g. "object-top" */
+  imageClass?: string;
+}
+
+const {
+  image,
+  alt,
+  overlayClass = "bg-deep-sound-950/60",
+  imageClass = "",
+} = Astro.props;
+---
+
+<section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
+  <div class="absolute inset-0">
+    <Image
+      src={image}
+      alt={alt}
+      class:list={["w-full h-full object-cover", imageClass]}
+      widths={[640, 1024, 1536, 2048]}
+      sizes="100vw"
+      loading="eager"
+    />
+    <div class:list={["absolute inset-0", overlayClass]} />
+  </div>
+  <div class="relative max-w-4xl mx-auto px-6">
+    <slot />
+  </div>
+</section>

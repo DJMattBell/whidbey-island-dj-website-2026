@@ -9,6 +9,7 @@ interface Props {
 }
 
 import { sourceLabels, eventLabels } from "../lib/labels";
+import { formatDate } from "../lib/format";
 
 const { attribution, eventType, source, sourceUrl, rating, date } =
   Astro.props;
@@ -51,7 +52,7 @@ const eventLabel = eventLabels[eventType] ?? eventType;
     </span>
     {date && (
       <span class="font-body text-xs text-driftwood-500">
-        {date}
+        {formatDate(date)}
       </span>
     )}
   </footer>

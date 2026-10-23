@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/Button.astro";
+import CtaSection from "../components/CtaSection.astro";
 import { faqCategoryLabels } from "../lib/labels";
 
 const allFaq = (await getCollection("faq"))
@@ -64,18 +64,9 @@ const grouped = categoryOrder
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
-        Still have questions?
-      </h2>
-      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
-        We&rsquo;re happy to chat. No pressure, no pitch.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Ask us anything
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Still have questions?"
+    body="We&rsquo;re happy to chat. No pressure, no pitch."
+    buttonText="Ask us anything"
+  />
 </BaseLayout>

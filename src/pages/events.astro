@@ -2,9 +2,11 @@
 import { getCollection, getEntry, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PhotoHero from "../components/PhotoHero.astro";
+import CtaSection from "../components/CtaSection.astro";
+import FeaturedReviewSection from "../components/FeaturedReviewSection.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SplitSection from "../components/SplitSection.astro";
-import ReviewCard from "../components/ReviewCard.astro";
 import Button from "../components/Button.astro";
 import heroImage from "../assets/photos/dj-action-1.jpg";
 import splitImage from "../assets/photos/dj-action-2.jpg";
@@ -29,31 +31,17 @@ const eventReviews = await Promise.all(
   description="DJ services for school dances, auctions, community events, and private parties on Whidbey Island and the Puget Sound. Clean lyrics, flat pricing, COI available."
   transparentNav
 >
-  <!-- Hero with real photo -->
-  <section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
-    <div class="absolute inset-0">
-      <Image
-        src={heroImage}
-        alt="Overhead view of DJ booth and packed dance floor with string lights"
-        class="w-full h-full object-cover"
-        widths={[640, 1024, 1536, 2048]}
-        sizes="100vw"
-        loading="eager"
-      />
-      <div class="absolute inset-0 bg-deep-sound-950/60" />
-    </div>
-    <div class="relative max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
-        {entry?.data.heroHeading ?? "Events that run like clockwork."}
-      </h1>
-      <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
-        {entry?.data.heroSubheading}
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check your date
-      </Button>
-    </div>
-  </section>
+  <PhotoHero image={heroImage} alt="Overhead view of DJ booth and packed dance floor with string lights">
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
+      {entry?.data.heroHeading ?? "Events that run like clockwork."}
+    </h1>
+    <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
+      {entry?.data.heroSubheading}
+    </p>
+    <Button href="/contact" variant="primary" size="lg">
+      Check your date
+    </Button>
+  </PhotoHero>
 
   <!-- Body content — split layout with real photo -->
   {Content && (
@@ -147,66 +135,17 @@ const eventReviews = await Promise.all(
     </div>
   </SplitSection>
 
-  <!-- Event reviews -->
-  {eventReviews.length > 0 && (
-    <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
-      <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <SectionHeading
-          eyebrow="From Event Organizers"
-          heading="What they said after the event."
-        />
-        <!-- Featured first review, large -->
-        {(() => {
-          const first = eventReviews[0];
-          return (
-            <div class="mt-14 mb-12">
-              <div class="bg-deep-sound-950 rounded-xl p-10 md:p-14">
-                <ReviewCard
-                  attribution={first.entry.data.attribution}
-                  eventType={first.entry.data.eventType}
-                >
-                  <first.Content />
-                </ReviewCard>
-              </div>
-            </div>
-          );
-        })()}
-        {eventReviews.length > 1 && (
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {eventReviews.slice(1).map(({ entry, Content }) => (
-              <div class="bg-deep-sound-950 rounded-xl p-8">
-                <ReviewCard
-                  attribution={entry.data.attribution}
-                  eventType={entry.data.eventType}
-                >
-                  <Content />
-                </ReviewCard>
-              </div>
-            ))}
-          </div>
-        )}
-        <div class="text-center mt-12">
-          <Button href="/reviews" variant="outline" size="md">
-            All reviews
-          </Button>
-        </div>
-      </div>
-    </section>
-  )}
+  <FeaturedReviewSection
+    eyebrow="From Event Organizers"
+    heading="What they said after the event."
+    reviews={eventReviews}
+    dark
+  />
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-6">
-        Let&rsquo;s talk about your event.
-      </h2>
-      <p class="font-editorial text-body text-deep-sound-700 mb-12 italic">
-        Tell us what you&rsquo;re planning and we&rsquo;ll put together a
-        quote. No commitment, no hassle.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Get in touch
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Let&rsquo;s talk about your event."
+    body="Tell us what you&rsquo;re planning and we&rsquo;ll put together a quote. No commitment, no hassle."
+    buttonText="Get in touch"
+    dark={false}
+  />
 </BaseLayout>

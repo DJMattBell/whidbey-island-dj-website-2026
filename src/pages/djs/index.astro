@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
+import PhotoHero from "../../components/PhotoHero.astro";
+import CtaSection from "../../components/CtaSection.astro";
 import PlaceholderArt from "../../components/PlaceholderArt.astro";
 import heroImage from "../../assets/photos/dj-setup.jpg";
 
@@ -16,29 +16,15 @@ const djs = (await getCollection("djs")).sort(
   description="Your DJ from day one. Meet the crew behind the Whidbey Island DJ Collective — named DJs who stay with your event from first call to last song."
   transparentNav
 >
-  <!-- Hero with real photo -->
-  <section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
-    <div class="absolute inset-0">
-      <Image
-        src={heroImage}
-        alt="DJ focused at the turntables with headphones"
-        class="w-full h-full object-cover"
-        widths={[640, 1024, 1536, 2048]}
-        sizes="100vw"
-        loading="eager"
-      />
-      <div class="absolute inset-0 bg-deep-sound-950/65" />
-    </div>
-    <div class="relative max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
-        Your DJ from Day One.
-      </h1>
-      <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
-        The DJ you talk to is the DJ who shows up. No hand-offs, no strangers,
-        no surprises.
-      </p>
-    </div>
-  </section>
+  <PhotoHero image={heroImage} alt="DJ focused at the turntables with headphones" overlayClass="bg-deep-sound-950/65">
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
+      Your DJ from Day One.
+    </h1>
+    <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
+      The DJ you talk to is the DJ who shows up. No hand-offs, no strangers,
+      no surprises.
+    </p>
+  </PhotoHero>
 
   <!-- DJ profiles — full-width editorial blocks -->
   <section class="py-28 md:py-36 lg:py-section">
@@ -79,18 +65,9 @@ const djs = (await getCollection("djs")).sort(
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
-        Want to meet your DJ?
-      </h2>
-      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
-        Tell us about your event and we&rsquo;ll match you with the right person.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Get in touch
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Want to meet your DJ?"
+    body="Tell us about your event and we&rsquo;ll match you with the right person."
+    buttonText="Get in touch"
+  />
 </BaseLayout>

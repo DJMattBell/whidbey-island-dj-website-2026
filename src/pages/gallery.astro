@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import FilterChips from "../components/FilterChips.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
-import Button from "../components/Button.astro";
+import CtaSection from "../components/CtaSection.astro";
 import { getVideoId } from "../lib/video";
 import { galleryTagLabels } from "../lib/labels";
 
@@ -16,9 +16,14 @@ const gridItems = allGallery.filter((g) => !g.data.pinned);
 
 const hasContent = allGallery.length > 0;
 
-// Build filter chips from tag enum values that actually appear in content
+// Build filter chips from tag enum values that actually appear in content.
+// "Video" is synthesized from kind (video/reel), not from a tag value.
 const usedTags = [...new Set(allGallery.flatMap((g) => g.data.tags))];
-const filters = usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t }));
+const hasVideos = allGallery.some((g) => g.data.kind === "video" || g.data.kind === "reel");
+const filters = [
+  ...usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t })),
+  ...(hasVideos ? [{ key: "video", label: "Video" }] : []),
+];
 
 ---
 
@@ -52,9 +57,9 @@ const filters = usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t }
           </div>
         )}
 
-        {/* Pinned videos */}
+        {/* Pinned videos — visible on "All" and "Video" filters, hidden otherwise */}
         {pinnedVideos.length > 0 && (
-          <div class="mb-16" data-reveal>
+          <div id="pinned-videos" class="mb-16" data-reveal>
             <SectionHeading eyebrow="Featured" heading="Core videos." />
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
               {pinnedVideos.map((item) => {
@@ -74,7 +79,8 @@ const filters = usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t }
         {gridItems.length > 0 && (
           <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {gridItems.map((item) => {
-              const tags = item.data.tags.join(",");
+              const isVideo = item.data.kind === "video" || item.data.kind === "reel";
+              const tags = [...item.data.tags, ...(isVideo ? ["video"] : [])].join(",");
               const videoId = item.data.videoUrl ? getVideoId(item.data.videoUrl) : null;
 
               return (
@@ -127,18 +133,28 @@ const filters = usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t }
     </section>
   )}
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
-        Want to see your event here?
-      </h2>
-      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
-        Tell us about your event and we&rsquo;ll take it from there.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check availability
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Want to see your event here?"
+    body="Tell us about your event and we&rsquo;ll take it from there."
+    buttonText="Check availability"
+  />
 </BaseLayout>
+
+<script>
+  function initGalleryPinnedToggle() {
+    const pinned = document.getElementById("pinned-videos");
+    if (!pinned) return;
+
+    const chipContainer = document.querySelector<HTMLElement>(".filter-chips");
+    if (!chipContainer) return;
+
+    chipContainer.addEventListener("click", (e) => {
+      const chip = (e.target as HTMLElement).closest<HTMLButtonElement>(".filter-chip");
+      if (!chip) return;
+      const value = chip.dataset.filterValue ?? "all";
+      pinned.style.display = (value === "all" || value === "video") ? "" : "none";
+    });
+  }
+
+  document.addEventListener("astro:page-load", initGalleryPinnedToggle);
+</script>

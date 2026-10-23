@@ -2,8 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ReviewCardFull from "../components/ReviewCardFull.astro";
-import FilterChips from "../components/FilterChips.astro";
-import Button from "../components/Button.astro";
+import CtaSection from "../components/CtaSection.astro";
 import { sourceLabels, eventLabels } from "../lib/labels";
 
 const siteEntry = await getEntry("site", "site");
@@ -19,22 +18,19 @@ const reviews = await Promise.all(
   }),
 );
 
-const sources = [...new Set(allReviews.map((r) => r.data.source))];
+// Build three independent filter axes per spec §4.
+// Reviews page uses its own filter UI (AND across axes) instead of the
+// shared FilterChips component (single-axis OR). See DECISIONS.md.
 const eventTypes = [...new Set(allReviews.map((r) => r.data.eventType))];
+const sources = [...new Set(allReviews.map((r) => r.data.source))]
+  .filter((s) => s !== "direct" || allReviews.every((r) => r.data.source === "direct"));
 const djSlugs = [...new Set(allReviews.filter((r) => r.data.dj).map((r) => r.data.dj!))];
 
-const seen = new Set<string>();
-const filters = [
-  ...eventTypes.map((e) => ({ key: e, label: eventLabels[e] ?? e })),
-  ...sources
-    .filter((s) => s !== "direct" || sources.length === 1) // hide "Direct" unless it's the only source
-    .map((s) => ({ key: s, label: sourceLabels[s] ?? s })),
-  ...djSlugs.map((d) => ({ key: d, label: d.charAt(0).toUpperCase() + d.slice(1) })),
-].filter((f) => {
-  if (seen.has(f.key)) return false;
-  seen.add(f.key);
-  return true;
-});
+const eventFilters = eventTypes.map((e) => ({ key: e, label: eventLabels[e] ?? e }));
+const sourceFilters = sources.map((s) => ({ key: s, label: sourceLabels[s] ?? s }));
+const djFilters = djSlugs.map((d) => ({ key: d, label: d.charAt(0).toUpperCase() + d.slice(1) }));
+
+const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilters.length > 0;
 ---
 
 <BaseLayout
@@ -75,58 +71,129 @@ const filters = [
     </section>
   )}
 
-  <!-- Filters + review cards -->
+  <!-- Three-axis filters + review cards -->
   <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-5xl mx-auto px-6">
-      {filters.length > 1 && (
-        <div class="mb-12" data-reveal>
-          <FilterChips
-            filters={filters}
-            target="#review-grid"
-            filterAttr="filterTags"
-          />
+      {hasFilters && (
+        <div id="review-filters" class="mb-12 space-y-4" data-reveal>
+          {eventFilters.length > 1 && (
+            <div class="review-filter-axis" data-axis="event">
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Event type</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                {eventFilters.map((f) => (
+                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                ))}
+              </div>
+            </div>
+          )}
+          {sourceFilters.length > 1 && (
+            <div class="review-filter-axis" data-axis="source">
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Source</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                {sourceFilters.map((f) => (
+                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                ))}
+              </div>
+            </div>
+          )}
+          {djFilters.length > 0 && (
+            <div class="review-filter-axis" data-axis="dj">
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">DJ</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                {djFilters.map((f) => (
+                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
       <div id="review-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {reviews.map(({ entry, Content }) => {
-          const tags = [
-            entry.data.source,
-            entry.data.eventType,
-            entry.data.dj,
-          ].filter(Boolean).join(",");
-
-          return (
-            <div data-filterable data-filter-tags={tags} data-reveal>
-              <ReviewCardFull
-                attribution={entry.data.attribution}
-                eventType={entry.data.eventType}
-                source={entry.data.source}
-                sourceUrl={entry.data.sourceUrl}
-                rating={entry.data.rating}
-                date={entry.data.date}
-              >
-                <Content />
-              </ReviewCardFull>
-            </div>
-          );
-        })}
+        {reviews.map(({ entry, Content }) => (
+          <div
+            data-filterable
+            data-source={entry.data.source}
+            data-event-type={entry.data.eventType}
+            data-dj={entry.data.dj ?? ""}
+            data-reveal
+          >
+            <ReviewCardFull
+              attribution={entry.data.attribution}
+              eventType={entry.data.eventType}
+              source={entry.data.source}
+              sourceUrl={entry.data.sourceUrl}
+              rating={entry.data.rating}
+              date={entry.data.date}
+            >
+              <Content />
+            </ReviewCardFull>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
-        Ready to be next?
-      </h2>
-      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
-        Tell us about your event and we&rsquo;ll take it from there.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check availability
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Ready to be next?"
+    body="Tell us about your event and we&rsquo;ll take it from there."
+    buttonText="Check availability"
+  />
 </BaseLayout>
+
+<script>
+  function initReviewFilters() {
+    const container = document.getElementById("review-filters");
+    const grid = document.getElementById("review-grid");
+    if (!container || !grid) return;
+
+    const cards = grid.querySelectorAll<HTMLElement>("[data-filterable]");
+    const axes = container.querySelectorAll<HTMLElement>(".review-filter-axis");
+
+    const activeClasses = ["border-penn-cove", "bg-penn-cove", "text-driftwood"];
+    const inactiveClasses = ["border-penn-cove/40", "text-penn-cove", "hover:border-penn-cove"];
+
+    // Track active value per axis
+    const active: Record<string, string> = {};
+    axes.forEach((axis) => { active[axis.dataset.axis!] = "all"; });
+
+    function applyFilters() {
+      cards.forEach((card) => {
+        const show = Object.entries(active).every(([axis, value]) => {
+          if (value === "all") return true;
+          const attr = axis === "event" ? "eventType" : axis;
+          return (card.dataset[attr] ?? "") === value;
+        });
+        card.style.display = show ? "" : "none";
+      });
+    }
+
+    axes.forEach((axis) => {
+      const axisName = axis.dataset.axis!;
+      const chips = axis.querySelectorAll<HTMLButtonElement>(".review-chip");
+
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          // Update visual state for this axis
+          chips.forEach((c) => {
+            c.setAttribute("aria-pressed", "false");
+            activeClasses.forEach((cls) => c.classList.remove(cls));
+            inactiveClasses.forEach((cls) => c.classList.add(cls));
+          });
+          chip.setAttribute("aria-pressed", "true");
+          inactiveClasses.forEach((cls) => chip.classList.remove(cls));
+          activeClasses.forEach((cls) => chip.classList.add(cls));
+
+          // Update filter state and apply
+          active[axisName] = chip.dataset.value ?? "all";
+          applyFilters();
+        });
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initReviewFilters);
+</script>

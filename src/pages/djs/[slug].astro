@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import ReviewCard from "../../components/ReviewCard.astro";
+import CtaSection from "../../components/CtaSection.astro";
 import Button from "../../components/Button.astro";
 import PlaceholderArt from "../../components/PlaceholderArt.astro";
 
@@ -173,18 +174,10 @@ const allDjs = (await getCollection("djs"))
     </section>
   )}
 
-  <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section">
-    <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-6">
-        Check your date.
-      </h2>
-      <p class="font-editorial text-body text-deep-sound-700 mb-12 italic">
-        Tell us about your event and we&rsquo;ll take it from there.
-      </p>
-      <Button href="/contact" variant="primary" size="lg">
-        Check availability
-      </Button>
-    </div>
-  </section>
+  <CtaSection
+    heading="Check your date."
+    body="Tell us about your event and we&rsquo;ll take it from there."
+    buttonText="Check availability"
+    dark={false}
+  />
 </BaseLayout>

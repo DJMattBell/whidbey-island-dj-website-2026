@@ -189,3 +189,15 @@ Wedding and event review sections changed from a 3-column equal grid (a SPEC §4
 ## Visual quality pass — Full-bleed photo section breaks
 
 Added full-width photo strips between content sections on weddings and events pages (elegant table setup, lakeside ceremony). These atmospheric photos create visual breathing room and depth between text blocks, matching the Bamboo Beats pattern of photography-as-transition.
+
+## 2026-10-23 — Reviews page uses three-axis inline filters, not FilterChips
+
+The spec says "Filter chips: source, event type, DJ" — three independent filter axes with AND logic (e.g. show Google reviews for weddings by Matt). FilterChips is a single-axis OR filter (one active value at a time). Rather than overcomplicating FilterChips for a single page's needs, the reviews page renders its own inline filter UI (same chip styling) with a page-specific script that applies AND logic across all three axes. FilterChips stays simple for gallery and future blog/recommendations pages.
+
+## 2026-10-23 — Gallery "Video" filter synthesized from kind, not a tag
+
+SPEC §4 says "Filter chips: All / Weddings / Events / Lighting / Video." The gallery tag enum covers topic tags (wedding, event, lighting, etc.) but "Video" maps to `kind === "video" || kind === "reel"`, not to a topic tag. Rather than adding "video" to the tag enum (which would require content editors to redundantly tag every video with "video"), the gallery page synthesizes the Video filter chip from the `kind` field and injects `"video"` into the filter tags at render time.
+
+## 2026-10-23 — PhotoHero, CtaSection, FeaturedReviewSection extracted
+
+The full-bleed photo hero pattern (~15 lines) was duplicated across 5 pages; the CTA section across 10 pages; the featured-first review layout across 2 pages. Extracted into reusable components. PhotoHero accepts image, alt, optional overlay/image classes, and a slot. CtaSection accepts heading, body, button text, and a dark/light toggle. FeaturedReviewSection accepts reviews with rendered Content components and a dark toggle.

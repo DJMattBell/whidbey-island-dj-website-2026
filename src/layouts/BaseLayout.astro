@@ -11,6 +11,7 @@ interface Props {
   ogType?: string;
   jsonLd?: Record<string, unknown>;
   landing?: boolean;
+  transparentNav?: boolean;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   ogType = "website",
   jsonLd,
   landing = false,
+  transparentNav = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
@@ -46,7 +48,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
 
@@ -62,7 +64,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
     <title>{title}</title>
   </head>
   <body class="bg-driftwood text-deep-sound antialiased">
-    {!landing && <Nav />}
+    {!landing && <Nav transparent={transparentNav} />}
     <main>
       <slot />
     </main>

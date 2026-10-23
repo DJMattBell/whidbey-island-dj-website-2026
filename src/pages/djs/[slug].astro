@@ -34,7 +34,7 @@ const allDjs = (await getCollection("djs"))
   description={`${dj.data.name}, ${dj.data.role} at the Whidbey Island DJ Collective. ${dj.data.philosophy}`}
 >
   <!-- Profile header -->
-  <section class="py-24 md:py-32 lg:py-40 bg-deep-sound">
+  <section class="py-24 md:py-32 lg:py-40 bg-deep-sound-900">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <!-- Photo -->
@@ -45,7 +45,7 @@ const allDjs = (await getCollection("djs"))
 
         <!-- Info -->
         <div data-reveal>
-          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-3">
+          <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-3">
             {dj.data.role}
           </p>
           <h1 class="font-heading text-5xl sm:text-6xl text-driftwood leading-tight mb-6">
@@ -70,7 +70,7 @@ const allDjs = (await getCollection("djs"))
   </section>
 
   <!-- Bio -->
-  <section class="py-20 md:py-28 lg:py-section">
+  <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-3xl mx-auto px-6" data-reveal>
       <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
         [&>p]:text-body [&>p]:leading-relaxed">
@@ -81,7 +81,7 @@ const allDjs = (await getCollection("djs"))
 
   <!-- Music favorites -->
   {dj.data.musicFavorites && (
-    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
       <div class="max-w-3xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Music Favorites"
@@ -96,7 +96,7 @@ const allDjs = (await getCollection("djs"))
             { label: "Last Song", value: dj.data.musicFavorites.lastSong },
           ].map((item) => (
             <div class="text-center p-6">
-              <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-2">
+              <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-2">
                 {item.label}
               </p>
               <p class="font-heading text-xl text-driftwood">
@@ -111,7 +111,7 @@ const allDjs = (await getCollection("djs"))
 
   <!-- DJ-specific reviews -->
   {djReviews.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section">
+    <section class="py-28 md:py-36 lg:py-section">
       <div class="max-w-5xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Reviews"
@@ -141,7 +141,7 @@ const allDjs = (await getCollection("djs"))
 
   <!-- Meet the rest -->
   {allDjs.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
       <div class="max-w-5xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="The Collective"
@@ -159,7 +159,7 @@ const allDjs = (await getCollection("djs"))
                 <div class="absolute inset-0 bg-deep-sound/30" />
               </div>
               <div class="p-5">
-                <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour mb-1">
+                <p class="font-body text-xs font-semibold tracking-[0.3em] uppercase text-golden-hour mb-1">
                   {other.data.role}
                 </p>
                 <h3 class="font-heading text-xl text-driftwood group-hover:text-golden-hour transition-colors duration-200">
@@ -174,7 +174,7 @@ const allDjs = (await getCollection("djs"))
   )}
 
   <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-section">
+  <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
       <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight mb-4">
         Check your date.

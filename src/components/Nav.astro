@@ -1,6 +1,12 @@
 ---
 import Button from "./Button.astro";
 
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+
 const navLinks = [
   { label: "Weddings", href: "/weddings" },
   { label: "Events", href: "/events" },
@@ -13,12 +19,25 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-40 bg-driftwood/95 backdrop-blur-sm border-b border-penn-cove/10">
+<header
+  id="site-header"
+  class:list={[
+    "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+    transparent
+      ? "bg-transparent border-b border-transparent"
+      : "bg-driftwood/95 backdrop-blur-sm border-b border-penn-cove/10",
+  ]}
+  data-transparent={transparent ? "true" : undefined}
+>
   <nav class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
     <!-- Wordmark -->
     <a
       href="/"
-      class="font-heading text-lg md:text-xl text-penn-cove leading-tight"
+      class:list={[
+        "font-heading text-lg md:text-xl leading-tight transition-colors duration-300",
+        transparent ? "text-driftwood" : "text-penn-cove",
+      ]}
+      id="nav-wordmark"
     >
       The Whidbey Island
       <br class="sm:hidden" /> DJ Collective
@@ -30,10 +49,10 @@ const currentPath = Astro.url.pathname;
         <a
           href={link.href}
           class:list={[
-            "font-body text-sm font-medium tracking-wide transition-colors duration-200",
+            "font-body text-sm font-medium tracking-wide transition-colors duration-200 nav-link",
             currentPath === link.href
-              ? "text-penn-cove"
-              : "text-deep-sound/70 hover:text-penn-cove",
+              ? transparent ? "text-driftwood" : "text-penn-cove"
+              : transparent ? "text-driftwood/80 hover:text-driftwood" : "text-deep-sound/70 hover:text-penn-cove",
           ]}
         >
           {link.label}
@@ -47,13 +66,15 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile hamburger -->
     <button
       id="menu-toggle"
-      class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 touch-manipulation"
+      class:list={[
+        "lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 touch-manipulation",
+      ]}
       aria-label="Open menu"
       aria-expanded="false"
     >
-      <span class="block w-6 h-0.5 bg-deep-sound transition-transform duration-200" />
-      <span class="block w-6 h-0.5 bg-deep-sound transition-opacity duration-200" />
-      <span class="block w-6 h-0.5 bg-deep-sound transition-transform duration-200" />
+      <span class:list={["block w-6 h-0.5 transition-transform duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-1" />
+      <span class:list={["block w-6 h-0.5 transition-opacity duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-2" />
+      <span class:list={["block w-6 h-0.5 transition-transform duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-3" />
     </button>
   </nav>
 </header>
@@ -98,14 +119,15 @@ const currentPath = Astro.url.pathname;
   </nav>
 </div>
 
-<!-- Spacer so content isn't hidden behind fixed nav -->
-<div class="h-16 md:h-20" />
+<!-- Spacer so content isn't hidden behind fixed nav (not needed for transparent) -->
+{!transparent && <div class="h-16 md:h-20" />}
 
 <script>
   function initNav() {
     const toggle = document.getElementById("menu-toggle");
     const close = document.getElementById("menu-close");
     const menu = document.getElementById("mobile-menu");
+    const header = document.getElementById("site-header");
 
     function openMenu() {
       menu?.classList.remove("hidden");
@@ -125,6 +147,30 @@ const currentPath = Astro.url.pathname;
     menu?.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMenu);
     });
+
+    // Transparent-to-solid scroll behavior
+    if (header?.dataset.transparent === "true") {
+      const wordmark = document.getElementById("nav-wordmark");
+      const burgers = [
+        document.getElementById("burger-1"),
+        document.getElementById("burger-2"),
+        document.getElementById("burger-3"),
+      ];
+
+      function onScroll() {
+        const scrolled = window.scrollY > 80;
+        if (scrolled) {
+          header!.classList.remove("bg-transparent", "border-transparent");
+          header!.classList.add("bg-deep-sound-950/95", "backdrop-blur-sm", "border-driftwood/10");
+        } else {
+          header!.classList.add("bg-transparent", "border-transparent");
+          header!.classList.remove("bg-deep-sound-950/95", "backdrop-blur-sm", "border-driftwood/10");
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll(); // initial state
+    }
   }
 
   document.addEventListener("astro:page-load", initNav);

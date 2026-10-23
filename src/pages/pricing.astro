@@ -22,9 +22,9 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
   description="Transparent DJ pricing for weddings and events on Whidbey Island. $0 upcharges, ever. Real numbers, no surprises."
 >
   <!-- Hero -->
-  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
         $0 upcharges. Forever.
       </h1>
       <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
@@ -35,7 +35,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
   </section>
 
   <!-- Tiers -->
-  <section class="py-20 md:py-28 lg:py-section">
+  <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {tiers.map((tier) => (
@@ -123,7 +123,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
 
   <!-- Add-ons -->
   {djAddons.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+    <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Add-ons"
@@ -152,7 +152,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
 
   <!-- Photobooth add-ons -->
   {photoboothAddons.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section">
+    <section class="py-28 md:py-36 lg:py-section">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Photobooth"
@@ -185,7 +185,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
   )}
 
   <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
       <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
         Ready to book?

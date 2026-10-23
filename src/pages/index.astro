@@ -1,7 +1,9 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import waveVinyl from "../assets/wave-vinyl-placeholder.svg";
+import heroImage from "../assets/photos/party-moment.jpg";
 
 const siteEntry = await getEntry("site", "site");
 const site = siteEntry?.data;
@@ -32,63 +34,79 @@ const jsonLd = {
   jsonLd={jsonLd}
   landing
 >
-  <div class="min-h-dvh flex flex-col items-center px-6 py-8 sm:py-10 md:py-12">
-
-    <!-- Wordmark -->
-    <p class="font-heading text-base sm:text-lg text-deep-sound-700 tracking-wide text-center">
-      The Whidbey Island DJ Collective
-    </p>
-
-    <!-- Mark (SVG self-animates; see wave-vinyl-placeholder.svg) -->
-    <div class="flex-1 flex items-center justify-center py-6 md:py-10">
-      <img
-        src={waveVinyl.src}
-        width="400"
-        height="400"
-        alt="Whidbey Island DJ Collective — vinyl record with rolling wave grooves and island coastline"
-        class="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72"
+  <!-- Full-bleed hero background -->
+  <div class="relative min-h-dvh flex flex-col items-center px-6 py-8 sm:py-10 md:py-12">
+    <!-- Background photo with overlay -->
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt=""
+        class="w-full h-full object-cover"
+        widths={[640, 1024, 1536, 2048]}
+        sizes="100vw"
+        loading="eager"
       />
+      <div class="absolute inset-0 bg-deep-sound-950/70" />
     </div>
 
-    <!-- Two doors -->
-    <nav class="flex gap-10 sm:gap-16 md:gap-20 mb-8 md:mb-10" aria-label="Services">
-      <a
-        href="/weddings"
-        class="font-heading text-2xl sm:text-3xl md:text-4xl text-deep-sound hover:text-penn-cove transition-colors duration-300"
-      >
-        Weddings
-      </a>
-      <a
-        href="/events"
-        class="font-heading text-2xl sm:text-3xl md:text-4xl text-deep-sound hover:text-penn-cove transition-colors duration-300"
-      >
-        Not weddings
-      </a>
-    </nav>
+    <!-- Content (relative to sit above the background) -->
+    <div class="relative z-10 flex flex-col items-center flex-1 w-full">
+      <!-- Wordmark -->
+      <p class="font-heading text-base sm:text-lg text-driftwood-200 tracking-wide text-center">
+        The Whidbey Island DJ Collective
+      </p>
 
-    <!-- One featured review -->
-    {featured && (
-      <blockquote class="max-w-sm md:max-w-md text-center mb-8 md:mb-10">
-        <div class="font-body text-sm text-deep-sound-600 italic leading-relaxed
-          before:content-['\201C'] after:content-['\201D']
-          [&>p]:inline">
-          <featured.Content />
-        </div>
-        <footer class="font-body text-xs text-golden-hour mt-2 tracking-wide uppercase">
-          &mdash; {featured.entry.data.attribution}
-        </footer>
-      </blockquote>
-    )}
+      <!-- Mark (SVG self-animates; see wave-vinyl-placeholder.svg) -->
+      <div class="flex-1 flex items-center justify-center py-6 md:py-10">
+        <img
+          src={waveVinyl.src}
+          width="400"
+          height="400"
+          alt="Whidbey Island DJ Collective — vinyl record with rolling wave grooves and island coastline"
+          class="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72"
+        />
+      </div>
 
-    <!-- Minimal footer -->
-    <footer class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-center">
-      <span class="font-body text-xs text-deep-sound-400">
-        &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective
-      </span>
-      <span class="font-body text-xs text-deep-sound-300 hidden sm:inline" aria-hidden="true">&middot;</span>
-      <span class="font-body text-xs text-deep-sound-400">
-        Whidbey Island &amp; the Puget Sound
-      </span>
-    </footer>
+      <!-- Two doors -->
+      <nav class="flex gap-10 sm:gap-16 md:gap-20 mb-8 md:mb-10" aria-label="Services">
+        <a
+          href="/weddings"
+          class="font-heading text-2xl sm:text-3xl md:text-4xl text-driftwood hover:text-golden-hour transition-colors duration-300"
+        >
+          Weddings
+        </a>
+        <a
+          href="/events"
+          class="font-heading text-2xl sm:text-3xl md:text-4xl text-driftwood hover:text-golden-hour transition-colors duration-300"
+        >
+          Not weddings
+        </a>
+      </nav>
+
+      <!-- One featured review -->
+      {featured && (
+        <blockquote class="max-w-sm md:max-w-md text-center mb-8 md:mb-10">
+          <div class="font-editorial text-sm text-driftwood-200 italic leading-relaxed
+            before:content-['\201C'] after:content-['\201D']
+            [&>p]:inline">
+            <featured.Content />
+          </div>
+          <footer class="font-body text-xs text-golden-hour mt-2 tracking-[0.25em] uppercase">
+            &mdash; {featured.entry.data.attribution}
+          </footer>
+        </blockquote>
+      )}
+
+      <!-- Minimal footer -->
+      <footer class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-center">
+        <span class="font-body text-xs text-driftwood/50">
+          &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective
+        </span>
+        <span class="font-body text-xs text-driftwood/30 hidden sm:inline" aria-hidden="true">&middot;</span>
+        <span class="font-body text-xs text-driftwood/50">
+          Whidbey Island &amp; the Puget Sound
+        </span>
+      </footer>
+    </div>
   </div>
 </BaseLayout>

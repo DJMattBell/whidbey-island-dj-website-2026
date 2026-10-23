@@ -105,18 +105,19 @@
   /* ── Fonts ── */
   --font-heading: "DM Serif Display", serif;
   --font-body: "Inter", sans-serif;
+  --font-editorial: "Libre Baskerville", "Georgia", serif;
 
   /* ── Type scale ── */
-  --font-size-hero: 5rem;
+  --font-size-hero: 6rem;
   --font-size-section: 3.5rem;
   --font-size-card: 1.5rem;
   --font-size-body: 1.125rem;
   --font-size-small: 0.875rem;
-  --font-size-eyebrow: 0.75rem;
+  --font-size-eyebrow: 0.6875rem;
 
   /* ── Section spacing ── */
-  --spacing-section: 8rem;
-  --spacing-block: 4rem;
+  --spacing-section: 10rem;
+  --spacing-block: 5rem;
 }
 
 @layer base {

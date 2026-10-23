@@ -1,11 +1,14 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SplitSection from "../components/SplitSection.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import Button from "../components/Button.astro";
-import PlaceholderArt from "../components/PlaceholderArt.astro";
+import heroImage from "../assets/photos/reception-scene.jpg";
+import splitImage from "../assets/photos/event-scene-2.jpg";
+import sectionBreakImage from "../assets/photos/elegant-table-setup.jpg";
 
 const entry = await getEntry("services", "weddings");
 const { Content } = entry ? await render(entry) : { Content: null };
@@ -24,16 +27,26 @@ const weddingReviews = await Promise.all(
 <BaseLayout
   title="Weddings | Whidbey Island DJ Collective"
   description="Wedding DJ services on Whidbey Island and the Puget Sound. Transparent pricing, named DJs, music that reads the room. No upcharges, ever."
+  transparentNav
 >
-  <!-- Hero -->
-  <section class="relative py-32 md:py-40 lg:py-48 bg-deep-sound overflow-hidden">
-    <PlaceholderArt variant="cool" />
-    <div class="absolute inset-0 bg-deep-sound/60" />
+  <!-- Hero with real photo -->
+  <section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="Wedding reception at sunset on Whidbey Island"
+        class="w-full h-full object-cover"
+        widths={[640, 1024, 1536, 2048]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-deep-sound-950/60" />
+    </div>
     <div class="relative max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
         {entry?.data.heroHeading ?? "Your wedding, your music."}
       </h1>
-      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl mb-10">
+      <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
         {entry?.data.heroSubheading}
       </p>
       <Button href="/contact" variant="primary" size="lg">
@@ -42,7 +55,7 @@ const weddingReviews = await Promise.all(
     </div>
   </section>
 
-  <!-- Body content — split layout -->
+  <!-- Body content — split layout with real photo -->
   {Content && (
     <SplitSection>
       <div data-reveal>
@@ -51,20 +64,37 @@ const weddingReviews = await Promise.all(
           <Content />
         </div>
       </div>
-      <div class="relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound" data-reveal>
-        <PlaceholderArt variant="cool" />
+      <div class="relative rounded-lg overflow-hidden aspect-[4/3]" data-reveal>
+        <Image
+          src={splitImage}
+          alt="DJ turntable overlooking outdoor wedding dance floor"
+          class="w-full h-full object-cover"
+          widths={[400, 800]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+        />
       </div>
     </SplitSection>
   )}
 
+  <!-- Full-bleed photo break -->
+  <div class="relative h-64 md:h-80 lg:h-96 overflow-hidden">
+    <Image
+      src={sectionBreakImage}
+      alt="Elegant long table setup under trees"
+      class="w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+  </div>
+
   <!-- What's included -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
     <div class="max-w-4xl mx-auto px-6" data-reveal>
       <SectionHeading
         eyebrow="What's Included"
         heading="Everything you need. Nothing you don't."
       />
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
+      <ul class="mt-12 space-y-4 max-w-lg">
         {[
           "Professional sound system",
           "DJ & MC services",
@@ -73,13 +103,13 @@ const weddingReviews = await Promise.all(
           "Setup & teardown included",
           "$0 upcharges — always",
         ].map((item) => (
-          <div class="flex items-start gap-3">
-            <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
+          <li class="flex items-start gap-4">
+            <span class="text-golden-hour text-lg mt-0.5 shrink-0" aria-hidden="true">&check;</span>
             <span class="font-body text-body text-driftwood-200">{item}</span>
-          </div>
+          </li>
         ))}
-      </div>
-      <div class="mt-12">
+      </ul>
+      <div class="mt-14">
         <Button href="/pricing" variant="secondary" size="md">
           See pricing
         </Button>
@@ -87,28 +117,45 @@ const weddingReviews = await Promise.all(
     </div>
   </section>
 
-  <!-- Wedding reviews -->
+  <!-- Wedding reviews — featured single + supporting -->
   {weddingReviews.length > 0 && (
-    <section class="py-20 md:py-28 lg:py-section">
-      <div class="max-w-5xl mx-auto px-6" data-reveal>
+    <section class="py-28 md:py-36 lg:py-section">
+      <div class="max-w-4xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="From Our Couples"
           heading="What they said after the last song."
-          centered
         />
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          {weddingReviews.map(({ entry, Content }) => (
-            <div class="bg-deep-sound rounded-lg p-8">
-              <ReviewCard
-                attribution={entry.data.attribution}
-                eventType={entry.data.eventType}
-              >
-                <Content />
-              </ReviewCard>
+        <!-- Featured first review, large -->
+        {(() => {
+          const first = weddingReviews[0];
+          return (
+            <div class="mt-14 mb-12">
+              <div class="bg-deep-sound rounded-xl p-10 md:p-14">
+                <ReviewCard
+                  attribution={first.entry.data.attribution}
+                  eventType={first.entry.data.eventType}
+                >
+                  <first.Content />
+                </ReviewCard>
+              </div>
             </div>
-          ))}
-        </div>
-        <div class="text-center mt-10">
+          );
+        })()}
+        {weddingReviews.length > 1 && (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {weddingReviews.slice(1).map(({ entry, Content }) => (
+              <div class="bg-deep-sound-900 rounded-xl p-8">
+                <ReviewCard
+                  attribution={entry.data.attribution}
+                  eventType={entry.data.eventType}
+                >
+                  <Content />
+                </ReviewCard>
+              </div>
+            ))}
+          </div>
+        )}
+        <div class="text-center mt-12">
           <Button href="/reviews" variant="outline" size="md">
             All reviews
           </Button>
@@ -118,12 +165,12 @@ const weddingReviews = await Promise.all(
   )}
 
   <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
         Let&rsquo;s talk about your wedding.
       </h2>
-      <p class="font-body text-body text-sea-glass mb-10">
+      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
         No commitment, no sales pitch. Tell us your date and we&rsquo;ll
         take it from there.
       </p>

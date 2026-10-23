@@ -31,9 +31,9 @@ const grouped = categoryOrder
   description="Frequently asked questions about hiring a DJ on Whidbey Island. Pricing, music selection, what's included, and more."
 >
   <!-- Hero -->
-  <section class="py-32 md:py-40 lg:py-48 bg-deep-sound">
+  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl text-driftwood leading-tight mb-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
         Questions we hear a lot.
       </h1>
       <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
@@ -44,11 +44,11 @@ const grouped = categoryOrder
   </section>
 
   <!-- FAQ accordion grouped by category -->
-  <section class="py-20 md:py-28 lg:py-section">
+  <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-3xl mx-auto px-6">
       {grouped.map((group) => (
         <div class="mb-12 last:mb-0" data-reveal>
-          <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
+          <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-4">
             {group.label}
           </p>
           <div class="space-y-3">
@@ -72,7 +72,7 @@ const grouped = categoryOrder
   </section>
 
   <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-section bg-deep-sound">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
       <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
         Still have questions?

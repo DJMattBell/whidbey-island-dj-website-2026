@@ -157,3 +157,35 @@ BUILD_PLAN approves PhotoSwipe for the lightbox. The gallery collection is curre
 ## Phase 4 — Review bodies rendered via render(), not raw strings
 
 All pages that display review content (index, weddings, events, djs/[slug], reviews) now use Astro's `render()` to get a Content component from the review entry, instead of passing `review.body` as a raw string. This means review bodies with markdown formatting will render correctly. `ReviewCard` switched from a `quote` string prop to a slot; `ReviewCardFull` uses a slot for the body. CSS pseudo-elements (`::before`/`::after`) handle the smart quotes that were previously interpolated as `&ldquo;`/`&rdquo;`.
+
+## Visual quality pass — Visual bar is DJ 100Proof craft level, PNW warmth
+
+The reference sites are Bamboo Beats, Dart Collective, Traveling Discotheque, and DJ 100Proof. The goal is 100Proof's level of visual craft (multi-tone darks, generous spacing, typography confidence, real photography) applied to a warm Pacific Northwest brand palette — not 100Proof's nightclub color scheme or mood. Dark sections should feel like "evening reception lighting," not "club at 2 AM."
+
+## Visual quality pass — Real photography from Google Drive
+
+16 photos pulled from `DJ Business/Media/Photos for Use/2026` and `DJ Business/Media/Equipment Photos` into `src/assets/photos/` and `src/assets/equipment/`. Photos are assigned by content: wedding scenes for /weddings, DJ action shots for /events, DJ portraits for /djs, equipment for /equipment. Astro optimizes all images at build time. The `social-icon.png` (illustrated brand face) is from `Rebrand Project 2026/`. All placeholder gradients on hero sections replaced with real photos; PlaceholderArt remains only for DJ profile images (pending real headshots).
+
+## Visual quality pass — Multi-tone dark palette
+
+Dark sections now use three distinct tones instead of a single flat `bg-deep-sound`: `bg-deep-sound-900` for feature sections, `bg-deep-sound-950` for CTA sections and footer. This creates depth and layering within dark areas, matching the approach of DJ 100Proof (which uses three dark tones: #000, #282828, #313131).
+
+## Visual quality pass — Transparent-to-solid nav on hero pages
+
+Pages with full-bleed photo heroes (weddings, events, djs) use `transparentNav` prop on BaseLayout. The nav starts transparent with light text over the hero image, then transitions to solid `bg-deep-sound-950/95` with backdrop blur after 80px of scroll. This matches the pattern used by Bamboo Beats and DJ 100Proof.
+
+## Visual quality pass — Libre Baskerville editorial serif
+
+Added `--font-editorial` (Libre Baskerville) as a third font for select uses: hero subheadings, CTA body copy, and the landing page review. This is the DJ 100Proof move — serif body text on a dark site reads as "magazine editorial." Not used for all body text; Inter stays as the primary body font.
+
+## Visual quality pass — Spacing increase and typography scale
+
+Hero sections increased from py-32/py-40/py-48 to py-40/py-52/py-64. Content sections from py-20/py-28 to py-28/py-36. Hero headings go to text-8xl on large screens with tighter leading (0.95). Eyebrow text tracking widened from 0.2em to 0.3em and size reduced from 0.75rem to 0.6875rem. Section spacing token increased from 8rem to 10rem. These changes close the spacing gap with the reference sites, where 150–250px vertical section padding signals luxury.
+
+## Visual quality pass — Review layout breaks template tell
+
+Wedding and event review sections changed from a 3-column equal grid (a SPEC §4a template tell) to a featured-first layout: one large review card at full width, then remaining reviews in a 2-column grid. This breaks the predictable rhythm and draws more attention to the best review.
+
+## Visual quality pass — Full-bleed photo section breaks
+
+Added full-width photo strips between content sections on weddings and events pages (elegant table setup, lakeside ceremony). These atmospheric photos create visual breathing room and depth between text blocks, matching the Bamboo Beats pattern of photography-as-transition.

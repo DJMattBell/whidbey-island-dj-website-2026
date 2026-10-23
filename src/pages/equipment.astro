@@ -7,16 +7,13 @@ import SectionHeading from "../components/SectionHeading.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
 import PlaceholderArt from "../components/PlaceholderArt.astro";
 import { getVideoId } from "../lib/video";
-import { equipmentCategoryLabels } from "../lib/labels";
+import { equipmentCategoryLabels, equipmentCategoryOrder } from "../lib/labels";
 import heroImage from "../assets/photos/dj-booth-flowers.jpg";
 
 const allEquipment = (await getCollection("equipment"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const hasContent = allEquipment.length > 0;
-
-// Group equipment by category
-const categoryOrder = ["sound", "lighting", "wireless", "power", "photobooth"] as const;
 
 type EquipmentWithContent = {
   entry: (typeof allEquipment)[number];
@@ -30,7 +27,7 @@ const equipmentWithContent: EquipmentWithContent[] = await Promise.all(
   }),
 );
 
-const groups = categoryOrder
+const groups = equipmentCategoryOrder
   .map((cat) => ({
     category: cat,
     label: equipmentCategoryLabels[cat],

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import FilterChips from "../components/FilterChips.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
@@ -31,17 +32,14 @@ const filters = [
   title="Gallery | Whidbey Island DJ Collective"
   description="Photos and videos from weddings, school dances, and events across Whidbey Island and the Puget Sound."
 >
-  <!-- Hero -->
-  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
-        See what we do.
-      </h1>
-      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
-        Photos and videos from real events across the island and the Sound.
-      </p>
-    </div>
-  </section>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      See what we do.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      Photos and videos from real events across the island and the Sound.
+    </p>
+  </TextHero>
 
   {hasContent ? (
     <section class="py-28 md:py-36 lg:py-section">

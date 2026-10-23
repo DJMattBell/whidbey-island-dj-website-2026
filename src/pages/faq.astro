@@ -1,16 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
 import CtaSection from "../components/CtaSection.astro";
-import { faqCategoryLabels } from "../lib/labels";
+import { faqCategoryLabels, faqCategoryOrder } from "../lib/labels";
+
+const siteEntry = await getEntry("site", "site");
+const responseHours = siteEntry?.data.responsePromiseHours ?? 24;
 
 const allFaq = (await getCollection("faq"))
   .filter((f) => f.data.published)
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
-const categoryOrder = ["booking", "music", "logistics", "pricing", "photobooth"];
-
-const grouped = categoryOrder
+const grouped = faqCategoryOrder
   .map((cat) => ({
     category: cat,
     label: faqCategoryLabels[cat],
@@ -23,18 +25,15 @@ const grouped = categoryOrder
   title="FAQ | Whidbey Island DJ Collective"
   description="Frequently asked questions about hiring a DJ on Whidbey Island. Pricing, music selection, what's included, and more."
 >
-  <!-- Hero -->
-  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
-        Questions we hear a lot.
-      </h1>
-      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
-        If yours isn&rsquo;t here, ask us directly &mdash; we&rsquo;ll get
-        back to you within 24 hours.
-      </p>
-    </div>
-  </section>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      Questions we hear a lot.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      If yours isn&rsquo;t here, ask us directly &mdash; we&rsquo;ll get
+      back to you within {responseHours} hours.
+    </p>
+  </TextHero>
 
   <!-- FAQ accordion grouped by category -->
   <section class="py-28 md:py-36 lg:py-section">

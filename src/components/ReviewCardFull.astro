@@ -14,8 +14,8 @@ import { formatDate } from "../lib/format";
 const { attribution, eventType, source, sourceUrl, rating, date } =
   Astro.props;
 
-const sourceLabel = sourceLabels[source] ?? source;
-const eventLabel = eventLabels[eventType] ?? eventType;
+const sourceLabel = sourceLabels[source as keyof typeof sourceLabels] ?? source;
+const eventLabel = eventLabels[eventType as keyof typeof eventLabels] ?? eventType;
 ---
 
 <article class="bg-deep-sound rounded-lg p-8">

@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
 import ReviewCardFull from "../components/ReviewCardFull.astro";
 import CtaSection from "../components/CtaSection.astro";
 import { sourceLabels, eventLabels } from "../lib/labels";
@@ -31,23 +32,24 @@ const sourceFilters = sources.map((s) => ({ key: s, label: sourceLabels[s] ?? s 
 const djFilters = djSlugs.map((d) => ({ key: d, label: d.charAt(0).toUpperCase() + d.slice(1) }));
 
 const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilters.length > 0;
+
+const chipBase = "review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200";
+const chipActive = `${chipBase} border-penn-cove bg-penn-cove text-driftwood`;
+const chipInactive = `${chipBase} border-penn-cove/40 text-penn-cove hover:border-penn-cove`;
 ---
 
 <BaseLayout
   title="Reviews | Whidbey Island DJ Collective"
   description="What couples and event organizers say about the Whidbey Island DJ Collective. Real reviews from real events."
 >
-  <!-- Hero -->
-  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
-        What people say after the last song.
-      </h1>
-      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
-        Real reviews from real events. No cherry-picking, no edits.
-      </p>
-    </div>
-  </section>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      What people say after the last song.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      Real reviews from real events. No cherry-picking, no edits.
+    </p>
+  </TextHero>
 
   <!-- Badge row (hidden when empty) -->
   {reviewBadges.length > 0 && (
@@ -80,9 +82,9 @@ const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilt
             <div class="review-filter-axis" data-axis="event">
               <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Event type</p>
               <div class="flex flex-wrap gap-2">
-                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
                 {eventFilters.map((f) => (
-                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
                 ))}
               </div>
             </div>
@@ -91,9 +93,9 @@ const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilt
             <div class="review-filter-axis" data-axis="source">
               <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Source</p>
               <div class="flex flex-wrap gap-2">
-                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
                 {sourceFilters.map((f) => (
-                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
                 ))}
               </div>
             </div>
@@ -102,9 +104,9 @@ const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilt
             <div class="review-filter-axis" data-axis="dj">
               <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">DJ</p>
               <div class="flex flex-wrap gap-2">
-                <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood" data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
                 {djFilters.map((f) => (
-                  <button class="review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove/40 text-penn-cove hover:border-penn-cove" data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
                 ))}
               </div>
             </div>

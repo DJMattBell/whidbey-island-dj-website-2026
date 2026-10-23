@@ -1,5 +1,18 @@
-/** Human-readable labels for review source enum values */
-export const sourceLabels: Record<string, string> = {
+// ---------------------------------------------------------------------------
+// Enum types — must match the z.enum() values in src/content.config.ts
+// ---------------------------------------------------------------------------
+
+type ReviewSource = "theknot" | "weddingwire" | "google" | "facebook" | "zola" | "direct";
+type EventType = "wedding" | "school" | "auction" | "community" | "private";
+type EquipmentCategory = "sound" | "lighting" | "wireless" | "power" | "photobooth";
+type GalleryTag = "wedding" | "event" | "lighting" | "photobooth" | "ceremony" | "team";
+type FaqCategory = "booking" | "music" | "logistics" | "pricing" | "photobooth";
+
+// ---------------------------------------------------------------------------
+// Human-readable labels
+// ---------------------------------------------------------------------------
+
+export const sourceLabels: Record<ReviewSource, string> = {
   theknot: "The Knot",
   weddingwire: "WeddingWire",
   google: "Google",
@@ -8,8 +21,7 @@ export const sourceLabels: Record<string, string> = {
   direct: "Direct",
 };
 
-/** Human-readable labels for event type enum values */
-export const eventLabels: Record<string, string> = {
+export const eventLabels: Record<EventType, string> = {
   wedding: "Wedding",
   school: "School Dance",
   auction: "Auction / Fundraiser",
@@ -17,8 +29,7 @@ export const eventLabels: Record<string, string> = {
   private: "Private Party",
 };
 
-/** Human-readable labels for equipment category enum values */
-export const equipmentCategoryLabels: Record<string, string> = {
+export const equipmentCategoryLabels: Record<EquipmentCategory, string> = {
   sound: "Sound",
   lighting: "Lighting",
   wireless: "Wireless / Ceremony",
@@ -26,8 +37,7 @@ export const equipmentCategoryLabels: Record<string, string> = {
   photobooth: "Photobooth",
 };
 
-/** Human-readable labels for gallery tag enum values */
-export const galleryTagLabels: Record<string, string> = {
+export const galleryTagLabels: Record<GalleryTag, string> = {
   wedding: "Weddings",
   event: "Events",
   lighting: "Lighting",
@@ -36,11 +46,22 @@ export const galleryTagLabels: Record<string, string> = {
   team: "Team",
 };
 
-/** Human-readable labels for FAQ category enum values */
-export const faqCategoryLabels: Record<string, string> = {
+export const faqCategoryLabels: Record<FaqCategory, string> = {
   booking: "Booking",
   music: "Music",
   logistics: "Logistics",
   pricing: "Pricing",
   photobooth: "Photobooth",
 };
+
+// ---------------------------------------------------------------------------
+// Display order — controls how grouped pages render categories
+// ---------------------------------------------------------------------------
+
+export const equipmentCategoryOrder: EquipmentCategory[] = [
+  "sound", "lighting", "wireless", "power", "photobooth",
+];
+
+export const faqCategoryOrder: FaqCategory[] = [
+  "booking", "music", "logistics", "pricing", "photobooth",
+];

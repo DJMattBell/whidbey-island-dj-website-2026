@@ -1,25 +1,30 @@
 ---
+import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
 import { eventLabels } from "../lib/labels";
 
+const siteEntry = await getEntry("site", "site");
+const responseHours = siteEntry?.data.responsePromiseHours ?? 24;
+
 const eventOptions = Object.entries(eventLabels);
+
+const inputClasses =
+  "w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors";
 ---
 
 <BaseLayout
   title="Contact | Whidbey Island DJ Collective"
   description="Get in touch with the Whidbey Island DJ Collective. Tell us about your event and we'll respond within 24 hours."
 >
-  <!-- Hero -->
-  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
-        Let&rsquo;s talk about your event.
-      </h1>
-      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
-        Tell us what you&rsquo;re planning. We&rsquo;ll get back to you within 24 hours.
-      </p>
-    </div>
-  </section>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      Let&rsquo;s talk about your event.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      Tell us what you&rsquo;re planning. We&rsquo;ll get back to you within {responseHours} hours.
+    </p>
+  </TextHero>
 
   <!-- Form -->
   <section class="py-28 md:py-36 lg:py-section">
@@ -41,7 +46,7 @@ const eventOptions = Object.entries(eventLabels);
             name="name"
             required
             autocomplete="name"
-            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            class={inputClasses}
             placeholder="Your name"
           />
         </div>
@@ -56,7 +61,7 @@ const eventOptions = Object.entries(eventLabels);
             name="email"
             required
             autocomplete="email"
-            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            class={inputClasses}
             placeholder="you@example.com"
           />
         </div>
@@ -69,7 +74,7 @@ const eventOptions = Object.entries(eventLabels);
             <select
               id="event_type"
               name="event_type"
-              class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+              class={inputClasses}
             >
               <option value="">Select one&hellip;</option>
               {eventOptions.map(([value, label]) => (
@@ -86,7 +91,7 @@ const eventOptions = Object.entries(eventLabels);
               type="date"
               id="event_date"
               name="event_date"
-              class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+              class={inputClasses}
             />
           </div>
         </div>
@@ -100,7 +105,7 @@ const eventOptions = Object.entries(eventLabels);
             name="message"
             required
             rows="5"
-            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors resize-y"
+            class={`${inputClasses} resize-y`}
             placeholder="Tell us about your event — venue, guest count, vibe, anything that helps us understand what you're looking for."
           ></textarea>
         </div>
@@ -123,7 +128,7 @@ const eventOptions = Object.entries(eventLabels);
             We got your message.
           </h2>
           <p class="font-body text-body text-deep-sound-700 leading-relaxed max-w-md mx-auto">
-            Check your inbox for a confirmation copy. We&rsquo;ll get back to you within 24 hours.
+            Check your inbox for a confirmation copy. We&rsquo;ll get back to you within {responseHours} hours.
           </p>
         </div>
       </div>

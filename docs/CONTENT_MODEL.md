@@ -2,7 +2,7 @@
 
 _Every editable thing on the site, where it lives, and its fields. Astro collection schemas in `src/content.config.ts` and the Keystatic config in `keystatic.config.ts` must match this document. When they diverge, fix the code and this doc in the same commit._
 
-_Last verified: Phase 1 homepage_
+_Last verified: Phase 4 code track (2026-10-23)_
 
 Conventions:
 
@@ -164,4 +164,6 @@ Cap: ~50 photos. New one in, old one out.
 
 ## Shared filter component
 
-`/gallery`, `/reviews`, `/blog`, and `/recommendations` all use one `FilterChips` island. It reads `data-*` attributes on the cards and toggles visibility client-side. No fetching, no state library. Adding a filterable collection means rendering cards with the right attributes — not writing a new filter.
+`/gallery`, `/blog`, and `/recommendations` use the `FilterChips` island — a single-axis OR filter. It reads `data-*` attributes on the cards and toggles visibility client-side. No fetching, no state library. Adding a filterable collection means rendering cards with the right attributes — not writing a new filter.
+
+`/reviews` uses its own inline three-axis filter UI (event type, source, DJ) with AND logic across axes. The visual styling matches FilterChips but the behavior is fundamentally different — selecting "Wedding" + "Google" shows only Google reviews for weddings. See DECISIONS.md (2026-10-23) for rationale.

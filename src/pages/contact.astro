@@ -1,0 +1,174 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Contact | Whidbey Island DJ Collective"
+  description="Get in touch with the Whidbey Island DJ Collective. Tell us about your event and we'll respond within 24 hours."
+>
+  <!-- Hero -->
+  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+        Let&rsquo;s talk about your event.
+      </h1>
+      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+        Tell us what you&rsquo;re planning. We&rsquo;ll get back to you within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="py-28 md:py-36 lg:py-section">
+    <div class="max-w-2xl mx-auto px-6" data-reveal>
+      <form id="inquiry-form" class="space-y-8" novalidate>
+        <!-- Honeypot — hidden from humans, bots fill it -->
+        <div class="absolute -left-[9999px]" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div>
+          <label for="name" class="block font-body text-sm font-semibold text-deep-sound-700 mb-2">
+            Name <span class="text-madrone" aria-label="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            placeholder="Your name"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block font-body text-sm font-semibold text-deep-sound-700 mb-2">
+            Email <span class="text-madrone" aria-label="required">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div>
+            <label for="event_type" class="block font-body text-sm font-semibold text-deep-sound-700 mb-2">
+              Event type
+            </label>
+            <select
+              id="event_type"
+              name="event_type"
+              class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            >
+              <option value="">Select one&hellip;</option>
+              <option value="wedding">Wedding</option>
+              <option value="school">School dance</option>
+              <option value="auction">Auction / fundraiser</option>
+              <option value="community">Community event</option>
+              <option value="private">Private party</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="event_date" class="block font-body text-sm font-semibold text-deep-sound-700 mb-2">
+              Event date
+            </label>
+            <input
+              type="date"
+              id="event_date"
+              name="event_date"
+              class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="message" class="block font-body text-sm font-semibold text-deep-sound-700 mb-2">
+            Message <span class="text-madrone" aria-label="required">*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound placeholder:text-deep-sound-400 focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors resize-y"
+            placeholder="Tell us about your event — venue, guest count, vibe, anything that helps us understand what you're looking for."
+          ></textarea>
+        </div>
+
+        <!-- Error message -->
+        <p id="form-error" class="font-body text-sm text-madrone hidden" role="alert"></p>
+
+        <button
+          type="submit"
+          class="inline-block font-body font-semibold tracking-wide rounded-md transition-colors duration-200 text-center bg-madrone text-driftwood hover:bg-madrone/85 px-8 py-4 text-body disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Send inquiry
+        </button>
+      </form>
+
+      <!-- Success state (hidden by default) -->
+      <div id="form-success" class="hidden">
+        <div class="rounded-xl bg-penn-cove-50 border border-penn-cove-200 p-10 md:p-14 text-center">
+          <h2 class="font-heading text-3xl text-penn-cove mb-4">
+            We got your message.
+          </h2>
+          <p class="font-body text-body text-deep-sound-700 leading-relaxed max-w-md mx-auto">
+            Check your inbox for a confirmation copy. We&rsquo;ll get back to you within 24 hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById("inquiry-form") as HTMLFormElement | null;
+    const success = document.getElementById("form-success");
+    const errorEl = document.getElementById("form-error");
+    if (!form || !success || !errorEl) return;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.textContent = "";
+      errorEl.classList.add("hidden");
+
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending\u2026";
+
+      try {
+        const res = await fetch("/api/inquiry", {
+          method: "POST",
+          body: new FormData(form),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Something went wrong. Please try again.");
+        }
+
+        form.classList.add("hidden");
+        success.classList.remove("hidden");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send inquiry";
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", initContactForm);
+</script>

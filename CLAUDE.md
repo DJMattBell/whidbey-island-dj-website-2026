@@ -2,6 +2,22 @@
 
 Read `README.md` first — it is the human onboarding doc and the map of the repo. This file adds only what an AI session needs beyond that.
 
+## Model selection
+
+Use the newest Opus (claude-opus-4-6) for planning, grilling, architecture decisions, and code review. Use Sonnet for implementation and routine coding. Use Haiku for bulk searches, triage, file discovery, and low-ambiguity automation. When spawning subagents, default to Sonnet and promote to Opus only for review or planning subagents.
+
+## Plan mode
+
+Make plans extremely concise. Sacrifice grammar for brevity. At the end of each plan, list unresolved questions. Do not produce a wall of text — produce a scannable, actionable checklist.
+
+## Session hygiene
+
+Monitor token usage. The effective "smart zone" is ~100–140k tokens — beyond that, quality degrades. When approaching 120k, wrap up the current task and suggest a fresh session. Every session ends in a commit.
+
+## Code review
+
+Always review in a separate subagent with fresh context. The agent that wrote the code must not review it in the same session. Review checks two axes: (1) does it follow this repo's rules? (2) does it match the spec?
+
 ## Governing docs (in this repo, in this order)
 
 1. `docs/WEBSITE_SPEC.md` — what we're building. Wins over code and over conversation.
@@ -32,6 +48,7 @@ Astro (static) · Tailwind 4 · Keystatic (GitHub mode) · Resend · Vercel · T
 - **Delete what you don't wire up.** No orphaned components, scaffolds, or experiments survive a phase.
 - **Pause after each build phase** for Matt's review. Matt reads and checks the code himself before approving.
 - **Push back** on anything — including Matt's requests — that adds clutter, dilutes the brand, or adds avoidable complexity. Simplicity is a handoff feature.
+- **When Claude makes a mistake, update this file.** Every error is a chance to improve future sessions.
 
 ## Don't
 

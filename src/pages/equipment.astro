@@ -7,6 +7,7 @@ import YouTubeFacade from "../components/YouTubeFacade.astro";
 import PlaceholderArt from "../components/PlaceholderArt.astro";
 import Button from "../components/Button.astro";
 import { getVideoId } from "../lib/video";
+import { equipmentCategoryLabels } from "../lib/labels";
 import heroImage from "../assets/photos/dj-booth-flowers.jpg";
 
 const allEquipment = (await getCollection("equipment"))
@@ -16,13 +17,6 @@ const hasContent = allEquipment.length > 0;
 
 // Group equipment by category
 const categoryOrder = ["sound", "lighting", "wireless", "power", "photobooth"] as const;
-const categoryLabels: Record<string, string> = {
-  sound: "Sound",
-  lighting: "Lighting",
-  wireless: "Wireless",
-  power: "Power",
-  photobooth: "Photobooth",
-};
 
 type EquipmentWithContent = {
   entry: (typeof allEquipment)[number];
@@ -39,7 +33,7 @@ const equipmentWithContent: EquipmentWithContent[] = await Promise.all(
 const groups = categoryOrder
   .map((cat) => ({
     category: cat,
-    label: categoryLabels[cat],
+    label: equipmentCategoryLabels[cat],
     items: equipmentWithContent.filter((e) => e.entry.data.category === cat),
   }))
   .filter((g) => g.items.length > 0);

@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { eventLabels } from "../lib/labels";
+
+const eventOptions = Object.entries(eventLabels);
 ---
 
 <BaseLayout
@@ -69,11 +72,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               class="w-full rounded-md border border-deep-sound-200 bg-driftwood-50 px-4 py-3 font-body text-body text-deep-sound focus:outline-none focus:ring-2 focus:ring-penn-cove-400 focus:border-transparent transition-colors"
             >
               <option value="">Select one&hellip;</option>
-              <option value="wedding">Wedding</option>
-              <option value="school">School dance</option>
-              <option value="auction">Auction / fundraiser</option>
-              <option value="community">Community event</option>
-              <option value="private">Private party</option>
+              {eventOptions.map(([value, label]) => (
+                <option value={value}>{label}</option>
+              ))}
             </select>
           </div>
 

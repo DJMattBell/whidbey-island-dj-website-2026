@@ -2,25 +2,18 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
+import { faqCategoryLabels } from "../lib/labels";
 
 const allFaq = (await getCollection("faq"))
   .filter((f) => f.data.published)
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
-
-const categoryLabels: Record<string, string> = {
-  booking: "Booking",
-  music: "Music",
-  logistics: "Logistics",
-  pricing: "Pricing",
-  photobooth: "Photobooth",
-};
 
 const categoryOrder = ["booking", "music", "logistics", "pricing", "photobooth"];
 
 const grouped = categoryOrder
   .map((cat) => ({
     category: cat,
-    label: categoryLabels[cat],
+    label: faqCategoryLabels[cat],
     items: allFaq.filter((f) => f.data.category === cat),
   }))
   .filter((g) => g.items.length > 0);

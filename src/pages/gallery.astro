@@ -6,6 +6,7 @@ import FilterChips from "../components/FilterChips.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
 import Button from "../components/Button.astro";
 import { getVideoId } from "../lib/video";
+import { galleryTagLabels } from "../lib/labels";
 
 const allGallery = (await getCollection("gallery"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
@@ -16,17 +17,8 @@ const gridItems = allGallery.filter((g) => !g.data.pinned);
 const hasContent = allGallery.length > 0;
 
 // Build filter chips from tag enum values that actually appear in content
-const tagLabels: Record<string, string> = {
-  wedding: "Weddings",
-  event: "Events",
-  lighting: "Lighting",
-  photobooth: "Photobooth",
-  ceremony: "Ceremony",
-  team: "Team",
-};
-
 const usedTags = [...new Set(allGallery.flatMap((g) => g.data.tags))];
-const filters = usedTags.map((t) => ({ key: t, label: tagLabels[t] ?? t }));
+const filters = usedTags.map((t) => ({ key: t, label: galleryTagLabels[t] ?? t }));
 
 ---
 

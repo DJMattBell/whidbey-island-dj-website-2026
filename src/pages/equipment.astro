@@ -1,11 +1,13 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
 import PlaceholderArt from "../components/PlaceholderArt.astro";
 import Button from "../components/Button.astro";
 import { getVideoId } from "../lib/video";
+import heroImage from "../assets/photos/dj-booth-flowers.jpg";
 
 const allEquipment = (await getCollection("equipment"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
@@ -56,14 +58,26 @@ const lightingVideoId = lightingDemo?.data.videoUrl
 <BaseLayout
   title="Equipment | Whidbey Island DJ Collective"
   description="What we bring to your event and why it matters. Professional sound, lighting, wireless, and photobooth gear from the Whidbey Island DJ Collective."
+  transparentNav
 >
-  <!-- Hero -->
-  <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+  <!-- Hero with real photo -->
+  <section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="DJ booth setup with floral arrangement at a wedding venue"
+        class="w-full h-full object-cover"
+        widths={[640, 1024, 1536, 2048]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-deep-sound-950/65" />
+    </div>
+    <div class="relative max-w-4xl mx-auto px-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
         What we bring &mdash; and why it matters.
       </h1>
-      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
+      <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
         Professional gear maintained and tested before every event.
         No rental-house gambles.
       </p>
@@ -90,7 +104,7 @@ const lightingVideoId = lightingDemo?.data.videoUrl
                   <article
                     class:list={[
                       "rounded-lg overflow-hidden",
-                      isDark ? "bg-deep-sound-800" : "bg-deep-sound",
+                      isDark ? "bg-deep-sound-800" : "bg-deep-sound-900",
                     ]}
                     data-reveal
                   >
@@ -157,12 +171,12 @@ const lightingVideoId = lightingDemo?.data.videoUrl
   )}
 
   <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
         Questions about our setup?
       </h2>
-      <p class="font-body text-body text-sea-glass mb-10">
+      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
         We&rsquo;re happy to walk you through what we bring and how it fits
         your venue.
       </p>

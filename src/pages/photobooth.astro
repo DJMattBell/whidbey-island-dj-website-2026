@@ -1,11 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SplitSection from "../components/SplitSection.astro";
 import Button from "../components/Button.astro";
-import PlaceholderArt from "../components/PlaceholderArt.astro";
 import { formatPrice } from "../lib/format";
+import heroImage from "../assets/photos/matt-glow-stick.jpg";
+import splitImage from "../assets/photos/dj-action-2.jpg";
 
 const photoboothAddons = (await getCollection("addons"))
   .filter((a) => a.data.category === "photobooth")
@@ -15,45 +17,61 @@ const photoboothAddons = (await getCollection("addons"))
 <BaseLayout
   title="Photobooth | Whidbey Island DJ Collective"
   description="Open-air photobooth for weddings and events on Whidbey Island. Prints, digital copies, backdrops, and props included."
+  transparentNav
 >
-  <!-- Hero -->
-  <section class="relative py-40 md:py-52 lg:py-64 bg-deep-sound-900 overflow-hidden">
-    <PlaceholderArt variant="accent" />
-    <div class="absolute inset-0 bg-deep-sound/60" />
+  <!-- Hero with real photo -->
+  <section class="relative py-40 md:py-52 lg:py-64 overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt="DJ celebrating with glow sticks at an event"
+        class="w-full h-full object-cover object-top"
+        widths={[640, 1024, 1536, 2048]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-deep-sound-950/60" />
+    </div>
     <div class="relative max-w-4xl mx-auto px-6">
-      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
         The booth that never stops.
       </h1>
-      <p class="font-body text-body text-sea-glass-300 leading-relaxed max-w-xl">
+      <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
         An open-air photobooth your guests will actually use — lowered to
         accessible height, stocked with props, and running all night.
       </p>
     </div>
   </section>
 
-  <!-- What's included — split layout -->
+  <!-- What's included — split layout with real photo -->
   <SplitSection>
     <div data-reveal>
       <SectionHeading
         eyebrow="What's Included"
         heading="Everything in the booth."
       />
-      <div class="space-y-4 mt-8">
+      <ul class="space-y-4 mt-8">
         {[
           "Open-air booth setup (lowered to accessible height)",
           "Backdrop and dress-up props",
           "Digital copies delivered to every guest",
           "Unlimited sessions during your event",
         ].map((item) => (
-          <div class="flex items-start gap-3">
-            <span class="text-golden-hour mt-1 shrink-0" aria-hidden="true">&check;</span>
+          <li class="flex items-start gap-4">
+            <span class="text-golden-hour text-lg mt-0.5 shrink-0" aria-hidden="true">&check;</span>
             <span class="font-body text-body text-deep-sound-700">{item}</span>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
-    <div class="relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound" data-reveal>
-      <PlaceholderArt variant="accent" />
+    <div class="relative rounded-lg overflow-hidden aspect-[4/3]" data-reveal>
+      <Image
+        src={splitImage}
+        alt="Guests dancing with glow sticks at a reception"
+        class="w-full h-full object-cover"
+        widths={[400, 800]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
     </div>
   </SplitSection>
 
@@ -133,12 +151,12 @@ const photoboothAddons = (await getCollection("addons"))
   )}
 
   <!-- CTA -->
-  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
+  <section class="py-28 md:py-36 lg:py-section bg-deep-sound-950">
     <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-4">
+      <h2 class="font-heading text-3xl md:text-section text-driftwood leading-tight mb-6">
         Add a photobooth to your event.
       </h2>
-      <p class="font-body text-body text-sea-glass mb-10">
+      <p class="font-editorial text-body text-sea-glass-300 mb-12 italic">
         It&rsquo;s the easiest upgrade you&rsquo;ll make. Tell us your date
         and we&rsquo;ll add it to your package.
       </p>

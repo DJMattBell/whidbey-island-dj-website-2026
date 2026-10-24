@@ -206,6 +206,10 @@ The full-bleed photo hero pattern (~15 lines) was duplicated across 5 pages; the
 
 CLAUDE.md says "Content in `src/content/` only." These three pages are exceptions: `/our-story` has origin-story prose, `/privacy` and `/terms` have legal boilerplate. All three are structural copy that changes rarely (if ever) and does not need Keystatic editability. Moving them to content collections would add three singletons for pages Matt will never edit through the CMS. The email address in privacy/terms is read from `site.yaml` so it stays in sync. If editing frequency changes, move to a content collection then.
 
+## C1 — contact.astro has hardcoded form copy
+
+CLAUDE.md says "Content in `src/content/` only." The contact page is an exception: form labels ("Name", "Email", "Event type", "Event date", "Message"), placeholder text, the submit button label, and success/error messages are structural UI text, not editorial content. The hero heading and subheading are tightly coupled to the form's purpose. Moving these strings to a content collection would add a singleton for text Matt will never edit through the CMS. The `responsePromiseHours` value is already read from `site.yaml`; event type labels come from `src/lib/labels.ts`.
+
 ## C2 — Self-hosted fonts replace Google Fonts CDN
 
 DM Serif Display, Inter, and Libre Baskerville downloaded as latin-only woff2 subsets into `public/fonts/`. `@font-face` declarations added to `global.css`. Google Fonts `<link>` tags removed from BaseLayout. Inter and DM Serif Display are preloaded (most critical for LCP). Libre Baskerville is not preloaded (editorial accent, used below the fold). Total font weight: 118 KB. Eliminates two DNS lookups, a render-blocking external stylesheet, and ~200 KB of unused unicode ranges.

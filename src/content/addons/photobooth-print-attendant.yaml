@@ -1,0 +1,15 @@
+name: Photobooth — Printing + Attendant
+priceCents: 100000
+description: Three hours with on-site photo printing (4x6 or 2x6 strips) and a dedicated booth attendant. Includes marble backdrop, prop tree, and digital copies for every guest.
+category: photobooth
+standalonePriceCents: 120000
+bundleDiscountCents: 20000
+features:
+  - Salsa 2 open-air booth (lowered to accessible height)
+  - DNP DS-620A printer — 4x6 prints or 2x6 strips
+  - Dedicated booth attendant
+  - Marble backdrop (light or dark) + custom options
+  - Prop tree with dress-up materials
+  - Digital copies delivered to every guest
+  - Unlimited sessions during your event
+sortOrder: 4

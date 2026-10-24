@@ -1,5 +1,5 @@
 name: Photobooth Extra Hour
 priceCents: 15000
-description: Each additional hour beyond the included four.
+description: Each additional hour beyond the included three.
 category: photobooth
-sortOrder: 7
+sortOrder: 6

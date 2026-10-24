@@ -154,7 +154,7 @@ const photoboothAddons = allAddons.filter(
       <div class="max-w-4xl mx-auto px-6" data-reveal>
         <SectionHeading
           eyebrow="Photobooth"
-          heading="Add a photobooth to any package."
+          heading="Book standalone or save when you bundle."
           dark={false}
         />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
@@ -165,12 +165,24 @@ const photoboothAddons = allAddons.filter(
                   {addon.data.name}
                 </h3>
                 <span class="font-heading text-xl text-deep-sound whitespace-nowrap">
-                  {formatPrice(addon.data.priceCents)}
+                  {addon.data.standalonePriceCents
+                    ? formatPrice(addon.data.standalonePriceCents)
+                    : formatPrice(addon.data.priceCents)}
                 </span>
               </div>
               <p class="font-body text-sm text-deep-sound-700 leading-relaxed">
                 {addon.data.description}
               </p>
+              {addon.data.standalonePriceCents && (
+                <p class="font-body text-xs text-penn-cove-400 mt-2">
+                  {formatPrice(addon.data.priceCents)} when bundled with a DJ package
+                </p>
+              )}
+              {!addon.data.standalonePriceCents && addon.data.category === "photobooth" && addon.data.features && (
+                <p class="font-body text-xs text-penn-cove-400 mt-2">
+                  DJ package add-on only
+                </p>
+              )}
             </div>
           ))}
         </div>

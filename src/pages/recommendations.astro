@@ -1,0 +1,134 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaSection from "../components/CtaSection.astro";
+
+const allRecs = (await getCollection("recommendations")).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+
+const vendors = allRecs.filter((r) => r.data.kind === "vendor");
+const resources = allRecs.filter((r) => r.data.kind === "resource");
+
+const hasContent = allRecs.length > 0;
+
+// Group vendors by category
+const vendorCategories = [...new Set(vendors.map((v) => v.data.category))];
+const vendorGroups = vendorCategories.map((cat) => ({
+  category: cat,
+  items: vendors.filter((v) => v.data.category === cat),
+}));
+---
+
+<BaseLayout
+  title="Recommendations | Whidbey Island DJ Collective"
+  description="Vendors and resources we trust. Photographers, venues, planners, and other professionals we've worked with across Whidbey Island and the Puget Sound."
+>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      People we trust.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      Vendors and resources we&rsquo;ve worked with and would hire ourselves.
+    </p>
+  </TextHero>
+
+  {hasContent ? (
+    <>
+      {/* Vendor groups */}
+      {vendorGroups.map((group, i) => {
+        const isDark = i % 2 === 0;
+        return (
+          <section
+            class:list={[
+              "py-28 md:py-36 lg:py-section",
+              isDark && "bg-deep-sound-900",
+            ]}
+          >
+            <div class="max-w-5xl mx-auto px-6">
+              <SectionHeading
+                eyebrow={group.category}
+                heading={`Our go-to ${group.category.toLowerCase()} picks.`}
+              />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                {group.items.map((rec) => (
+                  <article
+                    class:list={[
+                      "rounded-lg p-6",
+                      isDark ? "bg-deep-sound-800" : "bg-deep-sound-900",
+                    ]}
+                    data-reveal
+                  >
+                    <h3 class="font-heading text-xl text-driftwood leading-tight mb-2">
+                      <a
+                        href={rec.data.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-golden-hour transition-colors duration-200"
+                      >
+                        {rec.data.name} &rarr;
+                      </a>
+                    </h3>
+                    <p class="font-body text-sm text-sea-glass-300 leading-relaxed">
+                      {rec.data.blurb}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* Resources */}
+      {resources.length > 0 && (
+        <section
+          class:list={[
+            "py-28 md:py-36 lg:py-section",
+            vendorGroups.length % 2 === 0 && "bg-deep-sound-900",
+          ]}
+        >
+          <div class="max-w-5xl mx-auto px-6">
+            <SectionHeading eyebrow="Resources" heading="Useful links." />
+            <ul class="mt-12 space-y-6">
+              {resources.map((rec) => (
+                <li data-reveal>
+                  <a
+                    href={rec.data.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block"
+                  >
+                    <span class="font-heading text-lg text-driftwood group-hover:text-golden-hour transition-colors duration-200">
+                      {rec.data.name} &rarr;
+                    </span>
+                    <span class="block font-body text-sm text-sea-glass-300 mt-1">
+                      {rec.data.blurb}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <section class="py-28 md:py-36 lg:py-section">
+      <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+        <p class="font-body text-body text-deep-sound-500">
+          Recommendations coming soon. We&rsquo;re compiling our list of trusted
+          vendors and resources.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <CtaSection
+    heading="Know someone we should add?"
+    body="We&rsquo;re always looking for great people to work with."
+    buttonText="Get in touch"
+  />
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
+---
+
+<BaseLayout
+  title="Privacy Policy | Whidbey Island DJ Collective"
+  description="Privacy policy for the Whidbey Island DJ Collective website."
+>
+  <TextHero>
+    <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-[0.95]">
+      Privacy Policy
+    </h1>
+  </TextHero>
+
+  <section class="py-28 md:py-36 lg:py-section">
+    <div
+      class="max-w-3xl mx-auto px-6 font-body text-body text-deep-sound-700 leading-relaxed space-y-6
+      [&>h2]:font-heading [&>h2]:text-xl [&>h2]:text-penn-cove [&>h2]:mt-10 [&>h2]:mb-3"
+    >
+      <p>
+        <strong>Last updated:</strong> October 2026
+      </p>
+
+      <p>
+        The Whidbey Island DJ Collective (&ldquo;we,&rdquo; &ldquo;us&rdquo;)
+        operates this website. This policy explains what information we collect
+        and how we use it.
+      </p>
+
+      <h2>Information we collect</h2>
+      <p>
+        We collect only the information you provide through our contact form:
+        your name, email address, event date, and message. We do not use cookies
+        for tracking or analytics beyond what is strictly necessary for the site
+        to function.
+      </p>
+
+      <h2>How we use your information</h2>
+      <p>
+        We use the information you submit to respond to your inquiry and follow
+        up about your event. We do not sell, rent, or share your personal
+        information with third parties for marketing purposes.
+      </p>
+
+      <h2>Third-party services</h2>
+      <p>
+        This site is hosted on Vercel. Contact form submissions are sent via
+        Resend. Embedded videos are served by YouTube. Each of these services
+        has its own privacy policy. We do not run third-party analytics or
+        advertising scripts.
+      </p>
+
+      <h2>Data retention</h2>
+      <p>
+        We keep contact form submissions for as long as needed to serve you. If
+        you&rsquo;d like us to delete your information, email us and we&rsquo;ll
+        take care of it.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy? Email us at
+        <a
+          href="mailto:matt@whidbeyislanddj.com"
+          class="text-penn-cove hover:text-golden-hour underline transition-colors duration-200"
+        >
+          matt@whidbeyislanddj.com
+        </a>
+        .
+      </p>
+    </div>
+  </section>
+</BaseLayout>

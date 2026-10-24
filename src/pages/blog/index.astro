@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TextHero from "../../components/TextHero.astro";
+import FilterChips from "../../components/FilterChips.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import PlaceholderArt from "../../components/PlaceholderArt.astro";
+import { blogCategoryLabels } from "../../lib/labels";
+import { formatDate } from "../../lib/format";
+
+const allPosts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.data.publishedAt).getTime() -
+      new Date(a.data.publishedAt).getTime(),
+  );
+
+const hasContent = allPosts.length > 0;
+
+// Static filters from the enum — always show both chips even if collection is empty
+const filters = (Object.entries(blogCategoryLabels) as [string, string][]).map(
+  ([key, label]) => ({ key, label }),
+);
+---
+
+<BaseLayout
+  title="Blog | Whidbey Island DJ Collective"
+  description="Stories from the booth, lessons from the dance floor, and thoughts on music and events from the Whidbey Island DJ Collective."
+>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      From the booth.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      Gig logs, lessons, and the occasional opinion about music and events.
+    </p>
+  </TextHero>
+
+  {hasContent ? (
+    <section class="py-28 md:py-36 lg:py-section">
+      <div class="max-w-5xl mx-auto px-6">
+        {filters.length > 1 && (
+          <div class="mb-12" data-reveal>
+            <FilterChips
+              filters={filters}
+              target="#blog-grid"
+              filterAttr="filterCategory"
+            />
+          </div>
+        )}
+
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {allPosts.map((post) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="group block rounded-lg overflow-hidden border border-driftwood/10 hover:border-driftwood/30 transition-colors duration-200"
+              data-filterable
+              data-filter-category={post.data.category}
+              data-reveal
+            >
+              <div class="relative aspect-[16/9] overflow-hidden bg-deep-sound-900">
+                {post.data.coverImage ? (
+                  <img
+                    src={post.data.coverImage}
+                    alt=""
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  />
+                ) : (
+                  <PlaceholderArt variant="warm" />
+                )}
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour">
+                    {blogCategoryLabels[post.data.category]}
+                  </span>
+                  <span class="font-body text-xs text-deep-sound-400">
+                    {formatDate(post.data.publishedAt)}
+                  </span>
+                </div>
+                <h2 class="font-heading text-xl text-penn-cove leading-tight mb-2 group-hover:text-golden-hour transition-colors duration-200">
+                  {post.data.title}
+                </h2>
+                <p class="font-body text-sm text-deep-sound-600 leading-relaxed line-clamp-3">
+                  {post.data.excerpt}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="py-28 md:py-36 lg:py-section">
+      <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
+        <p class="font-body text-body text-deep-sound-500">
+          Blog posts coming soon. We&rsquo;re working on gig logs and essays
+          from behind the booth.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <CtaSection
+    heading="Have a question?"
+    body="We love talking shop. Ask us anything about music, events, or the island."
+    buttonText="Get in touch"
+  />
+</BaseLayout>

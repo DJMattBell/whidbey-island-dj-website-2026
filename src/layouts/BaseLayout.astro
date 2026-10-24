@@ -25,6 +25,8 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const resolvedOgImage =
+  ogImage ?? new URL("/images/og-default.jpg", Astro.site).href;
 ---
 
 <!doctype html>
@@ -42,21 +44,29 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={resolvedOgImage} />
 
-    <!-- Google Fonts: DM Serif Display (headings) + Inter (body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts: self-hosted woff2 in public/fonts/, declared in global.css -->
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/dm-serif-display-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     {jsonLd && (
       <script
         type="application/ld+json"
         set:html={JSON.stringify(jsonLd)}
-      />
+      ></script>
     )}
 
     <ClientRouter />

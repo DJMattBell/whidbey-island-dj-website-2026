@@ -72,7 +72,7 @@ The landing mark is the only continuous animation on the site. Parallax is banne
 
 ## 2026-09-11 — Reference sites, and what each is for
 
-Recorded so a future session doesn't re-derive it. Dart Collective: landing-page mode (fixed screen, single slow motion, near-zero chrome). Bamboo Beats: typographic confidence, full-bleed photography, comfort with dark dramatic sections — *not* its parallax, per-element fades, diagonal dividers, or club-black marble. Traveling Discotheque: first-person voice, per-DJ favorite-artists line, undecorated sections — *not* its third-person bios or Squarespace layout. Style Matters, Integral DJs, Toast & Jam, Sounds To Go, North Georgia: positioning and page-structure references per BRAND.md, not visual ones. dj100proof was open during review but is a club/nightlife site and is not a reference.
+Recorded so a future session doesn't re-derive it. Dart Collective: landing-page mode (fixed screen, single slow motion, near-zero chrome). Bamboo Beats: typographic confidence, full-bleed photography, comfort with dark dramatic sections — _not_ its parallax, per-element fades, diagonal dividers, or club-black marble. Traveling Discotheque: first-person voice, per-DJ favorite-artists line, undecorated sections — _not_ its third-person bios or Squarespace layout. Style Matters, Integral DJs, Toast & Jam, Sounds To Go, North Georgia: positioning and page-structure references per BRAND.md, not visual ones. dj100proof was open during review but is a club/nightlife site and is not a reference.
 
 ## Phase 0 — React is a Keystatic dependency, not a site dependency
 
@@ -201,3 +201,15 @@ SPEC §4 says "Filter chips: All / Weddings / Events / Lighting / Video." The ga
 ## 2026-10-23 — PhotoHero, CtaSection, FeaturedReviewSection extracted
 
 The full-bleed photo hero pattern (~15 lines) was duplicated across 5 pages; the CTA section across 10 pages; the featured-first review layout across 2 pages. Extracted into reusable components. PhotoHero accepts image, alt, optional overlay/image classes, and a slot. CtaSection accepts heading, body, button text, and a dark/light toggle. FeaturedReviewSection accepts reviews with rendered Content components and a dark toggle.
+
+## C2 — Self-hosted fonts replace Google Fonts CDN
+
+DM Serif Display, Inter, and Libre Baskerville downloaded as latin-only woff2 subsets into `public/fonts/`. `@font-face` declarations added to `global.css`. Google Fonts `<link>` tags removed from BaseLayout. Inter and DM Serif Display are preloaded (most critical for LCP). Libre Baskerville is not preloaded (editorial accent, used below the fold). Total font weight: 118 KB. Eliminates two DNS lookups, a render-blocking external stylesheet, and ~200 KB of unused unicode ranges.
+
+## C2 — OG image fallback
+
+Every page now has an `og:image` tag. When a page doesn't pass a specific `ogImage` prop, it falls back to `/images/og-default.jpg` — a 600x600 JPEG (157 KB) derived from `social-icon.png`. Square works for all platforms (Facebook, Twitter, LinkedIn all handle cropping). A proper 1200x630 OG image requires either ImageMagick on the build machine or a custom illustration; logged in KNOWN_ISSUES.
+
+## C2 — Image field `image()` upgrade deferred
+
+BUILD_PLAN C2 specified upgrading `djs.photo`, `gallery.image`, etc. from `z.string()` to Astro's `image()` helper. This is not practical in the current state: Keystatic stores uploaded images in `public/images/` with string path references, but `image()` requires images under `src/`. Moving 47+ images and updating all content YAML references is a content migration, not a code change. The proper fix is to switch Keystatic fields from `fields.text()` to `fields.image({ directory: '...' })` and migrate existing content. Deferred to a dedicated session.

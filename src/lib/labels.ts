@@ -2,10 +2,14 @@
 // Enum types — must match the z.enum() values in src/content.config.ts
 // ---------------------------------------------------------------------------
 
-type ReviewSource = "theknot" | "weddingwire" | "google" | "facebook" | "zola" | "direct";
+type ReviewSource =
+  "theknot" | "weddingwire" | "google" | "facebook" | "zola" | "direct";
 type EventType = "wedding" | "school" | "auction" | "community" | "private";
-type EquipmentCategory = "sound" | "lighting" | "wireless" | "power" | "photobooth";
-type GalleryTag = "wedding" | "event" | "lighting" | "photobooth" | "ceremony" | "team";
+type EquipmentCategory =
+  "sound" | "lighting" | "wireless" | "power" | "photobooth";
+type GalleryTag =
+  "wedding" | "event" | "lighting" | "photobooth" | "ceremony" | "team";
+type BlogCategory = "giglog" | "essay";
 type FaqCategory = "booking" | "music" | "logistics" | "pricing" | "photobooth";
 
 // ---------------------------------------------------------------------------
@@ -46,6 +50,11 @@ export const galleryTagLabels: Record<GalleryTag, string> = {
   team: "Team",
 };
 
+export const blogCategoryLabels: Record<BlogCategory, string> = {
+  giglog: "Gig Log",
+  essay: "Essay",
+};
+
 export const faqCategoryLabels: Record<FaqCategory, string> = {
   booking: "Booking",
   music: "Music",
@@ -59,9 +68,17 @@ export const faqCategoryLabels: Record<FaqCategory, string> = {
 // ---------------------------------------------------------------------------
 
 export const equipmentCategoryOrder: EquipmentCategory[] = [
-  "sound", "lighting", "wireless", "power", "photobooth",
+  "sound",
+  "lighting",
+  "wireless",
+  "power",
+  "photobooth",
 ];
 
 export const faqCategoryOrder: FaqCategory[] = [
-  "booking", "music", "logistics", "pricing", "photobooth",
+  "booking",
+  "music",
+  "logistics",
+  "pricing",
+  "photobooth",
 ];

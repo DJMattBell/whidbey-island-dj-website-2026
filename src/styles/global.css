@@ -1,6 +1,43 @@
 @import "tailwindcss";
 
 /*
+ * Self-hosted fonts (latin subset only).
+ * Source files in public/fonts/, downloaded from Google Fonts.
+ * Eliminates render-blocking external stylesheet + DNS lookups.
+ */
+@font-face {
+  font-family: "DM Serif Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/dm-serif-display-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/libre-baskerville-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/libre-baskerville-italic-latin.woff2") format("woff2");
+}
+
+/*
  * WIDC Design Tokens
  * Source: BRAND.md — Colors (Section 3), Typography (Section 4)
  *

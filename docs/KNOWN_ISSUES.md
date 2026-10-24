@@ -9,24 +9,17 @@ Format: `- [area] description — what would resolve it — date logged`
 - [tokens] `apricot-cream` ramp as supplied is byte-identical to `sandy-brown` (all eleven steps). Not added to `global.css`; if a distinct cream is wanted, Matt supplies real values — 2026-09-11
 - [placeholder] `wave-vinyl-placeholder.svg` is placeholder art: the orca fluke is a rough bézier, the label has no lettering, and the wave geometry is generated (not drawn). Swap target is the illustrator's mark; keep the `--mark-*` variable names so the swap stays one-file — 2026-09-11
 - [placeholder] Word mark above the landing mark uses Shrikhand (Google Fonts) as a stand-in disco/funk display face. Not a brand decision; the illustrator brief owns typography — 2026-09-11
-- [content] 16 photos pulled from Drive into `src/assets/photos/` and `src/assets/equipment/`. Hero pages (landing, weddings, events, djs) now use real photos. Additional photos needed for: gallery collection entries, blog posts, photobooth page, remaining DJ headshots — 2026-10-23
 - [content] Proof-point numbers (years active, events played) not yet compiled — Matt to pull from booking records; `settings.site.yearsActive/eventsPlayed` stay empty until then — 2026-09-11
-- [content] Photo inventory not yet sorted into hero / supporting / guest-care sets — Matt; Phase 1 uses placeholder-art treatments where needed — 2026-09-11
 - [content] Old-site reviews lack dates and source links; imported as `source: direct` with no date until matched to their platform — 2026-09-11
-- [content] Gallery, equipment, blog, and recommendations collections are empty — real content required from Matt before those pages can be built — Phase 0
-- [content] Image fields (djs.photo, services.heroImage, gallery.image, equipment.photo) are optional strings, not Astro `image()` helpers — upgrade to `image()` when real photos exist and the pipeline can validate them — Phase 0
+- [content] Image fields (djs.photo, gallery.image, equipment.photo) are `z.string()` pointing to `public/images/`, not Astro `image()` helpers — upgrade requires migrating images to `src/assets/` and switching Keystatic to `fields.image()`, see DECISIONS C2 — 2026-10-24
 - [content] Events service entry (`events.md`) created with working copy — needs Matt's review of tone and accuracy — Phase 1
 - [content] `reviewBadges` array in site.yaml is empty — homepage proof band badge row hidden until real platform ratings/counts are compiled — Phase 1
-- [content] No OG image set for any page — `social-icon.png` (illustrated brand face) available in `src/assets/` for use as OG fallback — Phase 1
+- [og] OG fallback image is 600×600 square (social-icon.png derivative) — proper 1200×630 OG image requires either ImageMagick or a custom illustration — 2026-10-24
 - [infra] Domain redirect map not yet confirmed against registrar — Phase 0 — 2026-09-11
-- [infra] Keystatic GitHub App not yet created; `/keystatic` works locally but not on production until OAuth credentials are set — run `bash scripts/setup-keystatic-github.sh` to set up — Phase 0
 - [infra] `npm run build` emits Vite "use client" warnings from Keystatic's UI library — cosmetic, not actionable — Phase 0
 - [infra] Astro's re-exported `z` from `astro:content` shows deprecation hints during `astro check` — upstream migration, not actionable — Phase 0
 - [schema] `reviews.dj` is a plain string slug, not a validated Astro `reference()` — works for filtering but doesn't catch typos at build time — Phase 0
-- [gallery] PhotoSwipe lightbox dependency deferred — gallery collection is empty; markup is lightbox-ready (`data-pswp-*` attributes on image links); add PhotoSwipe when real photo content exists — Phase 4
-- [gallery] Gallery collection empty — needs photos and video entries from Matt via Keystatic — Phase 4
-- [equipment] Equipment collection empty — needs entries from Matt via Keystatic — Phase 4
-- [placeholder] DJ profile photos use PlaceholderArt — swap for real DJ headshots when available — Phase 2
+- [gallery] PhotoSwipe lightbox dependency deferred — gallery markup is lightbox-ready; add PhotoSwipe when gallery has 10+ photos — Phase 4
 - [content] DJ entries for Lee, Wife, Baby, Baby Big Girl are incomplete — need content from Matt — Phase 2
 - [content] Matt's `musicFavorites` not populated — profile page section hidden until filled in — Phase 2
 - [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
@@ -34,13 +27,19 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] /weddings and /events "what's included" checklists are structural page copy, not content collection data — Phase 3
 - [content] /photobooth backdrop details are generic — needs real backdrop inventory from Matt — Phase 3
 - [faq] FAQ answers rendered as raw body string, not via Astro render() — works for current plain-text answers — Phase 3
-- [perf] Google Fonts loaded via external stylesheet (DM Serif Display, Inter, Libre Baskerville) — self-host if Lighthouse performance demands it — Phase 1
 - [visual] Visual quality pass applied but site still needs: more photos for photobooth/gallery/blog pages, DJ headshots to replace PlaceholderArt on profile images, mix/audio embeds (Matt to provide Mixcloud links) — 2026-10-23
 - [tokens] Color ramps generated algorithmically, not calibrated by a designer — ramp stops may need perceptual tuning when real photography arrives — Phase 3.5
 - [landing] Mark token values in global.css match SVG fallbacks but are not yet coordinated with illustrator — Phase 3.5
+- [pages] C1 pages not yet built: /blog, /blog/[slug], /recommendations, /our-story, /privacy, /terms — 2026-10-24
+- [perf] Lighthouse not yet baselined — run after C1 pages exist and at least some content is populated — 2026-10-24
 
 ## Resolved
 
+- [perf] Google Fonts loaded via external stylesheet — fixed C2: self-hosted woff2 (latin subset, 118 KB total) in `public/fonts/`, `@font-face` in `global.css`, preload on Inter + DM Serif Display — 2026-10-24
+- [seo] No OG image on any page — fixed C2: default fallback to `/images/og-default.jpg` (social-icon derivative) on every page via BaseLayout — 2026-10-24
+- [infra] Keystatic GitHub App not yet created — fixed M0: setup wizard completed, Keystatic works on production — 2026-10-24
+- [content] Gallery, equipment, blog, and recommendations collections were empty — gallery now has 42 entries, content track ongoing — 2026-10-24
+- [content] DJ profile photos used PlaceholderArt — replaced with real photos in `public/images/djs/` — 2026-10-24
 - [bug] Scroll-reveal never fires on `/djs` and `/djs/matt` — fixed: wrapped observer init in `requestAnimationFrame` to wait one frame after view transition DOM swap; threshold lowered from 0.15 to 0.1 — Phase 3.5
 - [homepage] Phase 1 homepage components (HeroSection, service picker, proof band, blog teaser) superseded by one-screen landing — `HeroSection.astro` deleted, index.astro rewritten — Phase 3.5
 - [homepage] "Who We Are" prose was in index.astro — moot; landing page no longer has body copy — Phase 3.5

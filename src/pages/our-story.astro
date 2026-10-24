@@ -1,0 +1,141 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TextHero from "../components/TextHero.astro";
+import SplitSection from "../components/SplitSection.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import PlaceholderArt from "../components/PlaceholderArt.astro";
+import CtaSection from "../components/CtaSection.astro";
+
+const siteEntry = await getEntry("site", "site");
+const yearsActive = siteEntry?.data.yearsActive;
+const eventsPlayed = siteEntry?.data.eventsPlayed;
+---
+
+<BaseLayout
+  title="Our Story | Whidbey Island DJ Collective"
+  description="How a crew of DJs on Whidbey Island became the collective. Our roots, our values, and why we do this."
+>
+  <TextHero>
+    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-6">
+      The Collective.
+    </h1>
+    <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
+      A crew of DJs rooted in the Pacific Northwest, built around one idea:
+      music should read the room.
+    </p>
+  </TextHero>
+
+  <!-- Origin story -->
+  <SplitSection>
+    <div data-reveal>
+      <SectionHeading
+        eyebrow="How it started"
+        heading="One DJ, one island, one rule."
+      />
+      <div class="font-body text-body text-deep-sound-700 leading-relaxed space-y-4">
+        <p>
+          It started with Matt spinning at a friend&rsquo;s wedding on Whidbey
+          Island. No playlist handoff, no top-40 autopilot &mdash; just reading
+          the room and playing what the moment needed. That became the rule.
+        </p>
+        <p>
+          Word spread. One gig became ten. Ten became a hundred. Along the way,
+          Matt brought on DJs who shared the same instinct: pay attention, stay
+          flexible, make it about the people in the room.
+        </p>
+      </div>
+    </div>
+    <div
+      class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound"
+      data-reveal
+    >
+      <PlaceholderArt variant="warm" />
+    </div>
+  </SplitSection>
+
+  <!-- What we believe -->
+  <SplitSection reverse dark>
+    <div data-reveal>
+      <SectionHeading
+        eyebrow="What we believe"
+        heading="The music is the easy part."
+      />
+      <div class="font-body text-body text-driftwood-200 leading-relaxed space-y-4">
+        <p>
+          Anyone can press play. The hard part is knowing <em>when</em> to
+          change the energy, <em>how</em> to read a crowd that&rsquo;s half
+          teenagers and half grandparents, and <em>when</em> to let the moment
+          breathe.
+        </p>
+        <p>
+          We believe in real conversations before the event, clean gear that
+          works every time, and showing up early. We believe the best compliment
+          is a packed dance floor that nobody planned.
+        </p>
+      </div>
+    </div>
+    <div
+      class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound-800"
+      data-reveal
+    >
+      <PlaceholderArt variant="cool" />
+    </div>
+  </SplitSection>
+
+  {/* Proof points — only renders when data exists */}
+  {(yearsActive || eventsPlayed) && (
+    <section class="py-28 md:py-36 lg:py-section">
+      <div class="max-w-3xl mx-auto px-6 text-center" data-reveal>
+        <div class="flex flex-col sm:flex-row justify-center gap-12 sm:gap-20">
+          {yearsActive && (
+            <div>
+              <p class="font-heading text-5xl md:text-6xl text-penn-cove leading-none mb-2">
+                {yearsActive}+
+              </p>
+              <p class="font-body text-sm text-deep-sound-500 tracking-wide uppercase">
+                Years on the island
+              </p>
+            </div>
+          )}
+          {eventsPlayed && (
+            <div>
+              <p class="font-heading text-5xl md:text-6xl text-penn-cove leading-none mb-2">
+                {eventsPlayed}+
+              </p>
+              <p class="font-body text-sm text-deep-sound-500 tracking-wide uppercase">
+                Events played
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Meet the crew -->
+  <section
+    class:list={[
+      "py-28 md:py-36 lg:py-section",
+      yearsActive || eventsPlayed ? "bg-deep-sound-900" : "",
+    ]}
+  >
+    <div class="max-w-3xl mx-auto px-6 text-center" data-reveal>
+      <SectionHeading eyebrow="The Crew" heading="Meet the DJs." centered />
+      <p class="font-body text-body text-deep-sound-700 leading-relaxed mt-4 mb-10 max-w-xl mx-auto">
+        Every DJ in the collective brings something different to the booth. Get
+        to know us.
+      </p>
+      <Button href="/djs" variant="primary" size="lg">
+        Meet the DJs
+      </Button>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Want to work with us?"
+    body="Tell us about your event and we&rsquo;ll take it from there."
+    buttonText="Check availability"
+  />
+</BaseLayout>

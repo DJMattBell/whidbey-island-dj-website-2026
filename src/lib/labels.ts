@@ -4,7 +4,7 @@
 
 type ReviewSource =
   "theknot" | "weddingwire" | "google" | "facebook" | "zola" | "direct";
-type EventType = "wedding" | "school" | "auction" | "community" | "private";
+type EventType = "wedding" | "school" | "auction" | "community" | "private" | "photobooth";
 type EquipmentCategory =
   "sound" | "lighting" | "wireless" | "power" | "photobooth";
 type GalleryTag =
@@ -31,6 +31,7 @@ export const eventLabels: Record<EventType, string> = {
   auction: "Auction / Fundraiser",
   community: "Community Event",
   private: "Private Party",
+  photobooth: "Photobooth Only",
 };
 
 export const equipmentCategoryLabels: Record<EquipmentCategory, string> = {

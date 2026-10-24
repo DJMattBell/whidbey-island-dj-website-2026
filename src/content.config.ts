@@ -91,6 +91,9 @@ const addons = defineCollection({
     priceCents: z.number().int(),
     description: z.string(),
     category: z.enum(["dj", "ceremony", "lighting", "photobooth"]),
+    standalonePriceCents: z.number().int().optional(),
+    bundleDiscountCents: z.number().int().optional(),
+    features: z.array(z.string()).optional(),
     sortOrder: z.number().int().default(0),
   }),
 });
@@ -126,7 +129,7 @@ const reviews = defineCollection({
     sourceUrl: z.string().url().optional(),
     rating: z.number().int().min(1).max(5).optional(),
     date: z.string().optional(),
-    eventType: z.enum(["wedding", "school", "auction", "community", "private"]),
+    eventType: z.enum(["wedding", "school", "auction", "community", "private", "photobooth"]),
     dj: z.string().optional(),
     featured: z.boolean().default(false),
   }),

@@ -136,6 +136,18 @@ export default config({
           ],
           defaultValue: "dj",
         }),
+        standalonePriceCents: fields.integer({
+          label: "Standalone price (cents)",
+          description: "If set, this addon is available standalone (not just as a DJ add-on)",
+        }),
+        bundleDiscountCents: fields.integer({
+          label: "Bundle discount (cents)",
+          description: "Savings when bundled with a DJ package",
+        }),
+        features: fields.array(fields.text({ label: "Feature" }), {
+          label: "What's included",
+          description: "Bullet points for what's included",
+        }),
         sortOrder: fields.integer({ label: "Sort order", defaultValue: 0 }),
       },
     }),
@@ -195,6 +207,7 @@ export default config({
             { label: "Auction", value: "auction" },
             { label: "Community", value: "community" },
             { label: "Private", value: "private" },
+            { label: "Photobooth Only", value: "photobooth" },
           ],
           defaultValue: "wedding",
         }),

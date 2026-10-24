@@ -76,13 +76,16 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 
 ### addons (`src/content/addons/*.yaml`)
 
-| Field       | Type                                     |
-| ----------- | ---------------------------------------- |
-| name        | string                                   |
-| priceCents  | integer                                  |
-| description | string                                   |
-| category    | enum: dj, ceremony, lighting, photobooth |
-| sortOrder   | integer                                  |
+| Field                | Type                                     |
+| -------------------- | ---------------------------------------- |
+| name                 | string                                   |
+| priceCents           | integer                                  |
+| description          | string                                   |
+| category             | enum: dj, ceremony, lighting, photobooth |
+| standalonePriceCents | optional integer — standalone price; if absent, this addon is add-on-only |
+| bundleDiscountCents  | optional integer — savings when bundled with a DJ package |
+| features             | optional array of string — what's-included bullets |
+| sortOrder            | integer                                  |
 
 ### faq (`src/content/faq/*.md`)
 
@@ -103,7 +106,7 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 | sourceUrl   | optional URL — link to the original review                                                    |
 | rating      | integer 1–5, optional                                                                         |
 | date        | optional date — old-site reviews lack dates                                                   |
-| eventType   | enum: wedding, school, auction, community, private                                            |
+| eventType   | enum: wedding, school, auction, community, private, photobooth                                |
 | dj          | optional string — DJ slug (e.g. "matt"); validated by convention, not a foreign-key reference |
 | featured    | boolean — homepage proof band                                                                 |
 | body        | markdown — the quote                                                                          |

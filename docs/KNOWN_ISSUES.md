@@ -23,6 +23,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
 - [content] Photobooth equipment entries (Salsa 2, DNP DS-620A, backdrops, prop tree) not yet created in Keystatic — equipment spotlight section on /photobooth is conditional, renders once entries are added — 2026-10-24
 - [content] /weddings and /events "what's included" checklists are structural page copy, not content collection data — Phase 3
+- [content] /photobooth backdrop names and print format descriptions are structural page copy, same pattern as above — 2026-10-24
 - [content] Photobooth FAQ answers are working copy — Matt to review tone and accuracy — 2026-10-24
 - [faq] FAQ answers rendered as raw body string, not via Astro render() — works for current plain-text answers — Phase 3
 - [visual] Site still needs: more photos for photobooth/gallery/blog, DJ headshots to replace PlaceholderArt, mix/audio embeds (Matt to provide Mixcloud links) — 2026-10-23

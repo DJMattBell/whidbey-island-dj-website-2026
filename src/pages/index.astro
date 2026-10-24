@@ -9,7 +9,11 @@ const siteEntry = await getEntry("site", "site");
 const site = siteEntry?.data;
 
 const allReviews = await getCollection("reviews");
-const featuredEntry = allReviews.find((r) => r.data.featured);
+// Landing shows one review — prefer shortest featured review to fit the fixed screen
+const featuredEntries = allReviews
+  .filter((r) => r.data.featured)
+  .sort((a, b) => (a.body?.length ?? 0) - (b.body?.length ?? 0));
+const featuredEntry = featuredEntries[0];
 const featured = featuredEntry
   ? { entry: featuredEntry, Content: (await render(featuredEntry)).Content }
   : null;

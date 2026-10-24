@@ -33,7 +33,6 @@ Format: `- [area] description — what would resolve it — date logged`
 - [a11y] Lightbox focus trap incomplete — focus moves to close button on open and returns on close, but Tab can still escape the overlay; full focus trapping requires more logic — C3
 - [a11y] Mobile menu focus trap incomplete — focus moves to close button, Escape closes, but Tab can still escape the overlay — C3
 - [a11y] Contact form uses `novalidate` with no per-field JS validation — native browser validation still fires via `required` attributes; per-field accessible error messages not implemented — C3
-- [a11y] Review attribution footers use `text-golden-hour` on light backgrounds (2.67:1) — affects /weddings, /reviews; use `text-golden-hour-700` or darker — 2026-10-24
 - [infra] Production domain `whidbeyislanddj.com` still points to stale `widc` Vercel project (78 days old) — need to alias domains to `whidbey-island-dj-website-2026` project or reconnect auto-deploy — 2026-10-24
 
 ## Lighthouse Baseline (2026-10-24)
@@ -52,6 +51,7 @@ BP −4: missing favicon.ico (all pages). Gallery perf: unoptimized `public/imag
 
 ## Resolved
 
+- [a11y] ReviewCard footer `text-golden-hour` flagged by Lighthouse as 2.67:1 against page bg — cards always render inside dark wrappers (`bg-deep-sound`), but axe couldn't resolve through the wrapper; fixed by adding `bg-inherit` to ReviewCard root `<blockquote>` so axe sees the dark bg directly — 2026-10-24
 - [a11y] CTA button `bg-madrone text-driftwood` had contrast ratio 4.0:1 — fixed: changed to `bg-madrone-700` (5.52:1) in Button.astro and contact.astro inline button — 2026-10-24
 - [infra] Missing favicon — fixed: added SVG favicon (modern browsers), 32×32 PNG fallback, 180×180 Apple touch icon, all derived from wave-vinyl mark — 2026-10-24
 - [a11y] No skip-to-content link — fixed C3: added skip link in BaseLayout, `id="main-content"` on `<main>` — 2026-10-24

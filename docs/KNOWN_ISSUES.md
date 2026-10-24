@@ -11,7 +11,6 @@ Format: `- [area] description — what would resolve it — date logged`
 - [placeholder] Word mark above the landing mark uses Shrikhand (Google Fonts) as a stand-in disco/funk display face. Not a brand decision; the illustrator brief owns typography — 2026-09-11
 - [content] Proof-point numbers (years active, events played) not yet compiled — Matt to pull from booking records; `settings.site.yearsActive/eventsPlayed` stay empty until then — 2026-09-11
 - [content] Old-site reviews lack dates and source links; imported as `source: direct` with no date until matched to their platform — 2026-09-11
-- [content] Image fields (djs.photo, gallery.image, equipment.photo) are `z.string()` pointing to `public/images/`, not Astro `image()` helpers — upgrade requires migrating images to `src/assets/` and switching Keystatic to `fields.image()`, see DECISIONS C2 — 2026-10-24
 - [content] Events service entry (`events.md`) created with working copy — needs Matt's review of tone and accuracy — Phase 1
 - [content] `reviewBadges` array in site.yaml is empty — homepage proof band badge row hidden until real platform ratings/counts are compiled — Phase 1
 - [og] OG fallback image is 600×600 square (social-icon.png derivative) — proper 1200×630 OG image requires either ImageMagick or a custom illustration — 2026-10-24
@@ -34,11 +33,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [a11y] Lightbox focus trap incomplete — focus moves to close button on open and returns on close, but Tab can still escape the overlay; full focus trapping requires more logic — C3
 - [a11y] Mobile menu focus trap incomplete — focus moves to close button, Escape closes, but Tab can still escape the overlay — C3
 - [a11y] Contact form uses `novalidate` with no per-field JS validation — native browser validation still fires via `required` attributes; per-field accessible error messages not implemented — C3
-- [perf] Gallery page scores 59 mobile perf — 42 unoptimized JPEGs in `public/images/gallery/` (74 MB total page weight, ~40 MB wasted); fix is the `image()` migration in DECISIONS C2 or manual compression — 2026-10-24
-- [perf] Gallery images lack explicit `width`/`height` attributes — causes CLS and Lighthouse "unsized images" flag — 2026-10-24
-- [a11y] CTA button `bg-madrone text-driftwood` has contrast ratio 4.0:1 (needs 4.5:1 for normal text) — affects /contact submit and all CtaSection links; fix by darkening madrone or switching text to white — 2026-10-24
 - [a11y] Review attribution footers use `text-golden-hour` on light backgrounds (2.67:1) — affects /weddings, /reviews; use `text-golden-hour-700` or darker — 2026-10-24
-- [infra] Missing `favicon.ico` — causes 404 console error and BP deduction on every page — 2026-10-24
 - [infra] Production domain `whidbeyislanddj.com` still points to stale `widc` Vercel project (78 days old) — need to alias domains to `whidbey-island-dj-website-2026` project or reconnect auto-deploy — 2026-10-24
 
 ## Lighthouse Baseline (2026-10-24)
@@ -57,6 +52,8 @@ BP −4: missing favicon.ico (all pages). Gallery perf: unoptimized `public/imag
 
 ## Resolved
 
+- [a11y] CTA button `bg-madrone text-driftwood` had contrast ratio 4.0:1 — fixed: changed to `bg-madrone-700` (5.52:1) in Button.astro and contact.astro inline button — 2026-10-24
+- [infra] Missing favicon — fixed: added SVG favicon (modern browsers), 32×32 PNG fallback, 180×180 Apple touch icon, all derived from wave-vinyl mark — 2026-10-24
 - [a11y] No skip-to-content link — fixed C3: added skip link in BaseLayout, `id="main-content"` on `<main>` — 2026-10-24
 - [a11y] No focus-visible styles — fixed C3: global `:focus-visible` outline (golden-hour, 2px, 2px offset) in `global.css` — 2026-10-24
 - [a11y] Gallery lightbox had no close button — fixed C3: added close button with `aria-label`, `role="dialog"` on overlay, focus moved to close on open, returned to trigger on close — 2026-10-24
@@ -75,8 +72,11 @@ BP −4: missing favicon.ico (all pages). Gallery perf: unoptimized `public/imag
 - [seo] No OG image on any page — fixed C2: default fallback to `/images/og-default.jpg` (social-icon derivative) on every page via BaseLayout — 2026-10-24
 - [infra] Keystatic GitHub App not yet created — fixed M0: setup wizard completed, Keystatic works on production — 2026-10-24
 - [content] Gallery, equipment, blog, and recommendations collections were empty — gallery now has 42 entries, content track ongoing — 2026-10-24
-- [content] DJ profile photos used PlaceholderArt — replaced with real photos in `public/images/djs/` — 2026-10-24
+- [content] DJ profile photos used PlaceholderArt — replaced with real photos in `src/assets/djs/` — 2026-10-24
 - [pages] C1 pages not built — fixed: /blog, /blog/[slug], /recommendations, /our-story, /privacy, /terms all built — 2026-10-24
+- [content] Image fields (djs.photo, gallery.image, equipment.photo, services.heroImage, blog.coverImage) upgraded from `z.string()` to `image()` — photos moved to `src/assets/`, templates use Astro `<Image>` with responsive srcset — 2026-10-24
+- [perf] Gallery page scored 59 mobile perf due to unoptimized raw JPEGs — fixed: all images through Astro pipeline, WebP output, responsive sizes — 2026-10-24
+- [perf] Gallery images lacked width/height — fixed: `image()` schema provides dimensions at build time — 2026-10-24
 - [bug] Scroll-reveal never fires on `/djs` and `/djs/matt` — fixed: wrapped observer init in `requestAnimationFrame` — Phase 3.5
 - [homepage] Phase 1 homepage components superseded by one-screen landing — Phase 3.5
 - [homepage] "Who We Are" prose was in index.astro — moot; landing page no longer has body copy — Phase 3.5

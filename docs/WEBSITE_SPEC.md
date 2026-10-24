@@ -93,7 +93,13 @@ Real numbers, live text, never an image. "$0 upcharges forever" as the headline 
 
 ### /photobooth
 
-Booth photos including one at lowered/accessible height. What's included, print formats (4x6 / 2x6 strip), backdrop options, delivery process, pricing block (reads from `addons` where `category: photobooth`).
+**Standalone service** — bookable without a DJ package. Dual pricing: standalone ($1,200 Print+Attendant, 3hr) and DJ bundle ($1,000 Print+Attendant, $600 Digital Only). Extra hours $150, custom backdrops from $150. Digital-only is DJ add-on only.
+
+Equipment: Salsa 2 booth (Photo Booth Supply Co.) running Fiesta Pro software, DNP DS-620A printer (4x6 prints or 2x6 strips), marble backdrops (Light, Dark, White, Green Screen), prop tree. Equipment spotlight section is conditional on `equipment` entries with `category: photobooth`.
+
+Sections: hero (real booth photo), what's-included (reads `features` from addon YAML), print formats (guest book angle: one for guest, one for book), backdrops, equipment spotlight (conditional), standalone pricing card, bundle callout, photobooth FAQ (conditional on FAQ entries with `category: photobooth`), dual CTA.
+
+Stays in footer "More" section, not primary nav.
 
 ### /djs and /djs/[slug]
 

@@ -21,9 +21,9 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] DJ entries for Lee, Wife, Baby, Baby Big Girl are incomplete — need content from Matt — Phase 2
 - [content] Matt's `musicFavorites` not populated — profile page section hidden until filled in — Phase 2
 - [infra] Subdomain redirects (matt./lee.) configured in vercel.json but not testable until domains are connected to Vercel — Phase 2
-- [placeholder] /photobooth hero still uses PlaceholderArt "accent" — swap for real photobooth photo when available — Phase 3
+- [content] Photobooth equipment entries (Salsa 2, DNP DS-620A, backdrops, prop tree) not yet created in Keystatic — equipment spotlight section on /photobooth is conditional, renders once entries are added — 2026-10-24
 - [content] /weddings and /events "what's included" checklists are structural page copy, not content collection data — Phase 3
-- [content] /photobooth backdrop details are generic — needs real backdrop inventory from Matt — Phase 3
+- [content] Photobooth FAQ answers are working copy — Matt to review tone and accuracy — 2026-10-24
 - [faq] FAQ answers rendered as raw body string, not via Astro render() — works for current plain-text answers — Phase 3
 - [visual] Site still needs: more photos for photobooth/gallery/blog, DJ headshots to replace PlaceholderArt, mix/audio embeds (Matt to provide Mixcloud links) — 2026-10-23
 - [tokens] Color ramps generated algorithmically, not calibrated by a designer — ramp stops may need perceptual tuning when real photography arrives — Phase 3.5
@@ -94,3 +94,7 @@ All pages 100/100/100/100 mobile after C3 fixes (favicon, CTA contrast, ReviewCa
 - [nav] Nav and footer links did not match spec sitemap — updated — Phase 1
 - [homepage] `review.body` passed as raw string — all pages now render via Astro `render()` — Phase 4
 - [djs] review.body passed as raw string on DJ profile page — fixed, now uses `render()` — Phase 4
+- [placeholder] /photobooth hero replaced with real booth photo (photobooth-kiosk-barn.jpeg from gallery) — 2026-10-24
+- [content] /photobooth backdrop details were generic — replaced with real inventory (Light Marble, Dark Marble, White, Green Screen) + custom from $150 — 2026-10-24
+- [content] /photobooth what's-included was hardcoded checklist — now reads `features` array from addon YAML — 2026-10-24
+- [content] /photobooth was add-on-only framing — upgraded to standalone service with dual pricing — 2026-10-24

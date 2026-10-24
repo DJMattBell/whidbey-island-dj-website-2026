@@ -16,7 +16,9 @@ const allAddons = (await getCollection("addons")).sort(
 );
 
 const djAddons = allAddons.filter((a) => a.data.category !== "photobooth");
-const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth");
+const photoboothAddons = allAddons.filter(
+  (a) => a.data.category === "photobooth",
+);
 ---
 
 <BaseLayout
@@ -28,8 +30,8 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
       $0 upcharges. Forever.
     </h1>
     <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed max-w-xl italic">
-      Real numbers, live on this page — not locked behind a contact form.
-      The price you see is the price you pay.
+      Real numbers, live on this page — not locked behind a contact form. The
+      price you see is the price you pay.
     </p>
   </TextHero>
 
@@ -124,10 +126,7 @@ const photoboothAddons = allAddons.filter((a) => a.data.category === "photobooth
   {djAddons.length > 0 && (
     <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <SectionHeading
-          eyebrow="Add-ons"
-          heading="Make it yours."
-        />
+        <SectionHeading eyebrow="Add-ons" heading="Make it yours." />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {djAddons.map((addon) => (
             <div class="bg-driftwood/10 rounded-lg p-6 border border-driftwood-300/10">

@@ -23,17 +23,31 @@ const reviews = await Promise.all(
 // Reviews page uses its own filter UI (AND across axes) instead of the
 // shared FilterChips component (single-axis OR). See DECISIONS.md.
 const eventTypes = [...new Set(allReviews.map((r) => r.data.eventType))];
-const sources = [...new Set(allReviews.map((r) => r.data.source))]
-  .filter((s) => s !== "direct" || allReviews.every((r) => r.data.source === "direct"));
-const djSlugs = [...new Set(allReviews.filter((r) => r.data.dj).map((r) => r.data.dj!))];
+const sources = [...new Set(allReviews.map((r) => r.data.source))].filter(
+  (s) => s !== "direct" || allReviews.every((r) => r.data.source === "direct"),
+);
+const djSlugs = [
+  ...new Set(allReviews.filter((r) => r.data.dj).map((r) => r.data.dj!)),
+];
 
-const eventFilters = eventTypes.map((e) => ({ key: e, label: eventLabels[e] ?? e }));
-const sourceFilters = sources.map((s) => ({ key: s, label: sourceLabels[s] ?? s }));
-const djFilters = djSlugs.map((d) => ({ key: d, label: d.charAt(0).toUpperCase() + d.slice(1) }));
+const eventFilters = eventTypes.map((e) => ({
+  key: e,
+  label: eventLabels[e] ?? e,
+}));
+const sourceFilters = sources.map((s) => ({
+  key: s,
+  label: sourceLabels[s] ?? s,
+}));
+const djFilters = djSlugs.map((d) => ({
+  key: d,
+  label: d.charAt(0).toUpperCase() + d.slice(1),
+}));
 
-const hasFilters = eventFilters.length > 1 || sourceFilters.length > 1 || djFilters.length > 0;
+const hasFilters =
+  eventFilters.length > 1 || sourceFilters.length > 1 || djFilters.length > 0;
 
-const chipBase = "review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200";
+const chipBase =
+  "review-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200";
 const chipActive = `${chipBase} border-penn-cove bg-penn-cove text-driftwood`;
 const chipInactive = `${chipBase} border-penn-cove/40 text-penn-cove hover:border-penn-cove`;
 ---
@@ -80,33 +94,63 @@ const chipInactive = `${chipBase} border-penn-cove/40 text-penn-cove hover:borde
         <div id="review-filters" class="mb-12 space-y-4" data-reveal>
           {eventFilters.length > 1 && (
             <div class="review-filter-axis" data-axis="event">
-              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Event type</p>
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">
+                Event type
+              </p>
               <div class="flex flex-wrap gap-2">
-                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">
+                  All
+                </button>
                 {eventFilters.map((f) => (
-                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button
+                    class={chipInactive}
+                    data-value={f.key}
+                    aria-pressed="false"
+                  >
+                    {f.label}
+                  </button>
                 ))}
               </div>
             </div>
           )}
           {sourceFilters.length > 1 && (
             <div class="review-filter-axis" data-axis="source">
-              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">Source</p>
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">
+                Source
+              </p>
               <div class="flex flex-wrap gap-2">
-                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">
+                  All
+                </button>
                 {sourceFilters.map((f) => (
-                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button
+                    class={chipInactive}
+                    data-value={f.key}
+                    aria-pressed="false"
+                  >
+                    {f.label}
+                  </button>
                 ))}
               </div>
             </div>
           )}
           {djFilters.length > 0 && (
             <div class="review-filter-axis" data-axis="dj">
-              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">DJ</p>
+              <p class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-deep-sound-400 mb-2">
+                DJ
+              </p>
               <div class="flex flex-wrap gap-2">
-                <button class={chipActive} data-value="all" aria-pressed="true">All</button>
+                <button class={chipActive} data-value="all" aria-pressed="true">
+                  All
+                </button>
                 {djFilters.map((f) => (
-                  <button class={chipInactive} data-value={f.key} aria-pressed="false">{f.label}</button>
+                  <button
+                    class={chipInactive}
+                    data-value={f.key}
+                    aria-pressed="false"
+                  >
+                    {f.label}
+                  </button>
                 ))}
               </div>
             </div>
@@ -155,12 +199,22 @@ const chipInactive = `${chipBase} border-penn-cove/40 text-penn-cove hover:borde
     const cards = grid.querySelectorAll<HTMLElement>("[data-filterable]");
     const axes = container.querySelectorAll<HTMLElement>(".review-filter-axis");
 
-    const activeClasses = ["border-penn-cove", "bg-penn-cove", "text-driftwood"];
-    const inactiveClasses = ["border-penn-cove/40", "text-penn-cove", "hover:border-penn-cove"];
+    const activeClasses = [
+      "border-penn-cove",
+      "bg-penn-cove",
+      "text-driftwood",
+    ];
+    const inactiveClasses = [
+      "border-penn-cove/40",
+      "text-penn-cove",
+      "hover:border-penn-cove",
+    ];
 
     // Track active value per axis
     const active: Record<string, string> = {};
-    axes.forEach((axis) => { active[axis.dataset.axis!] = "all"; });
+    axes.forEach((axis) => {
+      active[axis.dataset.axis!] = "all";
+    });
 
     function applyFilters() {
       cards.forEach((card) => {

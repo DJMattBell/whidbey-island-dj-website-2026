@@ -19,18 +19,24 @@ const {
 } = Astro.props;
 ---
 
-<section class:list={["py-28 md:py-36 lg:py-section", dark && "bg-deep-sound-950"]}>
+<section
+  class:list={["py-28 md:py-36 lg:py-section", dark && "bg-deep-sound-950"]}
+>
   <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
-    <h2 class:list={[
-      "font-heading text-3xl md:text-section leading-tight mb-6",
-      dark ? "text-driftwood" : "text-penn-cove",
-    ]}>
+    <h2
+      class:list={[
+        "font-heading text-3xl md:text-section leading-tight mb-6",
+        dark ? "text-driftwood" : "text-penn-cove",
+      ]}
+    >
       <Fragment set:html={heading} />
     </h2>
-    <p class:list={[
-      "font-editorial text-body mb-12 italic",
-      dark ? "text-sea-glass-300" : "text-deep-sound-700",
-    ]}>
+    <p
+      class:list={[
+        "font-editorial text-body mb-12 italic",
+        dark ? "text-sea-glass-300" : "text-deep-sound-700",
+      ]}
+    >
       <Fragment set:html={body} />
     </p>
     <Button href={buttonHref} variant="primary" size="lg">

@@ -38,28 +38,28 @@ Global values used across pages.
 
 ### djs (`src/content/djs/*.md`)
 
-| Field          | Type                                                                    |
-| -------------- | ----------------------------------------------------------------------- |
-| name           | string                                                                  |
-| slug           | from filename                                                           |
-| role           | string ("Lead DJ", "Associate DJ")                                      |
+| Field          | Type                                                                                      |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| name           | string                                                                                    |
+| slug           | from filename                                                                             |
+| role           | string ("Lead DJ", "Associate DJ")                                                        |
 | photo          | optional string — path to image in src/assets/djs/; upgrade to image() when photos arrive |
-| specialties    | array of string                                                         |
-| philosophy     | text (short)                                                            |
-| musicFavorites | optional object { goToAnthem, guiltyPleasure, forTheParents, lastSong } |
-| sortOrder      | integer                                                                 |
-| body           | markdown — first-person bio                                             |
+| specialties    | array of string                                                                           |
+| philosophy     | text (short)                                                                              |
+| musicFavorites | optional object { goToAnthem, guiltyPleasure, forTheParents, lastSong }                   |
+| sortOrder      | integer                                                                                   |
+| body           | markdown — first-person bio                                                               |
 
 ### services (`src/content/services/*.md`)
 
 Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 
-| Field                              | Type                                                            |
-| ---------------------------------- | --------------------------------------------------------------- |
-| title, heroHeading, heroSubheading | string                                                          |
+| Field                              | Type                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| title, heroHeading, heroSubheading | string                                                                 |
 | heroImage                          | optional string — path to image; upgrade to image() when photos arrive |
-| highlightVideoUrl                  | optional URL (YouTube)                                          |
-| body                               | markdown — sections authored in prose; components handle layout |
+| highlightVideoUrl                  | optional URL (YouTube)                                                 |
+| body                               | markdown — sections authored in prose; components handle layout        |
 
 ### pricingTiers (`src/content/pricing-tiers/*.yaml`)
 
@@ -96,17 +96,17 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 
 ### reviews (`src/content/reviews/*.md`)
 
-| Field       | Type                                                       |
-| ----------- | ---------------------------------------------------------- |
-| attribution | string ("Brittany B.")                                     |
-| source      | enum: theknot, weddingwire, google, facebook, zola, direct |
-| sourceUrl   | optional URL — link to the original review                 |
-| rating      | integer 1–5, optional                                      |
-| date        | optional date — old-site reviews lack dates                |
-| eventType   | enum: wedding, school, auction, community, private         |
+| Field       | Type                                                                                          |
+| ----------- | --------------------------------------------------------------------------------------------- |
+| attribution | string ("Brittany B.")                                                                        |
+| source      | enum: theknot, weddingwire, google, facebook, zola, direct                                    |
+| sourceUrl   | optional URL — link to the original review                                                    |
+| rating      | integer 1–5, optional                                                                         |
+| date        | optional date — old-site reviews lack dates                                                   |
+| eventType   | enum: wedding, school, auction, community, private                                            |
 | dj          | optional string — DJ slug (e.g. "matt"); validated by convention, not a foreign-key reference |
-| featured    | boolean — homepage proof band                              |
-| body        | markdown — the quote                                       |
+| featured    | boolean — homepage proof band                                                                 |
+| body        | markdown — the quote                                                                          |
 
 Yelp reviews are never copied; Yelp appears only as a badge in `settings.site.reviewBadges`.
 
@@ -114,27 +114,27 @@ Yelp reviews are never copied; Yelp appears only as a badge in `settings.site.re
 
 Cap: ~50 photos. New one in, old one out.
 
-| Field     | Type                                                                |
-| --------- | ------------------------------------------------------------------- |
-| kind      | enum: photo, video, reel                                            |
+| Field     | Type                                                                   |
+| --------- | ---------------------------------------------------------------------- |
+| kind      | enum: photo, video, reel                                               |
 | image     | optional string — path to image; upgrade to image() when photos arrive |
-| videoUrl  | URL (video/reel) — YouTube                                          |
-| caption   | optional string                                                     |
-| alt       | optional string — required for photos once gallery is populated      |
-| tags      | array of enum: wedding, event, lighting, photobooth, ceremony, team |
-| pinned    | boolean — the four core videos                                      |
-| sortOrder | integer                                                             |
+| videoUrl  | URL (video/reel) — YouTube                                             |
+| caption   | optional string                                                        |
+| alt       | optional string — required for photos once gallery is populated        |
+| tags      | array of enum: wedding, event, lighting, photobooth, ceremony, team    |
+| pinned    | boolean — the four core videos                                         |
+| sortOrder | integer                                                                |
 
 ### equipment (`src/content/equipment/*.md`)
 
-| Field      | Type                                               |
-| ---------- | -------------------------------------------------- |
-| name       | string                                             |
-| category   | enum: sound, lighting, wireless, power, photobooth |
+| Field      | Type                                                                   |
+| ---------- | ---------------------------------------------------------------------- |
+| name       | string                                                                 |
+| category   | enum: sound, lighting, wireless, power, photobooth                     |
 | photo      | optional string — path to image; upgrade to image() when photos arrive |
-| whatItDoes | text — one or two plain sentences                  |
-| sortOrder  | integer                                            |
-| body       | markdown — "why it matters to your guests"         |
+| whatItDoes | text — one or two plain sentences                                      |
+| sortOrder  | integer                                                                |
+| body       | markdown — "why it matters to your guests"                             |
 
 ### blog (`src/content/blog/*.md`)
 
@@ -146,7 +146,7 @@ Cap: ~50 photos. New one in, old one out.
 | publishedAt | date                                         |
 | draft       | boolean — drafts are excluded from the build |
 | excerpt     | string                                       |
-| coverImage  | optional string — path to image               |
+| coverImage  | optional string — path to image              |
 | body        | markdown                                     |
 
 ### recommendations (`src/content/recommendations/*.yaml`)

@@ -31,7 +31,10 @@ const eventReviews = await Promise.all(
   description="DJ services for school dances, auctions, community events, and private parties on Whidbey Island and the Puget Sound. Clean lyrics, flat pricing, COI available."
   transparentNav
 >
-  <PhotoHero image={heroImage} alt="Overhead view of DJ booth and packed dance floor with string lights">
+  <PhotoHero
+    image={heroImage}
+    alt="Overhead view of DJ booth and packed dance floor with string lights"
+  >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       {entry?.data.heroHeading ?? "Events that run like clockwork."}
     </h1>
@@ -47,8 +50,10 @@ const eventReviews = await Promise.all(
   {Content && (
     <SplitSection reverse>
       <div data-reveal>
-        <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
-          [&>p]:text-body [&>p]:leading-relaxed">
+        <div
+          class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
+          [&>p]:text-body [&>p]:leading-relaxed"
+        >
           <Content />
         </div>
       </div>
@@ -81,7 +86,12 @@ const eventReviews = await Promise.all(
           "Full sound, lighting, and MC services included",
         ].map((item) => (
           <li class="flex items-start gap-4">
-            <span class="text-golden-hour text-lg mt-0.5 shrink-0" aria-hidden="true">&check;</span>
+            <span
+              class="text-golden-hour text-lg mt-0.5 shrink-0"
+              aria-hidden="true"
+            >
+              &check;
+            </span>
             <span class="font-body text-body text-driftwood-200">{item}</span>
           </li>
         ))}
@@ -115,9 +125,9 @@ const eventReviews = await Promise.all(
         Homecoming to prom and everything between.
       </h3>
       <p class="font-body text-body text-deep-sound-700 leading-relaxed">
-        We work directly with student councils and advisors. Clean lyrics
-        are non-negotiable, the music stays age-appropriate, and we bring
-        enough sound and lighting to fill any gym or cafeteria.
+        We work directly with student councils and advisors. Clean lyrics are
+        non-negotiable, the music stays age-appropriate, and we bring enough
+        sound and lighting to fill any gym or cafeteria.
       </p>
     </div>
     <div data-reveal>
@@ -128,9 +138,9 @@ const eventReviews = await Promise.all(
         Sound that works for the room.
       </h3>
       <p class="font-body text-body text-deep-sound-700 leading-relaxed">
-        Fundraiser auctions, galas, community festivals, private parties
-        &mdash; we bring the right energy for your audience. Professional
-        MC services, wireless mics, and a crew that shows up early.
+        Fundraiser auctions, galas, community festivals, private parties &mdash;
+        we bring the right energy for your audience. Professional MC services,
+        wireless mics, and a crew that shows up early.
       </p>
     </div>
   </SplitSection>

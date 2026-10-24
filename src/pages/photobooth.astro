@@ -20,7 +20,11 @@ const photoboothAddons = (await getCollection("addons"))
   description="Open-air photobooth for weddings and events on Whidbey Island. Prints, digital copies, backdrops, and props included."
   transparentNav
 >
-  <PhotoHero image={heroImage} alt="DJ celebrating with glow sticks at an event" imageClass="object-top">
+  <PhotoHero
+    image={heroImage}
+    alt="DJ celebrating with glow sticks at an event"
+    imageClass="object-top"
+  >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       The booth that never stops.
     </h1>
@@ -45,7 +49,12 @@ const photoboothAddons = (await getCollection("addons"))
           "Unlimited sessions during your event",
         ].map((item) => (
           <li class="flex items-start gap-4">
-            <span class="text-golden-hour text-lg mt-0.5 shrink-0" aria-hidden="true">&check;</span>
+            <span
+              class="text-golden-hour text-lg mt-0.5 shrink-0"
+              aria-hidden="true"
+            >
+              &check;
+            </span>
             <span class="font-body text-body text-deep-sound-700">{item}</span>
           </li>
         ))}
@@ -82,7 +91,9 @@ const photoboothAddons = (await getCollection("addons"))
               </p>
             </div>
             <div>
-              <p class="font-heading text-3xl text-driftwood mb-1">2&times;6 strip</p>
+              <p class="font-heading text-3xl text-driftwood mb-1">
+                2&times;6 strip
+              </p>
               <p class="font-body text-sm text-driftwood-300">
                 Photo strip — the one your guests will keep in their wallet.
               </p>
@@ -100,8 +111,8 @@ const photoboothAddons = (await getCollection("addons"))
           </h3>
           <p class="font-body text-body text-driftwood-300 leading-relaxed">
             We bring a selection of backdrops to match your event&rsquo;s vibe
-            &mdash; from classic solid colors to seasonal options. Need something
-            custom? Let us know and we&rsquo;ll see what we can do.
+            &mdash; from classic solid colors to seasonal options. Need
+            something custom? Let us know and we&rsquo;ll see what we can do.
           </p>
         </div>
       </div>
@@ -112,10 +123,7 @@ const photoboothAddons = (await getCollection("addons"))
   {photoboothAddons.length > 0 && (
     <section class="py-28 md:py-36 lg:py-section">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <SectionHeading
-          eyebrow="Pricing"
-          heading="Add it to any package."
-        />
+        <SectionHeading eyebrow="Pricing" heading="Add it to any package." />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {photoboothAddons.map((addon) => (
             <div class="bg-driftwood rounded-lg p-6 border border-penn-cove-200">

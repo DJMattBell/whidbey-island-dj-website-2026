@@ -15,7 +15,11 @@ interface Props {
 const { filters, target, filterAttr } = Astro.props;
 ---
 
-<div class="filter-chips flex flex-wrap gap-2" data-filter-target={target} data-filter-attr={filterAttr}>
+<div
+  class="filter-chips flex flex-wrap gap-2"
+  data-filter-target={target}
+  data-filter-attr={filterAttr}
+>
   <button
     class="filter-chip font-body text-sm px-4 py-2 rounded-full border transition-colors duration-200 border-penn-cove bg-penn-cove text-driftwood"
     data-filter-value="all"
@@ -36,50 +40,64 @@ const { filters, target, filterAttr } = Astro.props;
 
 <script>
   function initFilterChips() {
-    document.querySelectorAll<HTMLElement>(".filter-chips").forEach((chipContainer) => {
-      const targetSelector = chipContainer.dataset.filterTarget;
-      const filterAttr = chipContainer.dataset.filterAttr;
-      if (!targetSelector || !filterAttr) return;
+    document
+      .querySelectorAll<HTMLElement>(".filter-chips")
+      .forEach((chipContainer) => {
+        const targetSelector = chipContainer.dataset.filterTarget;
+        const filterAttr = chipContainer.dataset.filterAttr;
+        if (!targetSelector || !filterAttr) return;
 
-      const cardContainer = document.querySelector(targetSelector);
-      if (!cardContainer) return;
+        const cardContainer = document.querySelector(targetSelector);
+        if (!cardContainer) return;
 
-      const chips = chipContainer.querySelectorAll<HTMLButtonElement>(".filter-chip");
-      const cards = cardContainer.querySelectorAll<HTMLElement>("[data-filterable]");
+        const chips =
+          chipContainer.querySelectorAll<HTMLButtonElement>(".filter-chip");
+        const cards =
+          cardContainer.querySelectorAll<HTMLElement>("[data-filterable]");
 
-      const activeClasses = ["border-penn-cove", "bg-penn-cove", "text-driftwood"];
-      const inactiveClasses = ["border-penn-cove/40", "text-penn-cove", "hover:border-penn-cove"];
+        const activeClasses = [
+          "border-penn-cove",
+          "bg-penn-cove",
+          "text-driftwood",
+        ];
+        const inactiveClasses = [
+          "border-penn-cove/40",
+          "text-penn-cove",
+          "hover:border-penn-cove",
+        ];
 
-      function setActive(chip: HTMLButtonElement) {
-        chips.forEach((c) => {
-          c.setAttribute("aria-pressed", "false");
-          activeClasses.forEach((cls) => c.classList.remove(cls));
-          inactiveClasses.forEach((cls) => c.classList.add(cls));
-        });
-        chip.setAttribute("aria-pressed", "true");
-        inactiveClasses.forEach((cls) => chip.classList.remove(cls));
-        activeClasses.forEach((cls) => chip.classList.add(cls));
-      }
+        function setActive(chip: HTMLButtonElement) {
+          chips.forEach((c) => {
+            c.setAttribute("aria-pressed", "false");
+            activeClasses.forEach((cls) => c.classList.remove(cls));
+            inactiveClasses.forEach((cls) => c.classList.add(cls));
+          });
+          chip.setAttribute("aria-pressed", "true");
+          inactiveClasses.forEach((cls) => chip.classList.remove(cls));
+          activeClasses.forEach((cls) => chip.classList.add(cls));
+        }
 
-      function filterCards(value: string) {
-        cards.forEach((card) => {
-          if (value === "all") {
-            card.style.display = "";
-          } else {
-            const cardValues = (card.dataset[filterAttr!] ?? "").split(",").map((v: string) => v.trim());
-            card.style.display = cardValues.includes(value) ? "" : "none";
-          }
-        });
-      }
+        function filterCards(value: string) {
+          cards.forEach((card) => {
+            if (value === "all") {
+              card.style.display = "";
+            } else {
+              const cardValues = (card.dataset[filterAttr!] ?? "")
+                .split(",")
+                .map((v: string) => v.trim());
+              card.style.display = cardValues.includes(value) ? "" : "none";
+            }
+          });
+        }
 
-      chips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          const value = chip.dataset.filterValue ?? "all";
-          setActive(chip);
-          filterCards(value);
+        chips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const value = chip.dataset.filterValue ?? "all";
+            setActive(chip);
+            filterCards(value);
+          });
         });
       });
-    });
   }
 
   document.addEventListener("astro:page-load", initFilterChips);

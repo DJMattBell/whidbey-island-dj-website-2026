@@ -10,8 +10,9 @@ import { getVideoId } from "../lib/video";
 import { equipmentCategoryLabels, equipmentCategoryOrder } from "../lib/labels";
 import heroImage from "../assets/photos/dj-booth-flowers.jpg";
 
-const allEquipment = (await getCollection("equipment"))
-  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+const allEquipment = (await getCollection("equipment")).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
 
 const hasContent = allEquipment.length > 0;
 
@@ -51,13 +52,17 @@ const lightingVideoId = lightingDemo?.data.videoUrl
   description="What we bring to your event and why it matters. Professional sound, lighting, wireless, and photobooth gear from the Whidbey Island DJ Collective."
   transparentNav
 >
-  <PhotoHero image={heroImage} alt="DJ booth setup with floral arrangement at a wedding venue" overlayClass="bg-deep-sound-950/65">
+  <PhotoHero
+    image={heroImage}
+    alt="DJ booth setup with floral arrangement at a wedding venue"
+    overlayClass="bg-deep-sound-950/65"
+  >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       What we bring &mdash; and why it matters.
     </h1>
     <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
-      Professional gear maintained and tested before every event.
-      No rental-house gambles.
+      Professional gear maintained and tested before every event. No
+      rental-house gambles.
     </p>
   </PhotoHero>
 
@@ -67,10 +72,12 @@ const lightingVideoId = lightingDemo?.data.videoUrl
       {groups.map((group, groupIndex) => {
         const isDark = groupIndex % 2 === 0;
         return (
-          <section class:list={[
-            "py-28 md:py-36 lg:py-section",
-            isDark && "bg-deep-sound-900",
-          ]}>
+          <section
+            class:list={[
+              "py-28 md:py-36 lg:py-section",
+              isDark && "bg-deep-sound-900",
+            ]}
+          >
             <div class="max-w-5xl mx-auto px-6">
               <SectionHeading
                 eyebrow={group.label}
@@ -127,10 +134,7 @@ const lightingVideoId = lightingDemo?.data.videoUrl
               centered
             />
             <div class="mt-10">
-              <YouTubeFacade
-                videoId={lightingVideoId}
-                title="Lighting demo"
-              />
+              <YouTubeFacade videoId={lightingVideoId} title="Lighting demo" />
             </div>
           </div>
         </section>
@@ -140,8 +144,8 @@ const lightingVideoId = lightingDemo?.data.videoUrl
     <section class="py-28 md:py-36 lg:py-section">
       <div class="max-w-2xl mx-auto px-6 text-center" data-reveal>
         <p class="font-body text-body text-deep-sound-500">
-          Equipment details coming soon. We&rsquo;re documenting our full rig
-          so you know exactly what shows up.
+          Equipment details coming soon. We&rsquo;re documenting our full rig so
+          you know exactly what shows up.
         </p>
       </div>
     </section>

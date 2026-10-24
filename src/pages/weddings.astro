@@ -31,7 +31,10 @@ const weddingReviews = await Promise.all(
   description="Wedding DJ services on Whidbey Island and the Puget Sound. Transparent pricing, named DJs, music that reads the room. No upcharges, ever."
   transparentNav
 >
-  <PhotoHero image={heroImage} alt="Wedding reception at sunset on Whidbey Island">
+  <PhotoHero
+    image={heroImage}
+    alt="Wedding reception at sunset on Whidbey Island"
+  >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       {entry?.data.heroHeading ?? "Your wedding, your music."}
     </h1>
@@ -47,8 +50,10 @@ const weddingReviews = await Promise.all(
   {Content && (
     <SplitSection>
       <div data-reveal>
-        <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
-          [&>p]:text-body [&>p]:leading-relaxed">
+        <div
+          class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
+          [&>p]:text-body [&>p]:leading-relaxed"
+        >
           <Content />
         </div>
       </div>
@@ -92,7 +97,12 @@ const weddingReviews = await Promise.all(
           "$0 upcharges — always",
         ].map((item) => (
           <li class="flex items-start gap-4">
-            <span class="text-golden-hour text-lg mt-0.5 shrink-0" aria-hidden="true">&check;</span>
+            <span
+              class="text-golden-hour text-lg mt-0.5 shrink-0"
+              aria-hidden="true"
+            >
+              &check;
+            </span>
             <span class="font-body text-body text-driftwood-200">{item}</span>
           </li>
         ))}

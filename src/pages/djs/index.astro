@@ -16,13 +16,17 @@ const djs = (await getCollection("djs")).sort(
   description="Your DJ from day one. Meet the crew behind the Whidbey Island DJ Collective — named DJs who stay with your event from first call to last song."
   transparentNav
 >
-  <PhotoHero image={heroImage} alt="DJ focused at the turntables with headphones" overlayClass="bg-deep-sound-950/65">
+  <PhotoHero
+    image={heroImage}
+    alt="DJ focused at the turntables with headphones"
+    overlayClass="bg-deep-sound-950/65"
+  >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       Your DJ from Day One.
     </h1>
     <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl italic">
-      The DJ you talk to is the DJ who shows up. No hand-offs, no strangers,
-      no surprises.
+      The DJ you talk to is the DJ who shows up. No hand-offs, no strangers, no
+      surprises.
     </p>
   </PhotoHero>
 
@@ -35,12 +39,19 @@ const djs = (await getCollection("djs")).sort(
           class="group grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center py-16 first:pt-0 last:pb-0 border-b border-penn-cove-200 last:border-0"
           data-reveal
         >
-          <div class:list={[
-            "relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound",
-            i % 2 !== 0 && "md:order-2",
-          ]}>
+          <div
+            class:list={[
+              "relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound",
+              i % 2 !== 0 && "md:order-2",
+            ]}
+          >
             {dj.data.photo ? (
-              <img src={dj.data.photo} alt={dj.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+              <img
+                src={dj.data.photo}
+                alt={dj.data.name}
+                class="absolute inset-0 w-full h-full object-cover object-top"
+                loading="lazy"
+              />
             ) : (
               <PlaceholderArt variant={i % 2 === 0 ? "cool" : "warm"} />
             )}

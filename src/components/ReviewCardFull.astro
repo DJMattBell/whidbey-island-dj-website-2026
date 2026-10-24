@@ -11,11 +11,11 @@ interface Props {
 import { sourceLabels, eventLabels } from "../lib/labels";
 import { formatDate } from "../lib/format";
 
-const { attribution, eventType, source, sourceUrl, rating, date } =
-  Astro.props;
+const { attribution, eventType, source, sourceUrl, rating, date } = Astro.props;
 
 const sourceLabel = sourceLabels[source as keyof typeof sourceLabels] ?? source;
-const eventLabel = eventLabels[eventType as keyof typeof eventLabels] ?? eventType;
+const eventLabel =
+  eventLabels[eventType as keyof typeof eventLabels] ?? eventType;
 ---
 
 <article class="bg-deep-sound rounded-lg p-8">
@@ -24,7 +24,10 @@ const eventLabel = eventLabels[eventType as keyof typeof eventLabels] ?? eventTy
     <div class="flex gap-1 mb-4" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
-          class:list={["w-4 h-4", i < rating ? "text-golden-hour" : "text-deep-sound-600"]}
+          class:list={[
+            "w-4 h-4",
+            i < rating ? "text-golden-hour" : "text-deep-sound-600",
+          ]}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -47,9 +50,7 @@ const eventLabel = eventLabels[eventType as keyof typeof eventLabels] ?? eventTy
     <span class="font-body text-small font-semibold text-golden-hour tracking-wide uppercase">
       &mdash; {attribution}
     </span>
-    <span class="font-body text-xs text-driftwood-400">
-      {eventLabel}
-    </span>
+    <span class="font-body text-xs text-driftwood-400">{eventLabel}</span>
     {date && (
       <span class="font-body text-xs text-driftwood-500">
         {formatDate(date)}

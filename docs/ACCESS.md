@@ -4,15 +4,15 @@ _Who holds what, and how to grant or revoke it. Keep this current — it is the 
 
 ## Systems
 
-| System | Purpose | Owner account | How others get access |
-| --- | --- | --- | --- |
-| GitHub repo `DJMattBell/whidbey-island-dj-website-2026` | Code + content (Keystatic writes here) | Matt (personal account) | Repo collaborator with write. Content editors need only this. |
-| Vercel project | Hosting, build, env vars, analytics | Matt | Team member on the Vercel team. Developers only. |
-| Domain registrar(s) | DNS for all owned domains | Matt | Never shared. Matt makes DNS changes; developers request them in writing. |
-| Resend (API key name: `widc-website`) | Outbound inquiry email from whidbeyislanddj.com | Matt | API key lives only in Vercel env vars. |
-| Keystatic GitHub App | OAuth for the `/keystatic` admin | Matt | Created once at Phase 0; client ID/secret in Vercel env vars. |
-| YouTube channel | Video hosting | Matt | Editors add videos by URL only; channel access not required. |
-| Review platforms (Knot, WeddingWire, Google, Facebook, Zola, Yelp) | Source of reviews | Matt | Not connected to the site; reviews are copied in manually. |
+| System                                                             | Purpose                                         | Owner account           | How others get access                                                     |
+| ------------------------------------------------------------------ | ----------------------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| GitHub repo `DJMattBell/whidbey-island-dj-website-2026`            | Code + content (Keystatic writes here)          | Matt (personal account) | Repo collaborator with write. Content editors need only this.             |
+| Vercel project                                                     | Hosting, build, env vars, analytics             | Matt                    | Team member on the Vercel team. Developers only.                          |
+| Domain registrar(s)                                                | DNS for all owned domains                       | Matt                    | Never shared. Matt makes DNS changes; developers request them in writing. |
+| Resend (API key name: `widc-website`)                              | Outbound inquiry email from whidbeyislanddj.com | Matt                    | API key lives only in Vercel env vars.                                    |
+| Keystatic GitHub App                                               | OAuth for the `/keystatic` admin                | Matt                    | Created once at Phase 0; client ID/secret in Vercel env vars.             |
+| YouTube channel                                                    | Video hosting                                   | Matt                    | Editors add videos by URL only; channel access not required.              |
+| Review platforms (Knot, WeddingWire, Google, Facebook, Zola, Yelp) | Source of reviews                               | Matt                    | Not connected to the site; reviews are copied in manually.                |
 
 ## Roles
 

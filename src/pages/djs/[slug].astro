@@ -39,9 +39,17 @@ const allDjs = (await getCollection("djs"))
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <!-- Photo -->
-        <div class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound" data-reveal>
+        <div
+          class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound"
+          data-reveal
+        >
           {dj.data.photo ? (
-            <img src={dj.data.photo} alt={dj.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+            <img
+              src={dj.data.photo}
+              alt={dj.data.name}
+              class="absolute inset-0 w-full h-full object-cover object-top"
+              loading="lazy"
+            />
           ) : (
             <PlaceholderArt variant="cool" />
           )}
@@ -77,8 +85,10 @@ const allDjs = (await getCollection("djs"))
   <!-- Bio -->
   <section class="py-28 md:py-36 lg:py-section">
     <div class="max-w-3xl mx-auto px-6" data-reveal>
-      <div class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
-        [&>p]:text-body [&>p]:leading-relaxed">
+      <div
+        class="prose prose-lg max-w-none font-body text-deep-sound-700 leading-relaxed space-y-6
+        [&>p]:text-body [&>p]:leading-relaxed"
+      >
         <Content />
       </div>
     </div>
@@ -96,17 +106,21 @@ const allDjs = (await getCollection("djs"))
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
           {[
             { label: "Go-to Anthem", value: dj.data.musicFavorites.goToAnthem },
-            { label: "Guilty Pleasure", value: dj.data.musicFavorites.guiltyPleasure },
-            { label: "For the Parents", value: dj.data.musicFavorites.forTheParents },
+            {
+              label: "Guilty Pleasure",
+              value: dj.data.musicFavorites.guiltyPleasure,
+            },
+            {
+              label: "For the Parents",
+              value: dj.data.musicFavorites.forTheParents,
+            },
             { label: "Last Song", value: dj.data.musicFavorites.lastSong },
           ].map((item) => (
             <div class="text-center p-6">
               <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-2">
                 {item.label}
               </p>
-              <p class="font-heading text-xl text-driftwood">
-                {item.value}
-              </p>
+              <p class="font-heading text-xl text-driftwood">{item.value}</p>
             </div>
           ))}
         </div>
@@ -161,7 +175,12 @@ const allDjs = (await getCollection("djs"))
             >
               <div class="relative h-36 overflow-hidden">
                 {other.data.photo ? (
-                  <img src={other.data.photo} alt={other.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+                  <img
+                    src={other.data.photo}
+                    alt={other.data.name}
+                    class="absolute inset-0 w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
                 ) : (
                   <PlaceholderArt variant="warm" />
                 )}

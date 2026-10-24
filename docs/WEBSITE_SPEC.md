@@ -133,7 +133,7 @@ Form: name, email, event date, event type, message. Honeypot + basic rate limit.
 
 ## 4a. Design direction (added rev 2)
 
-This section is the visual brief for every page. It is deliberately about *feel*, because the reference sites differ in mechanics and none of them is to be copied.
+This section is the visual brief for every page. It is deliberately about _feel_, because the reference sites differ in mechanics and none of them is to be copied.
 
 **The one-line version:** landing page like Dart Collective; interior pages a cross between Bamboo Beats and Traveling Discotheque; nothing that reads as a template.
 

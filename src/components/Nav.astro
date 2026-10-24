@@ -51,8 +51,12 @@ const currentPath = Astro.url.pathname;
           class:list={[
             "font-body text-sm font-medium tracking-wide transition-colors duration-200 nav-link",
             currentPath === link.href
-              ? transparent ? "text-driftwood" : "text-penn-cove"
-              : transparent ? "text-driftwood/80 hover:text-driftwood" : "text-deep-sound/70 hover:text-penn-cove",
+              ? transparent
+                ? "text-driftwood"
+                : "text-penn-cove"
+              : transparent
+                ? "text-driftwood/80 hover:text-driftwood"
+                : "text-deep-sound/70 hover:text-penn-cove",
           ]}
         >
           {link.label}
@@ -72,9 +76,27 @@ const currentPath = Astro.url.pathname;
       aria-label="Open menu"
       aria-expanded="false"
     >
-      <span class:list={["block w-6 h-0.5 transition-transform duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-1" />
-      <span class:list={["block w-6 h-0.5 transition-opacity duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-2" />
-      <span class:list={["block w-6 h-0.5 transition-transform duration-200", transparent ? "bg-driftwood" : "bg-deep-sound"]} id="burger-3" />
+      <span
+        class:list={[
+          "block w-6 h-0.5 transition-transform duration-200",
+          transparent ? "bg-driftwood" : "bg-deep-sound",
+        ]}
+        id="burger-1"
+      />
+      <span
+        class:list={[
+          "block w-6 h-0.5 transition-opacity duration-200",
+          transparent ? "bg-driftwood" : "bg-deep-sound",
+        ]}
+        id="burger-2"
+      />
+      <span
+        class:list={[
+          "block w-6 h-0.5 transition-transform duration-200",
+          transparent ? "bg-driftwood" : "bg-deep-sound",
+        ]}
+        id="burger-3"
+      />
     </button>
   </nav>
 </header>
@@ -161,10 +183,18 @@ const currentPath = Astro.url.pathname;
         const scrolled = window.scrollY > 80;
         if (scrolled) {
           header!.classList.remove("bg-transparent", "border-transparent");
-          header!.classList.add("bg-deep-sound-950/95", "backdrop-blur-sm", "border-driftwood/10");
+          header!.classList.add(
+            "bg-deep-sound-950/95",
+            "backdrop-blur-sm",
+            "border-driftwood/10",
+          );
         } else {
           header!.classList.add("bg-transparent", "border-transparent");
-          header!.classList.remove("bg-deep-sound-950/95", "backdrop-blur-sm", "border-driftwood/10");
+          header!.classList.remove(
+            "bg-deep-sound-950/95",
+            "backdrop-blur-sm",
+            "border-driftwood/10",
+          );
         }
       }
 

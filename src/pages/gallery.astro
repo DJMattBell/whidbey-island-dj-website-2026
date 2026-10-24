@@ -75,7 +75,7 @@ const filters = [
 
         {/* Photo/video grid */}
         {gridItems.length > 0 && (
-          <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="gallery-grid" class="columns-2 lg:columns-3 gap-4 space-y-4">
             {gridItems.map((item) => {
               const isVideo = item.data.kind === "video" || item.data.kind === "reel";
               const tags = [...item.data.tags, ...(isVideo ? ["video"] : [])].join(",");
@@ -83,36 +83,33 @@ const filters = [
 
               return (
                 <div
+                  class="break-inside-avoid"
                   data-filterable
                   data-filter-tags={tags}
                   data-reveal
                 >
                   {item.data.kind === "photo" && item.data.image ? (
-                    <a
-                      href={item.data.image}
-                      data-pswp-width=""
-                      data-pswp-height=""
-                      class="block rounded-lg overflow-hidden"
+                    <button
+                      type="button"
+                      class="block w-full rounded-lg overflow-hidden cursor-zoom-in"
+                      data-lightbox-trigger
+                      data-lightbox-src={item.data.image}
+                      data-lightbox-alt={item.data.alt ?? item.data.caption ?? ""}
+                      data-lightbox-caption={item.data.caption ?? ""}
                     >
                       <img
                         src={item.data.image}
                         alt={item.data.alt ?? item.data.caption ?? ""}
                         loading="lazy"
-                        class="w-full aspect-[4/3] object-cover hover:opacity-90 transition-opacity duration-200"
+                        class="w-full h-auto object-cover hover:opacity-90 transition-opacity duration-200"
                       />
-                    </a>
+                    </button>
                   ) : videoId ? (
                     <YouTubeFacade
                       videoId={videoId}
                       title={item.data.caption ?? "Video"}
                     />
                   ) : null}
-
-                  {item.data.caption && (
-                    <p class="font-body text-sm text-deep-sound-600 mt-2">
-                      {item.data.caption}
-                    </p>
-                  )}
                 </div>
               );
             })}
@@ -155,4 +152,103 @@ const filters = [
   }
 
   document.addEventListener("astro:page-load", initGalleryPinnedToggle);
+
+  /* ── Lightweight lightbox ── */
+  function initLightbox() {
+    // Create overlay once
+    let overlay = document.getElementById("gallery-lightbox") as HTMLDivElement | null;
+    if (overlay) overlay.remove();
+
+    overlay = document.createElement("div");
+    overlay.id = "gallery-lightbox";
+    overlay.className = "fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 cursor-zoom-out";
+    overlay.innerHTML = `
+      <img id="lightbox-img" class="max-w-full max-h-[90vh] object-contain rounded-lg" alt="" />
+      <p id="lightbox-caption" class="absolute bottom-6 left-0 right-0 text-center text-white/80 text-sm font-body px-4"></p>
+      <button type="button" id="lightbox-prev" aria-label="Previous" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&lsaquo;</button>
+      <button type="button" id="lightbox-next" aria-label="Next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&rsaquo;</button>
+    `;
+    document.body.appendChild(overlay);
+
+    const img = document.getElementById("lightbox-img") as HTMLImageElement;
+    const caption = document.getElementById("lightbox-caption") as HTMLParagraphElement;
+    const prevBtn = document.getElementById("lightbox-prev") as HTMLButtonElement;
+    const nextBtn = document.getElementById("lightbox-next") as HTMLButtonElement;
+
+    // Gather all visible triggers in DOM order
+    function getTriggers() {
+      return [...document.querySelectorAll<HTMLElement>("[data-lightbox-trigger]")]
+        .filter((el) => {
+          const parent = el.closest("[data-filterable]");
+          return !parent || parent.checkVisibility?.() !== false;
+        });
+    }
+
+    let currentIndex = 0;
+
+    function show(index: number) {
+      const triggers = getTriggers();
+      if (index < 0 || index >= triggers.length) return;
+      currentIndex = index;
+      const trigger = triggers[currentIndex];
+      img.src = trigger.dataset.lightboxSrc ?? "";
+      img.alt = trigger.dataset.lightboxAlt ?? "";
+      caption.textContent = trigger.dataset.lightboxCaption ?? "";
+      overlay!.classList.remove("hidden");
+      overlay!.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function hide() {
+      overlay!.classList.add("hidden");
+      overlay!.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    function navigate(dir: number) {
+      const triggers = getTriggers();
+      const next = currentIndex + dir;
+      if (next >= 0 && next < triggers.length) show(next);
+    }
+
+    // Open on trigger click
+    document.addEventListener("click", (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLElement>("[data-lightbox-trigger]");
+      if (!trigger) return;
+      const triggers = getTriggers();
+      const idx = triggers.indexOf(trigger);
+      if (idx >= 0) show(idx);
+    });
+
+    // Close on overlay click (but not on arrows)
+    overlay.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (target === overlay || target === img || target === caption) hide();
+    });
+
+    prevBtn.addEventListener("click", (e) => { e.stopPropagation(); navigate(-1); });
+    nextBtn.addEventListener("click", (e) => { e.stopPropagation(); navigate(1); });
+
+    // Keyboard nav
+    document.addEventListener("keydown", (e) => {
+      if (overlay!.classList.contains("hidden")) return;
+      if (e.key === "Escape") hide();
+      if (e.key === "ArrowLeft") navigate(-1);
+      if (e.key === "ArrowRight") navigate(1);
+    });
+
+    // Swipe support for mobile
+    let touchStartX = 0;
+    overlay.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    overlay.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        navigate(dx > 0 ? -1 : 1);
+      } else {
+        hide();
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", initLightbox);
 </script>

@@ -40,7 +40,11 @@ const allDjs = (await getCollection("djs"))
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <!-- Photo -->
         <div class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound" data-reveal>
-          <PlaceholderArt variant="cool" />
+          {dj.data.photo ? (
+            <img src={dj.data.photo} alt={dj.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+          ) : (
+            <PlaceholderArt variant="cool" />
+          )}
           <div class="absolute inset-0 bg-deep-sound/20" />
         </div>
 
@@ -156,7 +160,11 @@ const allDjs = (await getCollection("djs"))
               class="group block rounded-lg overflow-hidden border border-driftwood/10 hover:border-driftwood/30 transition-colors duration-200"
             >
               <div class="relative h-36 overflow-hidden">
-                <PlaceholderArt variant="warm" />
+                {other.data.photo ? (
+                  <img src={other.data.photo} alt={other.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+                ) : (
+                  <PlaceholderArt variant="warm" />
+                )}
                 <div class="absolute inset-0 bg-deep-sound/30" />
               </div>
               <div class="p-5">

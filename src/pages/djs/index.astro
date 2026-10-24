@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PhotoHero from "../../components/PhotoHero.astro";
 import CtaSection from "../../components/CtaSection.astro";
 import PlaceholderArt from "../../components/PlaceholderArt.astro";
-import heroImage from "../../assets/photos/dj-setup.jpg";
+import heroImage from "../../assets/photos/party-moment.jpg";
 
 const djs = (await getCollection("djs")).sort(
   (a, b) => a.data.sortOrder - b.data.sortOrder,
@@ -39,7 +39,11 @@ const djs = (await getCollection("djs")).sort(
             "relative rounded-lg overflow-hidden aspect-[4/3] bg-deep-sound",
             i % 2 !== 0 && "md:order-2",
           ]}>
-            <PlaceholderArt variant={i % 2 === 0 ? "cool" : "warm"} />
+            {dj.data.photo ? (
+              <img src={dj.data.photo} alt={dj.data.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy" />
+            ) : (
+              <PlaceholderArt variant={i % 2 === 0 ? "cool" : "warm"} />
+            )}
             <div class="absolute inset-0 bg-deep-sound/30" />
           </div>
           <div>

@@ -9,7 +9,7 @@ const { attribution, eventType } = Astro.props;
 
 <!-- Inline bg duplicates wrapper's bg-deep-sound so axe can compute contrast
      (Tailwind bg-* compiles to var() which axe cannot resolve). -->
-<figure class="review-card max-w-3xl mx-auto text-center" style="background-color: #1c2d40">
+<figure class="review-card max-w-3xl mx-auto text-center" style="background-color: var(--color-deep-sound)">
   <blockquote class="review-card-body font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6">
     <slot />
   </blockquote>

@@ -54,7 +54,7 @@ All pages 100/100/100/100 mobile after C3 fixes (favicon, CTA contrast, ReviewCa
 
 ## Resolved
 
-- [a11y] ReviewCard footer `text-golden-hour` flagged by Lighthouse as low contrast against page bg — two issues: (1) Tailwind `bg-deep-sound` compiles to `var()` which axe cannot resolve, and (2) Unicode escapes in `before:content-['\201C']` Tailwind classes caused Astro's HTML parser to drop the `<blockquote>` opening tag entirely; fixed by restructuring to `<figure>/<blockquote>/<figcaption>`, moving curly-quote pseudo-elements to global.css, and adding inline `style="background-color: #1c2d40"` so axe sees the dark bg — 2026-10-24
+- [a11y] ReviewCard footer `text-golden-hour` flagged by Lighthouse as low contrast against page bg — two issues: (1) Tailwind `bg-deep-sound` compiles to `var()` which axe cannot resolve, and (2) Unicode escapes in `before:content-['\201C']` Tailwind classes caused Astro's HTML parser to drop the `<blockquote>` opening tag entirely; fixed by restructuring to `<figure>/<blockquote>/<figcaption>`, moving curly-quote pseudo-elements to global.css, and adding inline `style="background-color: var(--color-deep-sound)"` so axe sees the dark bg — 2026-10-24
 - [a11y] CTA button `bg-madrone text-driftwood` had contrast ratio 4.0:1 — fixed: changed to `bg-madrone-700` (5.52:1) in Button.astro and contact.astro inline button — 2026-10-24
 - [infra] Missing favicon — fixed: added SVG favicon (modern browsers), 32×32 PNG fallback, 180×180 Apple touch icon, all derived from wave-vinyl mark — 2026-10-24
 - [a11y] No skip-to-content link — fixed C3: added skip link in BaseLayout, `id="main-content"` on `<main>` — 2026-10-24

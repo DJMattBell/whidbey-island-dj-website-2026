@@ -9,7 +9,7 @@ const { transparent = false } = Astro.props;
 
 const navLinks = [
   { label: "Weddings", href: "/weddings" },
-  { label: "Events", href: "/events" },
+  { label: "Not weddings", href: "/events" },
   { label: "Pricing", href: "/pricing" },
   { label: "DJs", href: "/djs" },
   { label: "Gallery", href: "/gallery" },
@@ -29,7 +29,7 @@ const currentPath = Astro.url.pathname;
   ]}
   data-transparent={transparent ? "true" : undefined}
 >
-  <nav class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
+  <nav aria-label="Primary" class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
     <!-- Wordmark -->
     <a
       href="/"
@@ -126,7 +126,7 @@ const currentPath = Astro.url.pathname;
     </svg>
   </button>
 
-  <nav class="flex flex-col items-center gap-6">
+  <nav aria-label="Mobile menu" class="flex flex-col items-center gap-6">
     {navLinks.map((link) => (
       <a
         href={link.href}
@@ -155,12 +155,14 @@ const currentPath = Astro.url.pathname;
       menu?.classList.remove("hidden");
       toggle?.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
+      close?.focus();
     }
 
     function closeMenu() {
       menu?.classList.add("hidden");
       toggle?.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
+      toggle?.focus();
     }
 
     toggle?.addEventListener("click", openMenu);
@@ -168,6 +170,12 @@ const currentPath = Astro.url.pathname;
 
     menu?.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu?.classList.contains("hidden")) {
+        closeMenu();
+      }
     });
 
     // Transparent-to-solid scroll behavior

@@ -136,6 +136,7 @@ const allDjs = (await getCollection("djs"))
           eyebrow="Reviews"
           heading={`What people say about ${dj.data.name.split(" ")[0]}.`}
           centered
+          dark={false}
         />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {djReviews.map(({ entry, ReviewContent }) => (

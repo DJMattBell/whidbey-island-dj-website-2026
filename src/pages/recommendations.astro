@@ -51,6 +51,7 @@ const vendorGroups = vendorCategories.map((cat) => ({
               <SectionHeading
                 eyebrow={group.category}
                 heading={`Our go-to ${group.category.toLowerCase()} picks.`}
+                dark={isDark}
               />
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                 {group.items.map((rec) => (
@@ -91,7 +92,7 @@ const vendorGroups = vendorCategories.map((cat) => ({
           ]}
         >
           <div class="max-w-5xl mx-auto px-6">
-            <SectionHeading eyebrow="Resources" heading="Useful links." />
+            <SectionHeading eyebrow="Resources" heading="Useful links." dark={vendorGroups.length % 2 === 0} />
             <ul class="mt-12 space-y-6">
               {resources.map((rec) => (
                 <li data-reveal>

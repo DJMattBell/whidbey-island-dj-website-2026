@@ -3,18 +3,25 @@ interface Props {
   eyebrow?: string;
   heading: string;
   centered?: boolean;
+  dark?: boolean;
 }
 
-const { eyebrow, heading, centered = false } = Astro.props;
+const { eyebrow, heading, centered = false, dark = true } = Astro.props;
 ---
 
 <div class:list={["mb-10", centered && "text-center"]}>
   {eyebrow && (
-    <span class="block font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-3">
+    <span class:list={[
+      "block font-body text-eyebrow font-semibold tracking-[0.3em] uppercase mb-3",
+      dark ? "text-golden-hour" : "text-golden-hour-700",
+    ]}>
       {eyebrow}
     </span>
   )}
-  <h2 class="font-heading text-3xl md:text-section text-penn-cove leading-tight">
+  <h2 class:list={[
+    "font-heading text-3xl md:text-section leading-tight",
+    dark ? "text-penn-cove" : "text-penn-cove",
+  ]}>
     {heading}
   </h2>
 </div>

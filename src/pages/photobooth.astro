@@ -40,6 +40,7 @@ const photoboothAddons = (await getCollection("addons"))
       <SectionHeading
         eyebrow="What's Included"
         heading="Everything in the booth."
+        dark={false}
       />
       <ul class="space-y-4 mt-8">
         {[
@@ -123,7 +124,7 @@ const photoboothAddons = (await getCollection("addons"))
   {photoboothAddons.length > 0 && (
     <section class="py-28 md:py-36 lg:py-section">
       <div class="max-w-4xl mx-auto px-6" data-reveal>
-        <SectionHeading eyebrow="Pricing" heading="Add it to any package." />
+        <SectionHeading eyebrow="Pricing" heading="Add it to any package." dark={false} />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
           {photoboothAddons.map((addon) => (
             <div class="bg-driftwood rounded-lg p-6 border border-penn-cove-200">

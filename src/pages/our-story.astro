@@ -33,6 +33,7 @@ const eventsPlayed = siteEntry?.data.eventsPlayed;
       <SectionHeading
         eyebrow="How it started"
         heading="One DJ, one island, one rule."
+        dark={false}
       />
       <div class="font-body text-body text-deep-sound-700 leading-relaxed space-y-4">
         <p>
@@ -122,7 +123,7 @@ const eventsPlayed = siteEntry?.data.eventsPlayed;
     ]}
   >
     <div class="max-w-3xl mx-auto px-6 text-center" data-reveal>
-      <SectionHeading eyebrow="The Crew" heading="Meet the DJs." centered />
+      <SectionHeading eyebrow="The Crew" heading="Meet the DJs." centered dark={!!(yearsActive || eventsPlayed)} />
       <p class="font-body text-body text-deep-sound-700 leading-relaxed mt-4 mb-10 max-w-xl mx-auto">
         Every DJ in the collective brings something different to the booth. Get
         to know us.

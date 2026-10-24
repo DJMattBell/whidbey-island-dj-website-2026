@@ -46,6 +46,12 @@ const resolvedOgImage =
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={resolvedOgImage} />
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
     <!-- Fonts: self-hosted woff2 in public/fonts/, declared in global.css -->
     <link
       rel="preload"
@@ -74,8 +80,13 @@ const resolvedOgImage =
     <title>{title}</title>
   </head>
   <body class="bg-driftwood text-deep-sound antialiased">
+    {!landing && (
+      <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-penn-cove focus:text-driftwood focus:px-4 focus:py-2 focus:rounded focus:outline-none">
+        Skip to content
+      </a>
+    )}
     {!landing && <Nav transparent={transparentNav} />}
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     {!landing && <Footer />}

@@ -1,7 +1,7 @@
 ---
 const primaryLinks = [
   { label: "Weddings", href: "/weddings" },
-  { label: "Events", href: "/events" },
+  { label: "Not weddings", href: "/events" },
   { label: "Pricing", href: "/pricing" },
   { label: "DJs", href: "/djs" },
   { label: "Gallery", href: "/gallery" },
@@ -38,7 +38,7 @@ const moreLinks = [
         <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
           Navigate
         </p>
-        <nav class="flex flex-col gap-2">
+        <nav aria-label="Navigate" class="flex flex-col gap-2">
           {primaryLinks.map((link) => (
             <a
               href={link.href}
@@ -55,7 +55,7 @@ const moreLinks = [
         <p class="font-body text-eyebrow font-semibold tracking-[0.2em] uppercase text-golden-hour mb-4">
           More
         </p>
-        <nav class="flex flex-col gap-2">
+        <nav aria-label="More" class="flex flex-col gap-2">
           {moreLinks.map((link) => (
             <a
               href={link.href}
@@ -87,20 +87,20 @@ const moreLinks = [
 
     <!-- Bottom bar -->
     <div class="mt-16 pt-8 border-t border-driftwood/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p class="font-body text-xs text-driftwood/40">
+      <p class="font-body text-xs text-driftwood/60">
         &copy; {new Date().getFullYear()} The Whidbey Island DJ Collective. All
         rights reserved.
       </p>
       <div class="flex gap-4">
         <a
           href="/privacy"
-          class="font-body text-xs text-driftwood/40 hover:text-driftwood/60 transition-colors duration-200"
+          class="font-body text-xs text-driftwood/60 hover:text-driftwood/60 transition-colors duration-200"
         >
           Privacy
         </a>
         <a
           href="/terms"
-          class="font-body text-xs text-driftwood/40 hover:text-driftwood/60 transition-colors duration-200"
+          class="font-body text-xs text-driftwood/60 hover:text-driftwood/60 transition-colors duration-200"
         >
           Terms
         </a>

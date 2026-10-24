@@ -63,7 +63,7 @@ const filters = (Object.entries(blogCategoryLabels) as [string, string][]).map(
                 {post.data.coverImage ? (
                   <img
                     src={post.data.coverImage}
-                    alt=""
+                    alt={post.data.title}
                     loading="lazy"
                     class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
                   />
@@ -73,7 +73,7 @@ const filters = (Object.entries(blogCategoryLabels) as [string, string][]).map(
               </div>
               <div class="p-6">
                 <div class="flex items-center gap-3 mb-3">
-                  <span class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour">
+                  <span class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour-700">
                     {blogCategoryLabels[post.data.category]}
                   </span>
                   <span class="font-body text-xs text-deep-sound-400">

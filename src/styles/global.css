@@ -187,11 +187,24 @@
     transform: translateY(0);
   }
 
+  /* Focus indicator — visible on keyboard, hidden on click */
+  :focus-visible {
+    outline: 2px solid var(--color-golden-hour);
+    outline-offset: 2px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] {
       opacity: 1;
       transform: none;
       transition: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
     }
   }
 }

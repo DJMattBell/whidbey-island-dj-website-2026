@@ -179,11 +179,14 @@ const filters = [
     overlay.id = "gallery-lightbox";
     overlay.className =
       "fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 cursor-zoom-out";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-label", "Image lightbox");
     overlay.innerHTML = `
+      <button type="button" id="lightbox-close" aria-label="Close lightbox" class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl font-bold w-10 h-10 flex items-center justify-center z-10">&times;</button>
       <img id="lightbox-img" class="max-w-full max-h-[90vh] object-contain rounded-lg" alt="" />
       <p id="lightbox-caption" class="absolute bottom-6 left-0 right-0 text-center text-white/80 text-sm font-body px-4"></p>
-      <button type="button" id="lightbox-prev" aria-label="Previous" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&lsaquo;</button>
-      <button type="button" id="lightbox-next" aria-label="Next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&rsaquo;</button>
+      <button type="button" id="lightbox-prev" aria-label="Previous image" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&lsaquo;</button>
+      <button type="button" id="lightbox-next" aria-label="Next image" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-bold px-3 py-2 select-none">&rsaquo;</button>
     `;
     document.body.appendChild(overlay);
 
@@ -191,6 +194,9 @@ const filters = [
     const caption = document.getElementById(
       "lightbox-caption",
     ) as HTMLParagraphElement;
+    const closeBtn = document.getElementById(
+      "lightbox-close",
+    ) as HTMLButtonElement;
     const prevBtn = document.getElementById(
       "lightbox-prev",
     ) as HTMLButtonElement;
@@ -209,24 +215,27 @@ const filters = [
     }
 
     let currentIndex = 0;
+    let triggerElement: HTMLElement | null = null;
 
     function show(index: number) {
       const triggers = getTriggers();
       if (index < 0 || index >= triggers.length) return;
       currentIndex = index;
-      const trigger = triggers[currentIndex];
-      img.src = trigger.dataset.lightboxSrc ?? "";
-      img.alt = trigger.dataset.lightboxAlt ?? "";
-      caption.textContent = trigger.dataset.lightboxCaption ?? "";
+      triggerElement = triggers[currentIndex];
+      img.src = triggerElement.dataset.lightboxSrc ?? "";
+      img.alt = triggerElement.dataset.lightboxAlt ?? "";
+      caption.textContent = triggerElement.dataset.lightboxCaption ?? "";
       overlay!.classList.remove("hidden");
       overlay!.classList.add("flex");
       document.body.style.overflow = "hidden";
+      closeBtn.focus();
     }
 
     function hide() {
       overlay!.classList.add("hidden");
       overlay!.classList.remove("flex");
       document.body.style.overflow = "";
+      triggerElement?.focus();
     }
 
     function navigate(dir: number) {
@@ -252,6 +261,10 @@ const filters = [
       if (target === overlay || target === img || target === caption) hide();
     });
 
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      hide();
+    });
     prevBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       navigate(-1);

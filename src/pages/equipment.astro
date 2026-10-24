@@ -82,6 +82,7 @@ const lightingVideoId = lightingDemo?.data.videoUrl
               <SectionHeading
                 eyebrow={group.label}
                 heading={`Our ${group.label.toLowerCase()} gear.`}
+                dark={isDark}
               />
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                 {group.items.map(({ entry, Content }) => (
@@ -132,6 +133,7 @@ const lightingVideoId = lightingDemo?.data.videoUrl
               eyebrow="Lighting Demo"
               heading="See the difference lighting makes."
               centered
+              dark={false}
             />
             <div class="mt-10">
               <YouTubeFacade videoId={lightingVideoId} title="Lighting demo" />

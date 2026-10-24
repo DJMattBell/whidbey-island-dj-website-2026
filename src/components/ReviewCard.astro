@@ -7,16 +7,14 @@ interface Props {
 const { attribution, eventType } = Astro.props;
 ---
 
-<blockquote class="max-w-3xl mx-auto text-center bg-inherit">
-  <div
-    class="font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6
-    before:content-['\201C'] after:content-['\201D']
-    [&>p]:inline"
-  >
+<!-- Inline bg duplicates wrapper's bg-deep-sound so axe can compute contrast
+     (Tailwind bg-* compiles to var() which axe cannot resolve). -->
+<figure class="review-card max-w-3xl mx-auto text-center" style="background-color: #1c2d40">
+  <blockquote class="review-card-body font-heading text-xl md:text-card text-penn-cove leading-relaxed mb-6">
     <slot />
-  </div>
-  <footer class="font-body text-small text-golden-hour tracking-wide uppercase">
+  </blockquote>
+  <figcaption class="font-body text-small text-golden-hour tracking-wide uppercase">
     &mdash; {attribution}
     {eventType && `, ${eventType}`}
-  </footer>
-</blockquote>
+  </figcaption>
+</figure>

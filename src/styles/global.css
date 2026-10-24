@@ -193,6 +193,20 @@
     outline-offset: 2px;
   }
 
+  /* ReviewCard curly-quote pseudo-elements — kept in CSS because the Unicode
+     escapes in Tailwind arbitrary-value classes break Astro's HTML parser. */
+  .review-card-body::before {
+    content: "\201C";
+  }
+
+  .review-card-body::after {
+    content: "\201D";
+  }
+
+  .review-card-body > p {
+    display: inline;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] {
       opacity: 1;

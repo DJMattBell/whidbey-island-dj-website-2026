@@ -34,6 +34,9 @@ Format: `- [area] description — what would resolve it — date logged`
 - [a11y] Mobile menu focus trap incomplete — focus moves to close button, Escape closes, but Tab can still escape the overlay — C3
 - [a11y] Contact form uses `novalidate` with no per-field JS validation — native browser validation still fires via `required` attributes; per-field accessible error messages not implemented — C3
 - [infra] Production domain `whidbeyislanddj.com` still points to stale `widc` Vercel project (78 days old) — need to alias domains to `whidbey-island-dj-website-2026` project or reconnect auto-deploy — 2026-10-24
+- [infra] Vercel Analytics (or Plausible) not wired — SPEC S8 requires analytics from Phase 1; add Vercel Analytics integration or `@astrojs/vercel` analytics — 2026-10-24
+- [infra] GitHub Actions CI not set up — SPEC S6 requires `npm ci && npm run build` on every push/PR; add `.github/workflows/ci.yml` — 2026-10-24
+- [infra] Dependabot not enabled — SPEC S6 requires Dependabot; add `.github/dependabot.yml` — 2026-10-24
 
 ## Lighthouse Baseline (2026-10-24)
 

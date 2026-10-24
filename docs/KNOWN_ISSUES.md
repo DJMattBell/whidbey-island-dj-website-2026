@@ -30,8 +30,9 @@ Format: `- [area] description — what would resolve it — date logged`
 - [visual] Visual quality pass applied but site still needs: more photos for photobooth/gallery/blog pages, DJ headshots to replace PlaceholderArt on profile images, mix/audio embeds (Matt to provide Mixcloud links) — 2026-10-23
 - [tokens] Color ramps generated algorithmically, not calibrated by a designer — ramp stops may need perceptual tuning when real photography arrives — Phase 3.5
 - [landing] Mark token values in global.css match SVG fallbacks but are not yet coordinated with illustrator — Phase 3.5
-- [pages] C1 pages not yet built: /blog, /blog/[slug], /recommendations, /our-story, /privacy, /terms — 2026-10-24
-- [perf] Lighthouse not yet baselined — run after C1 pages exist and at least some content is populated — 2026-10-24
+- [style] Prose styling (font-body + heading/blockquote overrides) duplicated across ~5 page files with minor variations — extract to a shared CSS class or component — 2026-10-24
+- [content] `businessName` hardcoded as literal string in `<title>` tags across all pages — should read from site.yaml for consistency with index.astro — 2026-10-24
+- [perf] Lighthouse not yet baselined — run after at least some content is populated — 2026-10-24
 
 ## Resolved
 
@@ -40,6 +41,7 @@ Format: `- [area] description — what would resolve it — date logged`
 - [infra] Keystatic GitHub App not yet created — fixed M0: setup wizard completed, Keystatic works on production — 2026-10-24
 - [content] Gallery, equipment, blog, and recommendations collections were empty — gallery now has 42 entries, content track ongoing — 2026-10-24
 - [content] DJ profile photos used PlaceholderArt — replaced with real photos in `public/images/djs/` — 2026-10-24
+- [pages] C1 pages not built — fixed: /blog, /blog/[slug], /recommendations, /our-story, /privacy, /terms all built — 2026-10-24
 - [bug] Scroll-reveal never fires on `/djs` and `/djs/matt` — fixed: wrapped observer init in `requestAnimationFrame` to wait one frame after view transition DOM swap; threshold lowered from 0.15 to 0.1 — Phase 3.5
 - [homepage] Phase 1 homepage components (HeroSection, service picker, proof band, blog teaser) superseded by one-screen landing — `HeroSection.astro` deleted, index.astro rewritten — Phase 3.5
 - [homepage] "Who We Are" prose was in index.astro — moot; landing page no longer has body copy — Phase 3.5

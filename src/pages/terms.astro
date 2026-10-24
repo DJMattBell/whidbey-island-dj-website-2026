@@ -1,6 +1,10 @@
 ---
+import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TextHero from "../components/TextHero.astro";
+
+const siteEntry = await getEntry("site", "site");
+const email = siteEntry?.data.email ?? "matt@whidbeyislanddj.com";
 ---
 
 <BaseLayout
@@ -60,10 +64,10 @@ import TextHero from "../components/TextHero.astro";
       <p>
         Questions about these terms? Email us at
         <a
-          href="mailto:matt@whidbeyislanddj.com"
+          href={`mailto:${email}`}
           class="text-penn-cove hover:text-golden-hour underline transition-colors duration-200"
         >
-          matt@whidbeyislanddj.com
+          {email}
         </a>
         .
       </p>

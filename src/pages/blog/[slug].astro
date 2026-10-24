@@ -44,7 +44,7 @@ const { Content } = await render(post);
   {post.data.coverImage && (
     <section class="bg-deep-sound-900 pb-12">
       <div class="max-w-4xl mx-auto px-6">
-        <img src={post.data.coverImage} alt="" class="w-full rounded-lg" />
+        <img src={post.data.coverImage} alt={post.data.title} class="w-full rounded-lg" />
       </div>
     </section>
   )}

@@ -34,7 +34,26 @@ Format: `- [area] description — what would resolve it — date logged`
 - [a11y] Lightbox focus trap incomplete — focus moves to close button on open and returns on close, but Tab can still escape the overlay; full focus trapping requires more logic — C3
 - [a11y] Mobile menu focus trap incomplete — focus moves to close button, Escape closes, but Tab can still escape the overlay — C3
 - [a11y] Contact form uses `novalidate` with no per-field JS validation — native browser validation still fires via `required` attributes; per-field accessible error messages not implemented — C3
-- [perf] Lighthouse not yet baselined — run on deployed site after push — 2026-10-24
+- [perf] Gallery page scores 59 mobile perf — 42 unoptimized JPEGs in `public/images/gallery/` (74 MB total page weight, ~40 MB wasted); fix is the `image()` migration in DECISIONS C2 or manual compression — 2026-10-24
+- [perf] Gallery images lack explicit `width`/`height` attributes — causes CLS and Lighthouse "unsized images" flag — 2026-10-24
+- [a11y] CTA button `bg-madrone text-driftwood` has contrast ratio 4.0:1 (needs 4.5:1 for normal text) — affects /contact submit and all CtaSection links; fix by darkening madrone or switching text to white — 2026-10-24
+- [a11y] Review attribution footers use `text-golden-hour` on light backgrounds (2.67:1) — affects /weddings, /reviews; use `text-golden-hour-700` or darker — 2026-10-24
+- [infra] Missing `favicon.ico` — causes 404 console error and BP deduction on every page — 2026-10-24
+- [infra] Production domain `whidbeyislanddj.com` still points to stale `widc` Vercel project (78 days old) — need to alias domains to `whidbey-island-dj-website-2026` project or reconnect auto-deploy — 2026-10-24
+
+## Lighthouse Baseline (2026-10-24)
+
+Deployment: `whidbey-island-dj-website-2026.vercel.app` · Lighthouse 13.5.0 · commit `f653402`
+
+| Page | Mode | Perf | A11y | BP | SEO |
+|------|------|------|------|----|-----|
+| `/` (landing) | Mobile | 100 | 100 | 96 | 100 |
+| `/` (landing) | Desktop | 100 | 100 | 96 | 100 |
+| `/gallery` | Mobile | 59 | 100 | 96 | 92 |
+| `/contact` | Mobile | 100 | 95 | 96 | 100 |
+| `/weddings` | Mobile | 99 | 96 | 96 | 100 |
+
+BP −4: missing favicon.ico (all pages). Gallery perf: unoptimized `public/images/` JPEGs. A11y deductions: CTA button + review footer contrast. SEO −8 on gallery: robots.txt Sitemap URL mismatch (points to `whidbeyislanddj.com`).
 
 ## Resolved
 

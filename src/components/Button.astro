@@ -4,6 +4,8 @@ interface Props {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   class?: string;
+  type?: "submit" | "button" | "reset";
+  [key: string]: unknown;
 }
 
 const {
@@ -11,6 +13,7 @@ const {
   variant = "primary",
   size = "md",
   class: className,
+  ...rest
 } = Astro.props;
 
 const baseClasses =
@@ -41,6 +44,6 @@ const classes = [
 const Tag = href ? "a" : "button";
 ---
 
-<Tag href={href} class={classes}>
+<Tag href={href} class={classes} {...rest}>
   <slot />
 </Tag>

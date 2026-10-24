@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TextHero from "../components/TextHero.astro";
 import CtaSection from "../components/CtaSection.astro";
@@ -12,11 +12,18 @@ const allFaq = (await getCollection("faq"))
   .filter((f) => f.data.published)
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
+const faqWithContent = await Promise.all(
+  allFaq.map(async (faq) => {
+    const { Content } = await render(faq);
+    return { faq, Content };
+  }),
+);
+
 const grouped = faqCategoryOrder
   .map((cat) => ({
     category: cat,
     label: faqCategoryLabels[cat],
-    items: allFaq.filter((f) => f.data.category === cat),
+    items: faqWithContent.filter((f) => f.faq.data.category === cat),
   }))
   .filter((g) => g.items.length > 0);
 ---
@@ -44,7 +51,7 @@ const grouped = faqCategoryOrder
             {group.label}
           </p>
           <div class="space-y-3">
-            {group.items.map((faq) => (
+            {group.items.map(({ faq, Content }) => (
               <details class="group rounded-lg border border-penn-cove-200 bg-driftwood">
                 <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-4 font-heading text-lg text-penn-cove select-none">
                   <span>{faq.data.question}</span>
@@ -56,7 +63,7 @@ const grouped = faqCategoryOrder
                   </span>
                 </summary>
                 <div class="px-6 pb-6 font-body text-body text-deep-sound-700 leading-relaxed">
-                  {faq.body}
+                  <Content />
                 </div>
               </details>
             ))}

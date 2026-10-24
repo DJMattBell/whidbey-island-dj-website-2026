@@ -43,7 +43,7 @@ Global values used across pages.
 | name           | string                                                                                    |
 | slug           | from filename                                                                             |
 | role           | string ("Lead DJ", "Associate DJ")                                                        |
-| photo          | optional string — path to image in src/assets/djs/; upgrade to image() when photos arrive |
+| photo          | optional image() — validated at build time; Keystatic uploads to src/assets/djs/             |
 | specialties    | array of string                                                                           |
 | philosophy     | text (short)                                                                              |
 | musicFavorites | optional object { goToAnthem, guiltyPleasure, forTheParents, lastSong }                   |
@@ -57,7 +57,7 @@ Long-form copy for /weddings and /events. One entry each (`weddings`, `events`).
 | Field                              | Type                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
 | title, heroHeading, heroSubheading | string                                                                 |
-| heroImage                          | optional string — path to image; upgrade to image() when photos arrive |
+| heroImage                          | optional image() — validated at build time; Keystatic uploads to src/assets/photos/           |
 | highlightVideoUrl                  | optional URL (YouTube)                                                 |
 | body                               | markdown — sections authored in prose; components handle layout        |
 
@@ -117,7 +117,7 @@ Cap: ~50 photos. New one in, old one out.
 | Field     | Type                                                                   |
 | --------- | ---------------------------------------------------------------------- |
 | kind      | enum: photo, video, reel                                               |
-| image     | optional string — path to image; upgrade to image() when photos arrive |
+| image     | optional image() — validated at build time; Keystatic uploads to src/assets/gallery/          |
 | videoUrl  | URL (video/reel) — YouTube                                             |
 | caption   | optional string                                                        |
 | alt       | optional string — required for photos once gallery is populated        |
@@ -131,7 +131,7 @@ Cap: ~50 photos. New one in, old one out.
 | ---------- | ---------------------------------------------------------------------- |
 | name       | string                                                                 |
 | category   | enum: sound, lighting, wireless, power, photobooth                     |
-| photo      | optional string — path to image; upgrade to image() when photos arrive |
+| photo      | optional image() — validated at build time; Keystatic uploads to src/assets/equipment/        |
 | whatItDoes | text — one or two plain sentences                                      |
 | sortOrder  | integer                                                                |
 | body       | markdown — "why it matters to your guests"                             |
@@ -146,7 +146,7 @@ Cap: ~50 photos. New one in, old one out.
 | publishedAt | date                                         |
 | draft       | boolean — drafts are excluded from the build |
 | excerpt     | string                                       |
-| coverImage  | optional string — path to image              |
+| coverImage  | optional image() — validated at build time; Keystatic uploads to src/assets/blog/             |
 | body        | markdown                                     |
 
 ### recommendations (`src/content/recommendations/*.yaml`)

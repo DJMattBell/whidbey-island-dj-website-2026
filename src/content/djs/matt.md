@@ -1,7 +1,7 @@
 ---
 name: DJ Matt Bell
 role: Lead DJ and Trainer
-photo: /images/djs/matt.jpeg
+photo: ../../assets/djs/matt.jpeg
 specialties:
   - Facilitating Joy
   - Song Choice

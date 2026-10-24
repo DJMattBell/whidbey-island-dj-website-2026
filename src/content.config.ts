@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import type { SchemaContext } from "astro:content";
 import { glob } from "astro/loaders";
 
 // ---------------------------------------------------------------------------
@@ -38,33 +39,35 @@ const site = defineCollection({
 
 const djs = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/djs" }),
-  schema: z.object({
-    name: z.string(),
-    role: z.string(),
-    photo: z.string().optional(),
-    specialties: z.array(z.string()),
-    philosophy: z.string(),
-    musicFavorites: z
-      .object({
-        goToAnthem: z.string(),
-        guiltyPleasure: z.string(),
-        forTheParents: z.string(),
-        lastSong: z.string(),
-      })
-      .optional(),
-    sortOrder: z.number().int().default(0),
-  }),
+  schema: ({ image }: SchemaContext) =>
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      photo: image().optional(),
+      specialties: z.array(z.string()),
+      philosophy: z.string(),
+      musicFavorites: z
+        .object({
+          goToAnthem: z.string(),
+          guiltyPleasure: z.string(),
+          forTheParents: z.string(),
+          lastSong: z.string(),
+        })
+        .optional(),
+      sortOrder: z.number().int().default(0),
+    }),
 });
 
 const services = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/services" }),
-  schema: z.object({
-    title: z.string(),
-    heroHeading: z.string(),
-    heroSubheading: z.string(),
-    heroImage: z.string().optional(),
-    highlightVideoUrl: z.string().url().optional(),
-  }),
+  schema: ({ image }: SchemaContext) =>
+    z.object({
+      title: z.string(),
+      heroHeading: z.string(),
+      heroSubheading: z.string(),
+      heroImage: image().optional(),
+      highlightVideoUrl: z.string().url().optional(),
+    }),
 });
 
 const pricingTiers = defineCollection({
@@ -131,50 +134,53 @@ const reviews = defineCollection({
 
 const gallery = defineCollection({
   loader: glob({ pattern: "**/*.yaml", base: "src/content/gallery" }),
-  schema: z.object({
-    kind: z.enum(["photo", "video", "reel"]),
-    image: z.string().optional(),
-    videoUrl: z.string().url().optional(),
-    caption: z.string().optional(),
-    alt: z.string().optional(),
-    tags: z
-      .array(
-        z.enum([
-          "wedding",
-          "event",
-          "lighting",
-          "photobooth",
-          "ceremony",
-          "team",
-        ]),
-      )
-      .default([]),
-    pinned: z.boolean().default(false),
-    sortOrder: z.number().int().default(0),
-  }),
+  schema: ({ image: img }: SchemaContext) =>
+    z.object({
+      kind: z.enum(["photo", "video", "reel"]),
+      image: img().optional(),
+      videoUrl: z.string().url().optional(),
+      caption: z.string().optional(),
+      alt: z.string().optional(),
+      tags: z
+        .array(
+          z.enum([
+            "wedding",
+            "event",
+            "lighting",
+            "photobooth",
+            "ceremony",
+            "team",
+          ]),
+        )
+        .default([]),
+      pinned: z.boolean().default(false),
+      sortOrder: z.number().int().default(0),
+    }),
 });
 
 const equipment = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/equipment" }),
-  schema: z.object({
-    name: z.string(),
-    category: z.enum(["sound", "lighting", "wireless", "power", "photobooth"]),
-    photo: z.string().optional(),
-    whatItDoes: z.string(),
-    sortOrder: z.number().int().default(0),
-  }),
+  schema: ({ image }: SchemaContext) =>
+    z.object({
+      name: z.string(),
+      category: z.enum(["sound", "lighting", "wireless", "power", "photobooth"]),
+      photo: image().optional(),
+      whatItDoes: z.string(),
+      sortOrder: z.number().int().default(0),
+    }),
 });
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/blog" }),
-  schema: z.object({
-    title: z.string(),
-    category: z.enum(["giglog", "essay"]),
-    publishedAt: z.string(),
-    draft: z.boolean().default(true),
-    excerpt: z.string(),
-    coverImage: z.string().optional(),
-  }),
+  schema: ({ image }: SchemaContext) =>
+    z.object({
+      title: z.string(),
+      category: z.enum(["giglog", "essay"]),
+      publishedAt: z.string(),
+      draft: z.boolean().default(true),
+      excerpt: z.string(),
+      coverImage: image().optional(),
+    }),
 });
 
 const recommendations = defineCollection({

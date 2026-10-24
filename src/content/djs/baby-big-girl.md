@@ -1,7 +1,7 @@
 ---
 name: DJ Baby Big Girl
 role: Associate DJ
-photo: /images/djs/flora.jpeg
+photo: ../../assets/djs/flora.jpeg
 specialties: []
 philosophy: ""
 sortOrder: 5

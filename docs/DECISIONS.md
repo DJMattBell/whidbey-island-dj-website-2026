@@ -78,9 +78,9 @@ Recorded so a future session doesn't re-derive it. Dart Collective: landing-page
 
 `react` and `react-dom` are installed because `@keystatic/astro` requires them as peer dependencies. React powers Keystatic's admin UI at `/keystatic`. No React components are used in any site page or component. The site remains vanilla Astro + `<script>` islands per CLAUDE.md. If Keystatic is ever removed, React goes with it.
 
-## Phase 0 — Image fields are optional strings until real photos exist
+## Phase 0 — Image fields are optional strings until real photos exist (superseded)
 
-CONTENT_MODEL specified `image` type for djs.photo, services.heroImage, gallery.image, equipment.photo. These are implemented as `z.string().optional()` because (a) no real photos exist yet, and (b) Astro's `image()` helper validates that the referenced file exists at build time, which would break builds until Matt provides photos. When Phase 1 brings placeholder art and real photography, upgrade these to `image().optional()` and move validation into the build.
+_Superseded by "C2 — Image field `image()` upgrade completed" above._ All image fields now use `image().optional()` with build-time validation.
 
 ## Phase 0 — reviews.date is optional
 
@@ -214,6 +214,6 @@ DM Serif Display, Inter, and Libre Baskerville downloaded as latin-only woff2 su
 
 Every page now has an `og:image` tag. When a page doesn't pass a specific `ogImage` prop, it falls back to `/images/og-default.jpg` — a 600x600 JPEG (157 KB) derived from `social-icon.png`. Square works for all platforms (Facebook, Twitter, LinkedIn all handle cropping). A proper 1200x630 OG image requires either ImageMagick on the build machine or a custom illustration; logged in KNOWN_ISSUES.
 
-## C2 — Image field `image()` upgrade deferred
+## C2 — Image field `image()` upgrade completed
 
-BUILD_PLAN C2 specified upgrading `djs.photo`, `gallery.image`, etc. from `z.string()` to Astro's `image()` helper. This is not practical in the current state: Keystatic stores uploaded images in `public/images/` with string path references, but `image()` requires images under `src/`. Moving 47+ images and updating all content YAML references is a content migration, not a code change. The proper fix is to switch Keystatic fields from `fields.text()` to `fields.image({ directory: '...' })` and migrate existing content. Deferred to a dedicated session.
+~~Previously deferred~~ — now done. All image fields (`djs.photo`, `gallery.image`, `equipment.photo`, `services.heroImage`, `blog.coverImage`) upgraded from `z.string().optional()` to Astro's `image().optional()`. Photos moved from `public/images/` to `src/assets/` (gallery, djs). Source photos resized to max 2400px width. Gallery YAML and DJ markdown references updated to relative paths. Templates switched from `<img>` to Astro's `<Image>` component with `widths` and `sizes` for responsive srcset. Keystatic `fields.text()` changed to `fields.image({ directory })` so future uploads land in `src/assets/`. Astro now validates images at build time and generates optimized WebP at multiple sizes.

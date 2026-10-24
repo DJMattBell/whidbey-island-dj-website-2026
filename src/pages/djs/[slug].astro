@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import ReviewCard from "../../components/ReviewCard.astro";
@@ -44,9 +45,11 @@ const allDjs = (await getCollection("djs"))
           data-reveal
         >
           {dj.data.photo ? (
-            <img
+            <Image
               src={dj.data.photo}
               alt={dj.data.name}
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, 50vw"
               class="absolute inset-0 w-full h-full object-cover object-top"
               loading="lazy"
             />
@@ -176,9 +179,11 @@ const allDjs = (await getCollection("djs"))
             >
               <div class="relative h-36 overflow-hidden">
                 {other.data.photo ? (
-                  <img
+                  <Image
                     src={other.data.photo}
                     alt={other.data.name}
+                    widths={[300, 600]}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     class="absolute inset-0 w-full h-full object-cover object-top"
                     loading="lazy"
                   />

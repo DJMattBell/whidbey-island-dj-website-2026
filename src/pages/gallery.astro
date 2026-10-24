@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TextHero from "../components/TextHero.astro";
 import SectionHeading from "../components/SectionHeading.astro";
@@ -103,15 +104,17 @@ const filters = [
                       type="button"
                       class="block w-full rounded-lg overflow-hidden cursor-zoom-in"
                       data-lightbox-trigger
-                      data-lightbox-src={item.data.image}
+                      data-lightbox-src={item.data.image.src}
                       data-lightbox-alt={
                         item.data.alt ?? item.data.caption ?? ""
                       }
                       data-lightbox-caption={item.data.caption ?? ""}
                     >
-                      <img
+                      <Image
                         src={item.data.image}
                         alt={item.data.alt ?? item.data.caption ?? ""}
+                        widths={[400, 800, 1200]}
+                        sizes="(max-width: 768px) 50vw, 33vw"
                         loading="lazy"
                         class="w-full h-auto object-cover hover:opacity-90 transition-opacity duration-200"
                       />

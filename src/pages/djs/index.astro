@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PhotoHero from "../../components/PhotoHero.astro";
 import CtaSection from "../../components/CtaSection.astro";
@@ -46,9 +47,11 @@ const djs = (await getCollection("djs")).sort(
             ]}
           >
             {dj.data.photo ? (
-              <img
+              <Image
                 src={dj.data.photo}
                 alt={dj.data.name}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 class="absolute inset-0 w-full h-full object-cover object-top"
                 loading="lazy"
               />

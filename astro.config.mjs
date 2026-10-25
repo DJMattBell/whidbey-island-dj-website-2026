@@ -9,6 +9,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://whidbeyislanddj.com",
   output: "static",
+  compressHTML: true,
   adapter: vercel(),
   integrations: [react(), keystatic(), sitemap()],
   vite: {

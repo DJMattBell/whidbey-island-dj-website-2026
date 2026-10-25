@@ -3,6 +3,16 @@ import { Resend } from "resend";
 
 export const prerender = false;
 
+/** Escape user input for safe interpolation into HTML. */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 /**
  * Basic in-memory rate limiter. Imperfect on serverless (state resets on cold
  * start) but catches the common case of a bot hammering the endpoint.
@@ -57,6 +67,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ error: "Name, email, and message are required." }, 400);
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return json({ error: "Please enter a valid email address." }, 400);
+  }
+
   // --- send via Resend ---
   const apiKey = import.meta.env.RESEND_API_KEY;
   const from = import.meta.env.RESEND_FROM;
@@ -69,23 +84,27 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const resend = new Resend(apiKey);
 
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
+
   const dateLine = event_date
-    ? `<p><strong>Event date:</strong> ${event_date}</p>`
+    ? `<p><strong>Event date:</strong> ${escapeHtml(event_date)}</p>`
     : "";
   const typeLine = event_type
-    ? `<p><strong>Event type:</strong> ${event_type}</p>`
+    ? `<p><strong>Event type:</strong> ${escapeHtml(event_type)}</p>`
     : "";
   const body = `
-    <h2>New inquiry from ${name}</h2>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Email:</strong> ${email}</p>
+    <h2>New inquiry from ${safeName}</h2>
+    <p><strong>Name:</strong> ${safeName}</p>
+    <p><strong>Email:</strong> ${safeEmail}</p>
     ${dateLine}
     ${typeLine}
     <p><strong>Message:</strong></p>
-    <p>${message.replace(/\n/g, "<br>")}</p>
+    <p>${safeMessage}</p>
   `.trim();
 
-  const subject = `New inquiry from ${name}`;
+  const subject = `New inquiry from ${safeName}`;
 
   try {
     // Send to Matt
@@ -97,7 +116,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       to: email,
       subject: "We got your message — WIDC",
       html: `
-        <p>Hi ${name},</p>
+        <p>Hi ${safeName},</p>
         <p>Thanks for reaching out to the Whidbey Island DJ Collective. We received your message and will get back to you within 24 hours.</p>
         <hr>
         ${body}

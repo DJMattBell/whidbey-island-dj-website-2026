@@ -1,7 +1,7 @@
 ---
 name: FLEXstand FX ILS
 category: lighting
-photo: ../../assets/equipment/flexstand-fx-ils.webp
+photo: ../../assets/equipment/flexstand-fx-ils.jpg
 whatItDoes: Speaker stand with built-in LED lighting — the stand itself is part of the show.
 sortOrder: 7
 ---

@@ -54,40 +54,54 @@ const jsonLd = {
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 flex flex-col items-center flex-1 px-5 pt-10 pb-6 sm:px-8 sm:pt-14 sm:pb-8">
-
-      <!-- Wordmark -->
-      <p class="font-body text-[11px] sm:text-xs text-driftwood-300 tracking-[0.25em] uppercase">
-        The Whidbey Island DJ Collective
-      </p>
+    <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-5 pt-10 pb-6 sm:px-8 sm:pt-14 sm:pb-8">
 
       <!-- Mark -->
-      <div class="flex-1 flex items-center justify-center py-4 sm:py-6">
+      <div data-reveal-slow="fade" data-reveal-delay="200" class="mb-6 sm:mb-8">
         <img
           src={waveVinyl.src}
           width="400"
           height="400"
           alt="Whidbey Island DJ Collective — vinyl record with rolling wave grooves and island coastline"
-          class="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56"
+          class="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44"
         />
       </div>
 
-      <!-- Two doors -->
-      <nav class="flex items-baseline gap-10 sm:gap-16 mb-8 sm:mb-10" aria-label="Services">
-        <a href="/weddings" class="font-heading text-[22px] sm:text-3xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
-          Weddings
+      <!-- Headline — names the service plainly -->
+      <h1 data-reveal-slow data-reveal-delay="500" class="font-heading text-2xl sm:text-3xl md:text-4xl text-driftwood text-center leading-snug max-w-2xl mb-4 sm:mb-5">
+        Your Whidbey Island DJ, keeping your guests dancing from the first song to the last.
+      </h1>
+
+      <!-- Subhead -->
+      <p data-reveal-slow="fade" data-reveal-delay="800" class="font-body text-sm sm:text-base text-driftwood-200 text-center max-w-lg mb-6 sm:mb-8 leading-relaxed">
+        Weddings, school dances, and community events across the Puget Sound, with the music and energy your guests will still talk about.
+      </p>
+
+      <!-- Primary CTA -->
+      <a
+        data-reveal-slow data-reveal-delay="1100"
+        href="/contact"
+        class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-3.5 font-body text-sm sm:text-base font-semibold tracking-wide text-deep-sound-950 bg-golden-hour hover:bg-golden-hour-400 rounded-lg transition-colors duration-200 mb-6 sm:mb-8 min-h-[44px]"
+      >
+        Check availability for your date
+      </a>
+
+      <!-- Decorative divider -->
+      <div data-reveal-slow="fade" data-reveal-delay="1300" class="w-16 h-px bg-driftwood-300/30 mb-6 sm:mb-8"></div>
+
+      <!-- Secondary navigation -->
+      <nav class="flex items-center gap-8 sm:gap-12 mb-8 sm:mb-10" aria-label="Services">
+        <a data-reveal-slow="left" data-reveal-delay="1400" href="/weddings" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
+          See weddings
         </a>
-        <a href="/events" class="group font-heading text-[22px] sm:text-3xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1 text-center leading-tight">
-          Not weddings
-          <span class="block font-body text-[10px] sm:text-[11px] text-driftwood-400/60 group-hover:text-golden-hour/50 tracking-[0.2em] mt-1 transition-colors duration-300">
-            dances · parties · community events
-          </span>
+        <a data-reveal-slow="right" data-reveal-delay="1400" href="/events" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
+          See other events
         </a>
       </nav>
 
       <!-- Featured review -->
       {featured && (
-        <blockquote class="max-w-[300px] sm:max-w-sm text-center mb-8 sm:mb-10 rounded-lg px-5 py-4 bg-deep-sound-950/40 backdrop-blur-sm border border-driftwood-300/10">
+        <blockquote data-reveal-slow="fade" data-reveal-delay="1700" class="max-w-[340px] sm:max-w-md text-center rounded-lg px-5 py-4 bg-deep-sound-950/40 backdrop-blur-sm border border-driftwood-300/10">
           <div class="font-editorial text-[13px] sm:text-sm text-driftwood-200 italic leading-relaxed line-clamp-3 sm:line-clamp-none [&>p]:m-0">
             <featured.Content />
           </div>

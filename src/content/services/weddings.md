@@ -1,9 +1,9 @@
 ---
 title: Weddings
 heroHeading: Your wedding, your music.
-heroSubheading: We show up early, read the room, and make sure your nephew and your grandmother both have a moment on the dance floor.
+heroSubheading: We show up early, read the room, and make sure your nephew and your grandmother both get a moment on the dance floor.
 ---
 
-Every wedding is different, and that's the point. We don't run a template — we run your day. From the ceremony processional to the last song, every track is chosen with your guests and your story in mind.
+Every couple gets a music plan built around their guests, their story, and their timeline. From the processional to the last song, we run your day, not a template.
 
-We bring professional sound, custom lighting, and as many planning meetings as you need. No upcharges, no surprises, no ego. Just music that reads the room.
+We bring professional sound, custom lighting, and as many planning meetings as you need. No upcharges, no surprises. Just music that keeps your guests dancing.

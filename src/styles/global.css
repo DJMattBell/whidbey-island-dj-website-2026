@@ -173,7 +173,7 @@
     font-family: var(--font-heading);
   }
 
-  /* Scroll-reveal animation */
+  /* Scroll-reveal animation — default (up) */
   [data-reveal] {
     opacity: 0;
     transform: translateY(1.5rem);
@@ -184,7 +184,46 @@
 
   [data-reveal].is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(0, 0);
+  }
+
+  /* Directional variants */
+  [data-reveal="left"] {
+    transform: translateX(-3rem);
+  }
+
+  [data-reveal="right"] {
+    transform: translateX(3rem);
+  }
+
+  [data-reveal="fade"] {
+    transform: none;
+  }
+
+  /* Slower variant for hero entrance (1s) */
+  [data-reveal-slow] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 1s ease,
+      transform 1s ease;
+  }
+
+  [data-reveal-slow="left"] {
+    transform: translateX(-3rem);
+  }
+
+  [data-reveal-slow="right"] {
+    transform: translateX(3rem);
+  }
+
+  [data-reveal-slow="fade"] {
+    transform: none;
+  }
+
+  [data-reveal-slow].is-revealed {
+    opacity: 1;
+    transform: translate(0, 0);
   }
 
   /* Focus indicator — visible on keyboard, hidden on click */
@@ -208,7 +247,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-reveal] {
+    [data-reveal],
+    [data-reveal-slow] {
       opacity: 1;
       transform: none;
       transition: none;

@@ -98,27 +98,45 @@ const resolvedOgImage =
       function initReveal() {
         // Wait one frame so the DOM is painted after view transitions
         requestAnimationFrame(() => {
-          const elements = document.querySelectorAll("[data-reveal]");
-          if (!elements.length) return;
+          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            elements.forEach((el) => el.classList.add("is-revealed"));
-            return;
+          // Scroll-triggered reveals
+          const scrollEls = document.querySelectorAll("[data-reveal]");
+          if (scrollEls.length) {
+            if (reducedMotion) {
+              scrollEls.forEach((el) => el.classList.add("is-revealed"));
+            } else {
+              const observer = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                      const delay = (entry.target as HTMLElement).dataset.revealDelay;
+                      if (delay) {
+                        setTimeout(() => entry.target.classList.add("is-revealed"), Number(delay));
+                      } else {
+                        entry.target.classList.add("is-revealed");
+                      }
+                      observer.unobserve(entry.target);
+                    }
+                  });
+                },
+                { threshold: 0.1 },
+              );
+              scrollEls.forEach((el) => observer.observe(el));
+            }
           }
 
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("is-revealed");
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            { threshold: 0.1 },
-          );
-
-          elements.forEach((el) => observer.observe(el));
+          // Load-triggered reveals (hero entrance)
+          const heroEls = document.querySelectorAll("[data-reveal-slow]");
+          heroEls.forEach((el) => {
+            const delay = (el as HTMLElement).dataset.revealDelay;
+            const ms = delay ? Number(delay) : 0;
+            if (reducedMotion) {
+              el.classList.add("is-revealed");
+            } else {
+              setTimeout(() => el.classList.add("is-revealed"), ms);
+            }
+          });
         });
       }
 

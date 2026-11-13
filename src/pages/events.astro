@@ -8,9 +8,9 @@ import FeaturedReviewSection from "../components/FeaturedReviewSection.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SplitSection from "../components/SplitSection.astro";
 import Button from "../components/Button.astro";
-import heroImage from "../assets/photos/dj-action-1.jpg";
-import splitImage from "../assets/photos/dj-action-2.jpg";
-import sectionBreakImage from "../assets/photos/lakeside-ceremony.jpg";
+import heroImage from "../assets/gallery/school-dance-red.jpeg";
+import splitImage from "../assets/gallery/halloween-party.jpg";
+import sectionBreakImage from "../assets/gallery/holiday-party-balloons.jpeg";
 
 const entry = await getEntry("services", "events");
 const { Content } = entry ? await render(entry) : { Content: null };
@@ -33,7 +33,7 @@ const eventReviews = await Promise.all(
 >
   <PhotoHero
     image={heroImage}
-    alt="Overhead view of DJ booth and packed dance floor with string lights"
+    alt="DJ setup with pink and red lighting at a school dance in a gymnasium"
   >
     <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       {entry?.data.heroHeading ?? "Events that run like clockwork."}
@@ -60,7 +60,7 @@ const eventReviews = await Promise.all(
       <div class="relative rounded-lg overflow-hidden aspect-[4/3]" data-reveal>
         <Image
           src={splitImage}
-          alt="Guests waving glow sticks on the dance floor"
+          alt="DJ booth decorated with Halloween balloons at a school dance"
           class="w-full h-full object-cover"
           widths={[400, 800]}
           sizes="(min-width: 768px) 50vw, 100vw"
@@ -108,7 +108,7 @@ const eventReviews = await Promise.all(
   <div class="relative h-64 md:h-80 lg:h-96 overflow-hidden">
     <Image
       src={sectionBreakImage}
-      alt="Ceremony setup by the lake with DJ equipment in the foreground"
+      alt="DJ setup with balloons and lighting at a holiday party"
       class="w-full h-full object-cover"
       widths={[640, 1024, 1536]}
       sizes="100vw"
@@ -171,6 +171,36 @@ const eventReviews = await Promise.all(
     reviews={eventReviews}
     dark
   />
+
+  <!-- Quick links -->
+  <section class="py-28 md:py-36 lg:py-section">
+    <div class="max-w-4xl mx-auto px-6" data-reveal>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/add-ons" class="group rounded-lg p-8 border border-penn-cove-200 bg-driftwood hover:border-golden-hour transition-colors">
+          <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-2">
+            Add-ons
+          </p>
+          <h3 class="font-heading text-xl text-penn-cove mb-2">
+            Customize your package.
+          </h3>
+          <p class="font-body text-sm text-deep-sound-700">
+            Ceremony sound, activity boxes, photobooth, and more.
+          </p>
+        </a>
+        <a href="/equipment" class="group rounded-lg p-8 border border-penn-cove-200 bg-driftwood hover:border-golden-hour transition-colors">
+          <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-2">
+            Equipment
+          </p>
+          <h3 class="font-heading text-xl text-penn-cove mb-2">
+            See what we bring.
+          </h3>
+          <p class="font-body text-sm text-deep-sound-700">
+            Our full lighting rig — uplights, effects, and everything in between.
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <CtaSection
     heading="Let&rsquo;s talk about your event."

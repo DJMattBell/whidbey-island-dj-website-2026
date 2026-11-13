@@ -24,13 +24,16 @@ const { Content } = entry ? await render(entry) : { Content: null };
     image={heroImage}
     alt="Wedding reception at sunset on Whidbey Island"
   >
-    <h1 data-reveal-slow data-reveal-delay="100" class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
+    <p data-reveal-slow="fade" data-reveal-delay="100" class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-4">
+      Your DJ from Day One
+    </p>
+    <h1 data-reveal-slow data-reveal-delay="200" class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       {entry?.data.heroHeading ?? "Your wedding, your music."}
     </h1>
-    <p data-reveal-slow="fade" data-reveal-delay="350" class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
+    <p data-reveal-slow="fade" data-reveal-delay="400" class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
       {entry?.data.heroSubheading}
     </p>
-    <div data-reveal-slow data-reveal-delay="600">
+    <div data-reveal-slow data-reveal-delay="550">
       <Button href="/contact" variant="primary" size="lg">
         Check your date
       </Button>
@@ -137,23 +140,40 @@ const { Content } = entry ? await render(entry) : { Content: null };
     </div>
   </section>
 
-  <!-- Photobooth cross-link — specific pricing, corrected hours -->
+  <!-- Popular add-ons — photobooth + ceremony sound -->
   <section class="py-28 md:py-36 lg:py-section bg-deep-sound-900">
     <div class="max-w-4xl mx-auto px-6" data-reveal>
       <SectionHeading
-        eyebrow="Add a Photobooth"
-        heading="Prints, props, and a lot of laughs."
+        eyebrow="Popular Add-ons"
+        heading="The extras most couples book."
       />
-      <p class="font-body text-body text-driftwood-200 leading-relaxed mt-4 max-w-2xl">
-        Our open-air booth runs for three hours with a dedicated attendant on
-        site. Guests get prints in hand and digital copies on their phones
-        &mdash; one strip for them, one for your guest book. Add it to your DJ
-        package for $1,000 instead of $1,200 on its own.
-      </p>
-      <div class="mt-8">
-        <Button href="/photobooth" variant="secondary" size="md">
-          See photobooth packages
-        </Button>
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-heading text-xl text-driftwood mb-3">Photobooth</h3>
+          <p class="font-body text-body text-driftwood-200 leading-relaxed">
+            Three hours with a dedicated attendant, instant prints, and digital
+            copies on every guest&rsquo;s phone. Add it to your DJ package for
+            $1,000 instead of $1,200 standalone.
+          </p>
+          <div class="mt-5">
+            <Button href="/photobooth" variant="secondary" size="sm">
+              See photobooth packages
+            </Button>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-heading text-xl text-driftwood mb-3">Ceremony Sound</h3>
+          <p class="font-body text-body text-driftwood-200 leading-relaxed">
+            Wireless lapel mic for the officiant, handheld for readers, and a
+            PA that covers every seat &mdash; indoors or out. We handle setup
+            and soundcheck so your coordinator doesn&rsquo;t have to.
+          </p>
+          <div class="mt-5">
+            <Button href="/add-ons" variant="secondary" size="sm">
+              See all add-ons
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   </section>

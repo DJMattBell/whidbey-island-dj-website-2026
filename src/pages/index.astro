@@ -57,7 +57,7 @@ const jsonLd = {
     <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-5 pt-10 pb-6 sm:px-8 sm:pt-14 sm:pb-8">
 
       <!-- Mark -->
-      <div data-reveal-slow="fade" data-reveal-delay="200" class="mb-6 sm:mb-8">
+      <div data-reveal-slow="fade" data-reveal-delay="100" class="mb-6 sm:mb-8">
         <img
           src={waveVinyl.src}
           width="400"
@@ -67,19 +67,19 @@ const jsonLd = {
         />
       </div>
 
-      <!-- Headline — names the service plainly -->
-      <h1 data-reveal-slow data-reveal-delay="500" class="font-heading text-2xl sm:text-3xl md:text-4xl text-driftwood text-center leading-snug max-w-2xl mb-4 sm:mb-5">
-        Your Whidbey Island DJ, keeping your guests dancing from the first song to the last.
+      <!-- Headline — "Your DJ from Day One" differentiator -->
+      <h1 data-reveal-slow data-reveal-delay="250" class="font-heading text-2xl sm:text-3xl md:text-4xl text-driftwood text-center leading-snug max-w-2xl mb-4 sm:mb-5">
+        Your DJ from day one — keeping your guests dancing from the first song to the last.
       </h1>
 
       <!-- Subhead -->
-      <p data-reveal-slow="fade" data-reveal-delay="800" class="font-body text-sm sm:text-base text-driftwood-200 text-center max-w-lg mb-6 sm:mb-8 leading-relaxed">
-        Weddings, school dances, and community events across the Puget Sound, with the music and energy your guests will still talk about.
+      <p data-reveal-slow="fade" data-reveal-delay="400" class="font-body text-sm sm:text-base text-driftwood-200 text-center max-w-lg mb-6 sm:mb-8 leading-relaxed">
+        Weddings, school dances, and community events across Whidbey Island and the Puget Sound.
       </p>
 
       <!-- Primary CTA -->
       <a
-        data-reveal-slow data-reveal-delay="1100"
+        data-reveal-slow data-reveal-delay="550"
         href="/contact"
         class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-3.5 font-body text-sm sm:text-base font-semibold tracking-wide text-deep-sound-950 bg-golden-hour hover:bg-golden-hour-400 rounded-lg transition-colors duration-200 mb-6 sm:mb-8 min-h-[44px]"
       >
@@ -87,21 +87,26 @@ const jsonLd = {
       </a>
 
       <!-- Decorative divider -->
-      <div data-reveal-slow="fade" data-reveal-delay="1300" class="w-16 h-px bg-driftwood-300/30 mb-6 sm:mb-8"></div>
+      <div data-reveal-slow="fade" data-reveal-delay="650" class="w-16 h-px bg-driftwood-300/30 mb-4 sm:mb-5"></div>
+
+      <!-- Outcome line above the doors -->
+      <p data-reveal-slow="fade" data-reveal-delay="700" class="font-editorial text-sm sm:text-base text-driftwood-200/80 text-center italic mb-5 sm:mb-6">
+        Your guests leave talking about the music.
+      </p>
 
       <!-- Secondary navigation -->
       <nav class="flex items-center gap-8 sm:gap-12 mb-8 sm:mb-10" aria-label="Services">
-        <a data-reveal-slow="left" data-reveal-delay="1400" href="/weddings" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
+        <a data-reveal-slow="left" data-reveal-delay="750" href="/weddings" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
           See weddings
         </a>
-        <a data-reveal-slow="right" data-reveal-delay="1400" href="/events" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
+        <a data-reveal-slow="right" data-reveal-delay="750" href="/events" class="font-heading text-lg sm:text-xl text-driftwood hover:text-golden-hour transition-colors duration-300 px-2 py-1">
           See other events
         </a>
       </nav>
 
       <!-- Featured review -->
       {featured && (
-        <blockquote data-reveal-slow="fade" data-reveal-delay="1700" class="max-w-[340px] sm:max-w-md text-center rounded-lg px-5 py-4 bg-deep-sound-950/40 backdrop-blur-sm border border-driftwood-300/10">
+        <blockquote data-reveal-slow="fade" data-reveal-delay="900" class="max-w-[340px] sm:max-w-md text-center rounded-lg px-5 py-4 bg-deep-sound-950/40 backdrop-blur-sm border border-driftwood-300/10">
           <div class="font-editorial text-[13px] sm:text-sm text-driftwood-200 italic leading-relaxed line-clamp-3 sm:line-clamp-none [&>p]:m-0">
             <featured.Content />
           </div>

@@ -1,6 +1,6 @@
 ---
 title: Events
-heroHeading: "Events that run like clockwork."
+heroHeading: "School dances, auctions & community events — run like clockwork."
 heroSubheading: "School dances, fundraiser auctions, community celebrations, private parties — we bring the sound, the lights, and the experience to make it easy on you."
 ---
 

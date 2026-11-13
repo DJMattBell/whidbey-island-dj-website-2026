@@ -25,19 +25,15 @@ Format: `- [area] description — what would resolve it — date logged`
 - [content] /weddings and /events "what's included" checklists are structural page copy, not content collection data — Phase 3
 - [content] /photobooth backdrop names and print format descriptions are structural page copy, same pattern as above — 2026-10-24
 - [content] Photobooth FAQ answers are working copy — Matt to review tone and accuracy — 2026-10-24
-- [faq] FAQ answers rendered as raw body string, not via Astro render() — works for current plain-text answers — Phase 3
 - [visual] Site still needs: more photos for photobooth/gallery/blog, DJ headshots to replace PlaceholderArt, mix/audio embeds (Matt to provide Mixcloud links) — 2026-10-23
 - [tokens] Color ramps generated algorithmically, not calibrated by a designer — ramp stops may need perceptual tuning when real photography arrives — Phase 3.5
 - [landing] Mark token values in global.css match SVG fallbacks but are not yet coordinated with illustrator — Phase 3.5
 - [style] Prose styling (font-body + heading/blockquote overrides) duplicated across ~5 page files with minor variations — extract to a shared CSS class or component — 2026-10-24
-- [content] `businessName` hardcoded as literal string in `<title>` tags across all pages — should read from site.yaml for consistency — 2026-10-24
 - [a11y] Lightbox focus trap incomplete — focus moves to close button on open and returns on close, but Tab can still escape the overlay; full focus trapping requires more logic — C3
 - [a11y] Mobile menu focus trap incomplete — focus moves to close button, Escape closes, but Tab can still escape the overlay — C3
 - [a11y] Contact form uses `novalidate` with no per-field JS validation — native browser validation still fires via `required` attributes; per-field accessible error messages not implemented — C3
 - [infra] Production domain `whidbeyislanddj.com` still points to stale `widc` Vercel project (78 days old) — need to alias domains to `whidbey-island-dj-website-2026` project or reconnect auto-deploy — 2026-10-24
 - [infra] Vercel Analytics (or Plausible) not wired — SPEC S8 requires analytics from Phase 1; add Vercel Analytics integration or `@astrojs/vercel` analytics — 2026-10-24
-- [infra] GitHub Actions CI not set up — SPEC S6 requires `npm ci && npm run build` on every push/PR; add `.github/workflows/ci.yml` — 2026-10-24
-- [infra] Dependabot not enabled — SPEC S6 requires Dependabot; add `.github/dependabot.yml` — 2026-10-24
 
 ## Lighthouse Baseline (2026-10-24)
 
@@ -55,6 +51,10 @@ All pages 100/100/100/100 mobile after C3 fixes (favicon, CTA contrast, ReviewCa
 
 ## Resolved
 
+- [content] `businessName` hardcoded in `<title>` tags — fixed: BaseLayout reads `businessName` from site.yaml and appends it as suffix; pages pass only the page-specific title — 2026-11-13
+- [faq] FAQ answers rendered as raw body string — was already fixed: faq.astro uses `render()` + `<Content />` since at least C1; stale KNOWN_ISSUES entry — 2026-11-13
+- [infra] GitHub Actions CI not set up — was already present in `.github/workflows/ci.yml`; stale KNOWN_ISSUES entry — 2026-11-13
+- [infra] Dependabot not enabled — was already present in `.github/dependabot.yml`; stale KNOWN_ISSUES entry — 2026-11-13
 - [a11y] ReviewCard footer `text-golden-hour` flagged by Lighthouse as low contrast against page bg — two issues: (1) Tailwind `bg-deep-sound` compiles to `var()` which axe cannot resolve, and (2) Unicode escapes in `before:content-['\201C']` Tailwind classes caused Astro's HTML parser to drop the `<blockquote>` opening tag entirely; fixed by restructuring to `<figure>/<blockquote>/<figcaption>`, moving curly-quote pseudo-elements to global.css, and adding inline `style="background-color: var(--color-deep-sound)"` so axe sees the dark bg — 2026-10-24
 - [a11y] CTA button `bg-madrone text-driftwood` had contrast ratio 4.0:1 — fixed: changed to `bg-madrone-700` (5.52:1) in Button.astro and contact.astro inline button — 2026-10-24
 - [infra] Missing favicon — fixed: added SVG favicon (modern browsers), 32×32 PNG fallback, 180×180 Apple touch icon, all derived from wave-vinyl mark — 2026-10-24

@@ -158,6 +158,7 @@ const gallery = defineCollection({
         )
         .default([]),
       pinned: z.boolean().default(false),
+      homepage: z.boolean().default(false),
       sortOrder: z.number().int().default(0),
     }),
 });

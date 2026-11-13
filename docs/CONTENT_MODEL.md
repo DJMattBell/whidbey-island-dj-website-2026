@@ -126,6 +126,7 @@ Cap: ~50 photos. New one in, old one out.
 | alt       | optional string — required for photos once gallery is populated        |
 | tags      | array of enum: wedding, event, lighting, photobooth, ceremony, team    |
 | pinned    | boolean — the four core videos                                         |
+| homepage  | boolean — include in the homepage photo grid (6–9 recommended)         |
 | sortOrder | integer                                                                |
 
 ### equipment (`src/content/equipment/*.md`)

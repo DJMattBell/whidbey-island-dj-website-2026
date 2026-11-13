@@ -247,6 +247,11 @@ export default config({
           ],
         }),
         pinned: fields.checkbox({ label: "Pinned" }),
+        homepage: fields.checkbox({
+          label: "Show on homepage",
+          description:
+            "Include this photo in the homepage grid (6–9 recommended)",
+        }),
         sortOrder: fields.integer({ label: "Sort order", defaultValue: 0 }),
       },
     }),

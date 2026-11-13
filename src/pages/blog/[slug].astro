@@ -24,7 +24,7 @@ const { Content } = await render(post);
   <!-- Post header -->
   <section class="py-40 md:py-52 lg:py-64 bg-deep-sound-900">
     <div class="max-w-3xl mx-auto px-6">
-      <div class="flex items-center gap-3 mb-6">
+      <div data-reveal-slow="fade" data-reveal-delay="100" class="flex items-center gap-3 mb-6">
         <span class="font-body text-xs font-semibold tracking-[0.2em] uppercase text-golden-hour">
           {blogCategoryLabels[post.data.category]}
         </span>
@@ -32,10 +32,10 @@ const { Content } = await render(post);
           {formatDate(post.data.publishedAt)}
         </span>
       </div>
-      <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-[0.95] mb-6">
+      <h1 data-reveal-slow data-reveal-delay="250" class="font-heading text-4xl sm:text-5xl md:text-6xl text-driftwood leading-[0.95] mb-6">
         {post.data.title}
       </h1>
-      <p class="font-editorial text-lg text-sea-glass-300 leading-relaxed italic max-w-xl">
+      <p data-reveal-slow="fade" data-reveal-delay="400" class="font-editorial text-lg text-sea-glass-300 leading-relaxed italic max-w-xl">
         {post.data.excerpt}
       </p>
     </div>

@@ -42,7 +42,7 @@ const allDjs = (await getCollection("djs"))
         <!-- Photo -->
         <div
           class="relative rounded-lg overflow-hidden aspect-[4/5] bg-deep-sound"
-          data-reveal
+          data-reveal-slow="fade" data-reveal-delay="100"
         >
           {dj.data.photo ? (
             <Image
@@ -60,14 +60,14 @@ const allDjs = (await getCollection("djs"))
         </div>
 
         <!-- Info -->
-        <div data-reveal>
-          <p class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-3">
+        <div>
+          <p data-reveal-slow="fade" data-reveal-delay="200" class="font-body text-eyebrow font-semibold tracking-[0.3em] uppercase text-golden-hour mb-3">
             {dj.data.role}
           </p>
-          <h1 class="font-heading text-5xl sm:text-6xl text-driftwood leading-tight mb-6">
+          <h1 data-reveal-slow data-reveal-delay="350" class="font-heading text-5xl sm:text-6xl text-driftwood leading-tight mb-6">
             {dj.data.name}
           </h1>
-          <p class="font-editorial text-body text-sea-glass-300 leading-relaxed mb-6 italic">
+          <p data-reveal-slow="fade" data-reveal-delay="500" class="font-editorial text-body text-sea-glass-300 leading-relaxed mb-6 italic">
             &ldquo;{dj.data.philosophy}&rdquo;
           </p>
           <div class="flex flex-wrap gap-2 mb-8">

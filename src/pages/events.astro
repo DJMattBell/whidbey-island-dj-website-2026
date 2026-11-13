@@ -35,15 +35,17 @@ const eventReviews = await Promise.all(
     image={heroImage}
     alt="DJ setup with pink and red lighting at a school dance in a gymnasium"
   >
-    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
+    <h1 data-reveal-slow data-reveal-delay="100" class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-driftwood leading-[0.95] mb-8">
       {entry?.data.heroHeading ?? "Events that run like clockwork."}
     </h1>
-    <p class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
+    <p data-reveal-slow="fade" data-reveal-delay="350" class="font-editorial text-lg text-driftwood-200/90 leading-relaxed max-w-xl mb-12">
       {entry?.data.heroSubheading}
     </p>
-    <Button href="/contact" variant="primary" size="lg">
-      Check your date
-    </Button>
+    <div data-reveal-slow data-reveal-delay="600">
+      <Button href="/contact" variant="primary" size="lg">
+        Check your date
+      </Button>
+    </div>
   </PhotoHero>
 
   <!-- Body content — split layout with real photo -->

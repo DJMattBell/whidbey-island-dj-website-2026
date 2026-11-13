@@ -1,6 +1,6 @@
 # Redesign Spec — `redesign-trial` branch
 
-_Written 2026-11-13. Covers the 4 commits on `redesign-trial` since `main` (9e37b06–5282890)._
+_Written 2026-11-13. Updated same day after hero animation pass._
 
 ---
 
@@ -50,7 +50,7 @@ The site's code track (C1–C3) and content model are solid, but the pages feel 
 - Design tokens / color palette in `global.css` (new CSS is additive animation utilities only)
 - Nav structure (except footer "More" link order)
 - The scroll-reveal (`data-reveal`) system — the new `data-reveal-slow` runs alongside it
-- All other pages: `/djs`, `/gallery`, `/reviews`, `/blog`, `/faq`, `/our-story`, `/contact`, `/privacy`, `/terms`, `/recommendations`
+- Page layouts beyond hero animations (body sections, content structure) on: `/djs`, `/gallery`, `/reviews`, `/blog`, `/faq`, `/our-story`, `/contact`, `/privacy`, `/terms`, `/recommendations`
 - `prefers-reduced-motion` support (new animations respect it)
 
 ## Pages/components status
@@ -58,29 +58,37 @@ The site's code track (C1–C3) and content model are solid, but the pages feel 
 | Page/Component | Status | Notes |
 |---|---|---|
 | `/index` | Touched | Hero entrance animations |
-| `/weddings` | Touched | Hero animations, copy tightening |
-| `/events` | Touched | School dance photos, hero animations |
-| `/pricing` | Touched | Restructured, add-ons extracted |
-| `/equipment` | Touched | Ambiance/dance split, new images |
-| `/add-ons` | **New** | Dedicated add-ons page |
-| `/photobooth` | Touched | Minor link/copy updates |
-| `BaseLayout` | Touched | `data-reveal-slow` system |
+| `/weddings` | Touched | Hero animations + CTA, copy tightening |
+| `/events` | Touched | School dance photos, hero animations + CTA |
+| `/pricing` | Touched | Restructured, add-ons extracted, hero animations |
+| `/equipment` | Touched | Ambiance/dance split, new images, hero animations |
+| `/add-ons` | **New** | Dedicated add-ons page, hero animations |
+| `/photobooth` | Touched | Copy/link updates, hero animations |
+| `/djs` (index) | Touched | Hero animations |
+| `/djs/[slug]` | Touched | Profile header entrance animations (photo + staggered info) |
+| `/gallery` | Touched | Hero animations |
+| `/reviews` | Touched | Hero animations |
+| `/blog` (index) | Touched | Hero animations |
+| `/blog/[slug]` | Touched | Post header entrance animations (category + title + excerpt) |
+| `/faq` | Touched | Hero animations |
+| `/our-story` | Touched | Hero animations |
+| `/contact` | Touched | Hero animations |
+| `/recommendations` | Touched | Hero animations |
+| `BaseLayout` | Touched | `data-reveal-slow` system, `businessName` from site.yaml |
 | `Footer` | Touched | Add-ons link |
 | `global.css` | Touched | Animation keyframes + utilities |
-| `/djs`, `/gallery`, `/reviews` | Not started | No redesign changes yet |
-| `/blog`, `/faq`, `/our-story` | Not started | No redesign changes yet |
-| `/contact`, `/privacy`, `/terms` | Not started | No redesign changes yet |
+| `/privacy`, `/terms` | Hero only | Static legal pages — no hero animation needed |
 
 ## Definition of done
 
-1. Every interior page hero has entrance animation (staggered, not scroll-triggered).
-2. Every page passes the "not a template" test (SPEC §4a) — no symmetric three-card rows doing the work that photography or typography should do.
-3. Pricing → Add-ons flow is clear: pricing page shows tiers, links to add-ons; add-ons page shows all extras.
-4. Equipment page reads as "what your event will feel like," not a product catalog.
-5. `npm run build` passes with 0 errors.
-6. `prefers-reduced-motion` disables all new animations.
-7. No Lighthouse regression below 90 on any axis.
-8. KNOWN_ISSUES updated.
+1. ~~Every interior page hero has entrance animation (staggered, not scroll-triggered).~~ **Done.**
+2. Every page passes the "not a template" test (SPEC §4a) — no symmetric three-card rows doing the work that photography or typography should do. _(Hero animations done; body section rhythm not yet reviewed.)_
+3. ~~Pricing → Add-ons flow is clear: pricing page shows tiers, links to add-ons; add-ons page shows all extras.~~ **Done.**
+4. ~~Equipment page reads as "what your event will feel like," not a product catalog.~~ **Done.**
+5. ~~`npm run build` passes with 0 errors.~~ **Done.**
+6. ~~`prefers-reduced-motion` disables all new animations.~~ **Done.**
+7. No Lighthouse regression below 90 on any axis. _(Not yet tested post-animation pass.)_
+8. KNOWN_ISSUES updated. _(Stale entries cleaned up; full update pending at phase end.)_
 
 ## Known issues addressed by this redesign
 

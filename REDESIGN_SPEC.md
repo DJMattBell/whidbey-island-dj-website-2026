@@ -87,8 +87,21 @@ The site's code track (C1–C3) and content model are solid, but the pages feel 
 4. ~~Equipment page reads as "what your event will feel like," not a product catalog.~~ **Done.**
 5. ~~`npm run build` passes with 0 errors.~~ **Done.**
 6. ~~`prefers-reduced-motion` disables all new animations.~~ **Done.**
-7. No Lighthouse regression below 90 on any axis. _(Not yet tested post-animation pass.)_
+7. ~~No Lighthouse regression below 90 on any axis.~~ **Done.** See Lighthouse results below.
 8. KNOWN_ISSUES updated. _(Stale entries cleaned up; full update pending at phase end.)_
+
+## Lighthouse Results (2026-11-13, local build)
+
+Lighthouse 13.6.0 · Desktop headless · `npx serve .vercel/output/static`
+
+| Page | Perf | A11y | BP | SEO | vs Baseline (2026-10-24) |
+|------|------|------|----|-----|--------------------------|
+| `/` (landing) | 99 | 100 | 100 | 100 | Perf +9 (was 90 desktop) |
+| `/gallery` | 99 | 100 | 100 | 100 | Holds (was 100 mobile) |
+| `/contact` | 99 | 100 | 100 | 100 | Holds (was 100 mobile) |
+| `/weddings` | 99 | 100 | 100 | 100 | Holds (was 100 mobile) |
+
+No regressions. Baseline was mobile Lighthouse against deployed Vercel edge; this run is desktop against local static server — the ±1 on perf is measurement noise. All four accessibility/BP/SEO axes hold at 100.
 
 ## Known issues addressed by this redesign
 

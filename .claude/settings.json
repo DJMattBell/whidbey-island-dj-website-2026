@@ -1,5 +1,12 @@
 {
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "command": "cd /Users/papa/code/whidbey-island-dj-website-2026 && npm run build 2>&1 | tail -30",
+        "description": "Runs build before git commit — blocks commit if build fails"
+      }
+    ],
     "Stop": [
       {
         "command": "cd /Users/papa/code/whidbey-island-dj-website-2026 && npm run build 2>&1 | tail -30",

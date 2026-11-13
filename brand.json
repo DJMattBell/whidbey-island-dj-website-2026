@@ -1,0 +1,28 @@
+{
+  "businessName": "Whidbey Island DJ Collective",
+  "tagline": "Music that reads the room.",
+  "colors": {
+    "driftwood": "#f5f0eb",
+    "deep-sound": "#1a2332",
+    "penn-cove": "#2e5e4e",
+    "golden-hour": "#c4883a",
+    "madrone": "#b85c38",
+    "sea-glass": "#7ba6a0"
+  },
+  "fonts": {
+    "display": "DM Serif Display",
+    "body": "Inter",
+    "editorial": "Libre Baskerville"
+  },
+  "contact": {
+    "email": "matt@whidbeyislanddj.com",
+    "phone": "",
+    "serviceArea": "Whidbey Island and the Puget Sound region",
+    "socialLinks": [],
+    "responsePromiseHours": 24
+  },
+  "logo": {
+    "placeholder": true,
+    "notes": "Using wave-vinyl-placeholder.svg until illustrator delivers final mark. Component is built for one-file swap."
+  }
+}

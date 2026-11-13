@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "command": "cd /Users/papa/code/whidbey-island-dj-website-2026 && npm run build 2>&1 | tail -30",
+        "description": "Runs build — Claude sees output and keeps going if anything fails"
+      }
+    ]
+  }
+}
